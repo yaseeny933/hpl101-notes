@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 2 · Sequence 3 — Motivation &amp; Engagement · Study Notes</title>
+<style>
+  :root{
+    --ink:#2a1023;
+    --ink-soft:#6a4258;
+    --paper:#fbf4f8;
+    --rose:#c0397f;
+    --rose-bright:#d8557f;
+    --rose-deep:#8a1f5c;
+    --teal:#1f9d8f;
+    --amber:#e0962b;
+    --plum:#7c3aa8;
+    --line:#eed3e2;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(120,22,80,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(192,57,127,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(124,58,168,.07) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#5c1041,#a8226e 65%,#c0397f);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#f6cfe4;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#fbe2f0;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--rose);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--plum);background:rgba(124,58,168,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--rose-bright);
+    background:linear-gradient(90deg,rgba(216,85,127,.09),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--rose)}
+
+  /* spectrum / flow motif */
+  .openbox{display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .ob-node{background:#fff;border:2px solid var(--rose);color:var(--rose);
+    padding:10px 16px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center}
+  .ob-mind{background:#fff;border:2px dashed var(--plum);color:var(--plum);
+    padding:12px 18px;border-radius:12px;position:relative}
+  .ob-mind small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px}
+  .ob-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* contrast table intrinsic vs extrinsic */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--rose)}
+  table.vs thead th:nth-child(3){color:var(--ink-soft)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:24%}
+  table.vs tr td:nth-child(2){background:rgba(216,85,127,.06)}
+
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* three-aspect grid (SDT) */
+  .aa{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px;color:var(--rose)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.r{background:rgba(192,57,127,.14);color:var(--rose)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* two-aspect grid (self-det / self-eff) */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .duo .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px;box-shadow:var(--shadow)}
+  .duo .pane h4{margin:0 0 4px;font-size:1.02rem;color:var(--plum)}
+  .duo .pane p{font-size:.92rem;margin:6px 0 0}
+
+  /* developmental stage cards */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--amber);display:block;font-size:.95rem;margin-bottom:2px}
+  .it .who{font-family:"SF Mono",monospace;font-size:.62rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:6px}
+  .it span.body{font-size:.9rem;color:var(--ink-soft);display:block}
+  .it span.body em{color:var(--rose);font-style:normal;font-weight:700}
+
+  /* numbered steps (authentic learning) */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--rose);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--plum);background:rgba(124,58,168,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  ul.tight{margin:8px 0 0;padding-left:20px}
+  ul.tight li{margin:5px 0;font-size:.95rem}
+
+  /* glossary */
+  .gloss details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--rose);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between}
+  .gloss summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--plum);letter-spacing:.08em;text-transform:uppercase}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#5c1041,#8a1f5c);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#f6cfe4;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#f3a9cf}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  @media (max-width:680px){
+    .aa,.duo,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details{break-inside:avoid}
+    .gloss .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.step,.it,.aa .pane,.duo .pane,.gloss details{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 2 · Sequence 3</p>
+    <h1>Motivation &amp; Engagement</h1>
+    <p class="sub">The best teachers are <em>engagement architects</em> — they design experiences that inspire, direct, and sustain a learner's own motivation, then help learners watch over their own thinking.</p>
+    <div class="tags">
+      <span class="tag">intrinsic · extrinsic</span>
+      <span class="tag">self-determination</span>
+      <span class="tag">authentic learning</span>
+      <span class="tag">metacognition</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">Motivation is the <strong>engine of learning</strong>: it shapes why and how learners choose to participate, engage, and persist. Lasting change in what we know or believe takes sustained mental effort — and the right supports to keep that effort alive.</p>
+
+    <div class="bigidea">
+      With motivation, a learner <strong>directs behavior toward goals</strong>, expends greater effort, is more likely to <strong>initiate and stick with</strong> an activity, and tends to <strong>think and perform better</strong> while doing it (Ormrod, 2000). This sequence asks four questions: <em>What kinds</em> of motivation are there? How do they <em>shift with age</em>? How do we <em>engage</em> learners authentically? And how do learners <em>monitor</em> their own learning?
+    </div>
+
+    <div class="card">
+      <div class="openbox">
+        <div class="ob-node">MOTIVATE<br>spark interest</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-mind">⊹ ENGAGED LEARNER ⊹<small>persists · practices · stays on task</small></div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">METACOGNITION<br>monitor &amp; adjust</div>
+      </div>
+      <p class="figcap">Motivation gets learners moving; engagement keeps them in it; metacognition keeps them on track.</p>
+    </div>
+  </section>
+
+  <!-- ===== 2.3.1 TYPES OF MOTIVATION ===== -->
+  <section>
+    <h2><span class="num">02</span> Types of motivation <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--ink-soft);align-self:center">2.3.1</span></h2>
+    <p>Motivation is not a fixed, global trait — it varies <strong>across people, domains, and situations</strong>, and even within one person over time. It tends to fall on a spectrum between two poles.</p>
+
+    <div class="card">
+      <svg viewBox="0 0 760 200" role="img" aria-label="A spectrum from intrinsic to extrinsic motivation" style="width:100%;height:auto">
+        <defs>
+          <linearGradient id="spec" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#c0397f"></stop>
+            <stop offset="1" stop-color="#7c3aa8"></stop>
+          </linearGradient>
+        </defs>
+        <rect x="60" y="86" width="640" height="14" rx="7" fill="url(#spec)"></rect>
+        <circle cx="60" cy="93" r="11" fill="#fff" stroke="#c0397f" stroke-width="3"></circle>
+        <circle cx="700" cy="93" r="11" fill="#fff" stroke="#7c3aa8" stroke-width="3"></circle>
+        <g font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+          <text x="60" y="60" font-size="15" font-weight="700" fill="#c0397f">INTRINSIC</text>
+          <text x="60" y="135" font-size="11" fill="#6a4258">internal to the person</text>
+          <text x="60" y="152" font-size="11" fill="#6a4258">curiosity · interest · enjoyment</text>
+          <text x="60" y="169" font-size="11" fill="#6a4258">competence · satisfaction</text>
+          <text x="700" y="60" font-size="15" font-weight="700" fill="#7c3aa8">EXTRINSIC</text>
+          <text x="700" y="135" font-size="11" fill="#6a4258">external reward / avoid penalty</text>
+          <text x="700" y="152" font-size="11" fill="#6a4258">grades · praise · pay · awards</text>
+          <text x="700" y="169" font-size="11" fill="#6a4258">rooted in behaviorism</text>
+          <text x="380" y="60" font-size="11" fill="#6a4258">learning goals ⟷ performance goals</text>
+        </g>
+      </svg>
+      <p class="figcap">A spectrum, not a switch — most real motivation mixes both, and context (incl. culture) matters.</p>
+    </div>
+
+    <div class="card" style="padding:6px 10px">
+      <table class="vs">
+        <thead>
+          <tr><th></th><th>Intrinsic</th><th>Extrinsic</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Source of drive</td><td>Internal — the desire to learn for its own sake</td><td>External — reward, or avoiding a negative effect</td></tr>
+          <tr><td>Goal type</td><td>Learning goals (mastery, competence)</td><td>Performance goals (grades, looking smart)</td></tr>
+          <tr><td>Examples</td><td>Curiosity, interest, enjoyment</td><td>Grades, awards, pay raises, public praise</td></tr>
+          <tr><td>Behavior</td><td>Chooses challenge, reflects, accepts mistakes</td><td>Prioritizes valued outcomes; may avoid hard tasks</td></tr>
+          <tr><td>Risk</td><td>Can fade if choice &amp; meaning are stripped away</td><td>Can <em>crowd out</em> intrinsic motivation &amp; deep learning</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-top:12px"><strong>Curiosity</strong> is the classic intrinsic motivator: young children ask 69–198 questions/hour (Chouinard, 2007) — perhaps ~100,000 a year. Curiosity predicts kindergarten math/reading achievement and can buffer children in poverty against inequitable schooling (Sparks, 2018), and it sustains persistence into adulthood and advanced science (McGee &amp; Keller, 2017).</p>
+
+    <h3>Two generalizable drivers of intrinsic motivation</h3>
+    <div class="duo">
+      <div class="pane">
+        <h4>Self-determination</h4>
+        <p>Letting learners <strong>set their own goals and make choices</strong> about how they learn raises investment in the outcome. Per Ryan &amp; Deci (2000), Self-Determination Theory needs three things together:</p>
+        <ul class="tight">
+          <li><strong>Competence</strong> — "I can do a good job."</li>
+          <li><strong>Autonomy</strong> — "I choose what I do."</li>
+          <li><strong>Relatedness</strong> — "I connect with others."</li>
+        </ul>
+        <p style="font-size:.85rem;color:var(--ink-soft);margin-top:8px">This is why micro-managing bosses demotivate — they strip away both competence and autonomy.</p>
+      </div>
+      <div class="pane">
+        <h4>Self-efficacy</h4>
+        <p>"Task-specific self-confidence" (Artino, 2012): the belief you can complete <em>a specific task</em>. It varies by domain — strong in math, shaky in languages. High self-efficacy → more persistence; low → avoidance.</p>
+        <p style="font-size:.85rem;color:var(--ink-soft);margin-top:8px">Build it by: attainable goals (recall the ZPD), modeling, feedback &amp; encouragement, and lowering stress/anxiety triggers.</p>
+      </div>
+    </div>
+
+    <h3>The three needs of Self-Determination Theory</h3>
+    <div class="aa">
+      <div class="pane">
+        <h4>Competence <span class="pill r">effective</span></h4>
+        <p>Feeling effective at what you do.</p>
+        <p class="ex">"I want to be able to do a good job."</p>
+      </div>
+      <div class="pane">
+        <h4>Autonomy <span class="pill r">control</span></h4>
+        <p>Feeling you control the things you do.</p>
+        <p class="ex">"I want to choose the things I do."</p>
+      </div>
+      <div class="pane">
+        <h4>Relatedness <span class="pill r">connection</span></h4>
+        <p>Feeling meaningfully connected to others.</p>
+        <p class="ex">"I want to be closer to other people."</p>
+      </div>
+    </div>
+
+    <div class="bigidea" style="margin-top:18px">
+      <strong>Don't vilify extrinsic motivation.</strong> It can interfere with creativity (Hennessey) and deep learning when over-weighted on surface metrics — but it isn't uniformly bad. In <strong>collectivist, Confucian-influenced cultures</strong>, where learning is a family and community responsibility, extrinsic motivation can boost outcomes for learners with low initial interest (Liu et al., 2020). Culture is part of the picture.
+    </div>
+  </section>
+
+  <!-- ===== 2.3.2 DEVELOPMENTAL DIFFERENCES ===== -->
+  <section>
+    <h2><span class="num">03</span> Developmental differences <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--ink-soft);align-self:center">2.3.2</span></h2>
+    <p>Motivation is <strong>not the same across ages</strong> — and it's shaped far more by the <em>environments and experiences</em> learners meet than by age alone. A key warning: don't over-generalize or pre-judge an individual from their age or apparent interests.</p>
+
+    <div class="bigidea">
+      In the U.S. context, children's intrinsic motivation for school content is <strong>at risk of declining around grades 3–4 (ages ~8–10)</strong>, as focus shifts toward grades and external measures. This makes it vital to frame <strong>"desirable difficulties"</strong> as part of learning — supported challenges, not shortcomings to avoid.
+    </div>
+
+    <div class="it-grid">
+      <div class="it">
+        <span class="who">Young children · preschool/primary</span>
+        <b>Curiosity &amp; approval</b>
+        <span class="body">Motivated by <em>praise of effort</em>, responsibility ("a job to do"), curiosity, playful activities. Motivate with: short-term success goals, achievable challenges, fun, short sequenced tasks, question-driven knowledge gaps.</span>
+      </div>
+      <div class="it">
+        <span class="who">Young adolescents · middle school</span>
+        <b>Peers &amp; choice</b>
+        <span class="body">Look to <em>peer groups</em> for feedback; both motivations in play. Motivate with: inquiry/problem-based &amp; experiential learning, debate &amp; collaboration, sensory hooks, tasks that change every 10–15 min, tech, cultural connection, fewer rewards/punishments.</span>
+      </div>
+      <div class="it">
+        <span class="who">High school</span>
+        <b>Mastery, relevance &amp; voice</b>
+        <span class="body">Want <em>control, mastery, and obvious real-world connection</em>. Motivate with: student-generated projects, autonomy, belonging to a learning community, links to future plans &amp; culture, pop-culture/current-events relevance.</span>
+      </div>
+      <div class="it">
+        <span class="who">Adults</span>
+        <b>Relevance &amp; self-direction</b>
+        <span class="body">Highly motivated by <em>relevance and utility</em> — "What will I get out of it?" Self-directed, problem-centered, draw on life experience, ready to learn when assuming new roles. Motivate with: flexible relevant learning, self-set goals, low-risk new concepts, immediate feedback, sharing experience.</span>
+      </div>
+    </div>
+
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-top:12px">↳ <strong>The most predictable adult-learner gap:</strong> asking learners to master something <em>without explaining why it's relevant to the work they want to do</em>. At HGSE, course evaluations correlate strongly with students' sense that the course is relevant to professional practice.</p>
+  </section>
+
+  <!-- ===== 2.3.3 AUTHENTIC LEARNING ===== -->
+  <section>
+    <h2><span class="num">04</span> Engagement through authentic learning <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--ink-soft);align-self:center">2.3.3</span></h2>
+    <p><strong>Engagement</strong> is essential — it correlates with achievement and learning (Dyer, 2015), keeps learners on task, and drives the practice that builds expertise. A powerful way to promote it: connect learning to learners' <strong>lived experience</strong> so they see its value.</p>
+
+    <div class="bigidea">
+      <strong>Authentic learning</strong> situates learning in the context where it's applied, creating a <strong>"need to know."</strong> Learners grapple with abstract concepts through practical application — and develop the sensitivity to recognize <em>where to apply</em> what they learned later.
+    </div>
+
+    <div class="lesson">
+      <div class="step">
+        <div class="body">
+          <p class="idea">Athens vs. Sparta: instead of memorizing facts about Greek city-states (long forgotten because "neither relevant nor engaging"), students argue which city they'd rather have lived in.</p>
+          <p class="mech"><b>Make it authentic</b> Embeds the facts in an activity learners already value (making and winning arguments), so the lesson connects to goals that matter elsewhere in their lives.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">Extracurriculars — theater, music, citizen science (e.g. the Public Theater's <em>Public Works</em>, studied by Shirley Brice Heath, 2016).</p>
+          <p class="mech"><b>Authentic beyond the classroom</b> Voluntary, interest-driven activities offered the <em>most authentic learning</em> Mehta &amp; Fine (2019) found across U.S. high schools — even excellent ones. They build literacy, math, communication &amp; social skills hard to replicate in class.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">"Playing the whole game" (Perkins, 2009): practice the full activity, not disconnected sub-skills you hope will assemble later.</p>
+          <p class="mech"><b>Holistic &gt; piecemeal</b> Immersive, whole-game experiences build meaningful, cohesive, integrated understanding — and tap interest, purpose, and peer/mentor interaction.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bigidea" style="margin-top:18px;border-left-color:var(--amber);background:linear-gradient(90deg,rgba(224,150,43,.10),#fff 60%)">
+      <strong style="color:var(--amber)">Equity caveat — "who's permitted to play."</strong> Access to rich extracurriculars is deeply unequal. In 2006 the top U.S. income quintile spent <strong>6×</strong> as much on child enrichment as the bottom (Duncan et al., 2011); in Australia, low-income youth are ~3× more likely to miss out (34% vs 13%). Inequity in access = inequity in authentic learning.
+    </div>
+  </section>
+
+  <!-- ===== 2.3.4 METACOGNITION ===== -->
+  <section>
+    <h2><span class="num">05</span> Metacognition <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--ink-soft);align-self:center">2.3.4</span></h2>
+    <p>Motivation gets us going — but how do we <strong>stay on track</strong> and reach our goals? Through <strong>self-regulation</strong>: setting goals, noticing when actions diverge from them, and taking corrective action. <strong>Metacognition</strong> — "thinking about thinking" — is a key self-regulatory domain within it.</p>
+
+    <div class="card">
+      <svg viewBox="0 0 600 280" role="img" aria-label="The metacognition cycle: plan, monitor, evaluate" style="width:100%;max-width:480px;display:block;margin:0 auto;height:auto">
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#c0397f"></path>
+          </marker>
+        </defs>
+        <!-- arcs forming a cycle -->
+        <g fill="none" stroke="#c0397f" stroke-width="3" marker-end="url(#arrow)">
+          <path d="M 330 70 A 150 150 0 0 1 420 200"></path>
+          <path d="M 380 215 A 150 150 0 0 1 220 215"></path>
+          <path d="M 180 200 A 150 150 0 0 1 270 70"></path>
+        </g>
+        <g text-anchor="middle" font-family="ui-monospace,Menlo,monospace">
+          <g>
+            <circle cx="300" cy="55" r="44" fill="#fff" stroke="#c0397f" stroke-width="3"></circle>
+            <text x="300" y="52" font-size="14" font-weight="700" fill="#8a1f5c">PLAN</text>
+            <text x="300" y="70" font-size="9.5" fill="#6a4258">set goals</text>
+          </g>
+          <g>
+            <circle cx="455" cy="210" r="44" fill="#fff" stroke="#7c3aa8" stroke-width="3"></circle>
+            <text x="455" y="205" font-size="13" font-weight="700" fill="#7c3aa8">MONITOR</text>
+            <text x="455" y="222" font-size="9.5" fill="#6a4258">assess vs goal</text>
+          </g>
+          <g>
+            <circle cx="145" cy="210" r="44" fill="#fff" stroke="#1f9d8f" stroke-width="3"></circle>
+            <text x="145" y="205" font-size="13" font-weight="700" fill="#1f9d8f">EVALUATE</text>
+            <text x="145" y="222" font-size="9.5" fill="#6a4258">adjust strategy</text>
+          </g>
+          <text x="300" y="160" font-size="11" fill="#6a4258">conscious, deliberate</text>
+        </g>
+      </svg>
+      <p class="figcap">Metacognition = plan → monitor → evaluate. Scholer et al. (2016): two reciprocal parts — <em>monitoring</em> (assess vs goal) and <em>control</em> (act toward goal).</p>
+    </div>
+
+    <h3>Metacognition vs. executive functions</h3>
+    <div class="duo">
+      <div class="pane">
+        <h4>Metacognition — conscious</h4>
+        <p>We <strong>actively reflect on, monitor, and change</strong> our ways of thinking and learning, and recognize when thinking has been less productive than we'd like. Self-reflection reveals the limits of our knowledge so we can address them.</p>
+      </div>
+      <div class="pane">
+        <h4>Executive functions (EF) — often unconscious</h4>
+        <p>Self-regulatory skills that often operate automatically: <strong>inhibition</strong> (suppressing an impulse), <strong>cognitive flexibility</strong> (shifting focus), and <strong>working memory</strong> (holding/modifying info). E.g. not shouting out an answer.</p>
+      </div>
+    </div>
+
+    <div class="bigidea" style="margin-top:18px">
+      <strong>It develops with age.</strong> Subconscious precursors (recognizing uncertainty, directing attention) appear at birth, but introspection improves markedly in <strong>adolescence and into adulthood</strong>. So expectations differ: <em>younger</em> learners need teacher <strong>scaffolding</strong> (predict, reflect on mistakes, explain where thinking went wrong); <em>adults</em> can be prompted toward general metacognition ("reflect on your own study strategies"). Metacognition links to <strong>self-determination</strong> and supports <strong>resilience</strong> — monitoring and directing effort despite setbacks.
+    </div>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>intrinsic motivation</summary>
+      <div class="def">The desire to engage in new challenges or learning opportunities without the expectation of external rewards.
+        <span class="eg">Curiosity, interest, enjoyment — learning for competence and personal satisfaction.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>extrinsic motivation</summary>
+      <div class="def">The desire to engage in new learning based on the prospect of receiving an external reward or to avoid negative effects.
+        <span class="eg">Grades, awards, pay raises — rooted in the behaviorist reward/punishment model.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>self-efficacy</summary>
+      <div class="def">One's belief in one's ability to complete a specific task successfully.
+        <span class="eg">"Task-specific self-confidence" — varies by domain; high efficacy fuels persistence.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>Self-Determination Theory</summary>
+      <div class="def">A theory of human motivation that emphasizes the integrated need for competence, autonomy, and relatedness.
+        <span class="eg">Ryan &amp; Deci (2000) — all three together promote intrinsic motivation.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>desirable difficulty</summary>
+      <div class="def">A learning task that requires a considerable amount of effort but improves long-term performance.
+        <span class="eg">Keep it motivating by supporting learners through it, not framing it as a shortcoming.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>authentic learning</summary>
+      <div class="def">Learning that is directly connected to real-world issues, problems, and applications that the learner perceives as relevant.
+        <span class="eg">Creates a "need to know" by situating learning in the context where it's applied.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>playing the whole game</summary>
+      <div class="def">An approach to thinking about learning design that transcends specific domains or disciplines in order to support learners with the full range of skills and dispositions they will need.
+        <span class="eg">Perkins (2009) — practice the whole activity, not disconnected sub-skills.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>extracurriculars</summary>
+      <div class="def">Organized activities that may be supported by the school but that take place outside of required instructional time; engaged in out of interest, not for a grade.
+        <span class="eg">Theater, music, citizen science — often the most authentic learning available.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>metacognition</summary>
+      <div class="def">The process of planning, monitoring, and evaluating one's thought processes and learning.
+        <span class="eg">"Thinking about thinking" — a conscious, deliberate self-regulatory domain.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>executive functions</summary>
+      <div class="def">Cognitive skills and processes that enable mental control and self-regulation. Executive functions include inhibition, cognitive flexibility, and working memory.
+        <span class="eg">Often operate unconsciously — unlike the conscious effort of metacognition.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>self-regulation</summary>
+      <div class="def">The ability to set goals for our behavior, to monitor whether our actions are discrepant with those goals, and to take corrective action when we detect a discrepancy.
+        <span class="eg">The broader domain that contains metacognition.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>engagement</summary>
+      <div class="def">A learner's active attention, interest, and participation in a learning experience; correlated with achievement and learning, it keeps learners on task and drives the practice essential to expertise.
+        <span class="eg">Educators as "engagement architects" design experiences that sustain it.</span>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Motivation drives effort &amp; persistence.</strong> Teachers are "engagement architects" who inspire, direct, and sustain the learner's own motivation.</li>
+      <li><strong>Intrinsic vs. extrinsic is a spectrum.</strong> Intrinsic (curiosity, mastery) usually serves deep learning best; extrinsic isn't all bad — but over-weighting it can crowd out learning, and culture matters.</li>
+      <li><strong>Intrinsic motivation rests on self-determination</strong> (competence + autonomy + relatedness) <strong>and self-efficacy</strong> (task-specific confidence).</li>
+      <li><strong>Motivation shifts with development</strong> — and far more with environment than age. Intrinsic motivation dips around grades 3–4; adults above all need <em>relevance</em>.</li>
+      <li><strong>Authentic learning fuels engagement</strong> by connecting to lived experience and creating a "need to know" — but access to it (esp. extracurriculars) is inequitable.</li>
+      <li><strong>Metacognition = plan → monitor → evaluate.</strong> Conscious and effortful (unlike executive functions), it grows with age and supports self-determination and resilience.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 2 · Motivation &amp; Engagement · study notes · © Harvard content paraphrased for personal study</footer>
+
+</div>
+</body>
+</html>

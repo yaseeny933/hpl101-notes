@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 2 · Sequence 4 — Deepening &amp; Extending Learning · Study Notes</title>
+<style>
+  :root{
+    --ink:#142926;
+    --ink-soft:#3d5854;
+    --paper:#f1f7f6;
+    --teal:#157f7a;
+    --teal-bright:#1aa39c;
+    --teal-deep:#0c5450;
+    --amber:#d98821;
+    --rose:#cf5a6e;
+    --line:#cfe4e1;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(12,70,66,.12);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    /* faint connected-node texture: knowledge as a web */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(21,127,122,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(26,163,156,.08) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#093b38,#0c5450 55%,#157f7a);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#bfe7e3;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#dcf2f0;font-size:1.05rem;max-width:50ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--teal);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal-deep);background:rgba(21,127,122,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--teal-bright);
+    background:linear-gradient(90deg,rgba(26,163,156,.10),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--teal)}
+
+  /* domain map motif */
+  .openbox{display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .ob-node{background:#fff;border:2px solid var(--teal);color:var(--teal);
+    padding:10px 16px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center}
+  .ob-mind{background:#fff;border:2px dashed var(--teal-bright);color:var(--teal-bright);
+    padding:12px 18px;border-radius:12px;position:relative}
+  .ob-mind small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px}
+  .ob-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* contrast / comparison table */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--ink-soft)}
+  table.vs thead th:nth-child(3){color:var(--teal)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:26%}
+  table.vs tr td:nth-child(3){background:rgba(21,127,122,.05)}
+
+  /* figure */
+  .schemafig{margin:6px 0 2px}
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* two-pane grid (near/far, etc.) */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .aa .pane.assim h4{color:var(--teal)}
+  .aa .pane.accom h4{color:var(--rose)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.fit{background:rgba(21,127,122,.14);color:var(--teal)}
+  .pill.reshape{background:rgba(207,90,110,.14);color:var(--rose)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* feature/info cards */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--amber);display:block;font-size:.95rem;margin-bottom:2px}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+
+  /* numbered steps / features */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--teal);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal-deep);background:rgba(21,127,122,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* callout note */
+  .note{background:rgba(217,136,33,.08);border:1px solid rgba(217,136,33,.30);
+    border-radius:12px;padding:14px 18px;margin-top:14px;font-size:.95rem}
+  .note b{color:var(--amber)}
+
+  /* glossary */
+  .gloss details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--teal);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between}
+  .gloss summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal-bright);letter-spacing:.08em;text-transform:uppercase}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#093b38,#0c5450);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#bfe7e3;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#7fd6cf}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  a.skip{position:absolute;left:-999px}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details{break-inside:avoid}
+    .gloss .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.step,.it,.aa .pane,.gloss details{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 2 · Sequence 4</p>
+    <h1>Deepening &amp; Extending Learning</h1>
+    <p class="sub">Real understanding is <em>domain-specific</em> — built slowly through deliberate practice, stretched across domains by transfer, and proven only when knowledge becomes <em>action</em>.</p>
+    <div class="tags">
+      <span class="tag">domains</span>
+      <span class="tag">expertise · deliberate practice</span>
+      <span class="tag">near &amp; far transfer</span>
+      <span class="tag">knowledge as action</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">This sequence is about what it takes to move beyond surface familiarity to <strong>deep, usable expertise</strong> — and how that expertise can (and can't) be carried into new situations.</p>
+
+    <div class="bigidea">
+      Four linked claims run through the whole sequence: <strong>(1)</strong> learning is largely <strong>domain-specific</strong> — skill in one area rarely spreads on its own; <strong>(2)</strong> expertise grows slowly through <strong>deliberate practice</strong>, not raw talent or mere hours; <strong>(3)</strong> connecting domains via <strong>transfer</strong> is powerful but hard, especially "far" transfer; and <strong>(4)</strong> we only really know what someone understands <strong>when we see them use it</strong> — knowledge is a means to action.
+    </div>
+
+    <div class="card">
+      <div class="openbox">
+        <div class="ob-node">NOVICE<br>scattered facts</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-mind">⊹ DELIBERATE PRACTICE ⊹<small>guided · challenging · feedback-rich</small></div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">EXPERT<br>organized, flexible</div>
+      </div>
+      <p class="figcap">The arc of the sequence: novice → expert within a domain, then extending that understanding outward through transfer and action.</p>
+    </div>
+  </section>
+
+  <!-- ===== 2.4.1 DOMAINS ===== -->
+  <section>
+    <h2><span class="num">02</span> 2.4.1 — Learning &amp; Teaching in Domains</h2>
+    <p>A <strong>domain</strong> is an area of capability that draws on particular skills which don't have widespread, general application. One way to spot a domain is by the <em>limits of expertise</em>: if an expert physicist can't skillfully interpret poetry, physics and poetry are likely separate domains. Go, music, cricket, baking, and speaking Arabic all qualify — getting good at one doesn't make you good at the others.</p>
+
+    <h3>Domain-specific vs. domain-general</h3>
+    <div class="aa">
+      <div class="pane assim">
+        <h4>Domain-specific <span class="pill fit">narrow but efficient</span></h4>
+        <p>Skills tied to one area that make processing <strong>very efficient and effective there</strong> — but transfer poorly elsewhere.</p>
+        <p class="ex"><b>e.g.</b> Using the law of conservation to solve physics problems.</p>
+      </div>
+      <div class="pane accom">
+        <h4>Domain-general <span class="pill reshape">broad but weaker</span></h4>
+        <p>Skills that apply across <strong>many or all</strong> areas (metacognition, executive functions) — broadly useful but less efficient on any specific task.</p>
+        <p class="ex"><b>e.g.</b> Planning, self-monitoring, working memory.</p>
+      </div>
+    </div>
+    <div class="note"><b>Why it matters:</b> people unfamiliar with the learning sciences tend to <em>underestimate</em> how tied learning is to a domain and <em>overestimate</em> how far one domain's understandings carry over. That leads to unrealistic expectations and missing supports.</div>
+
+    <h3>Domains ≠ disciplines ≠ school subjects</h3>
+    <p>A <strong>discipline</strong> is a branch of knowledge with its own intellectual history, knowledge base, and epistemological rules (research in chemistry, history, and psychology look nothing alike). School subjects are <em>ideally</em> introductions to disciplines — but many disciplines (philosophy, anthropology, economics) aren't in K–12, and some school targets are skills, not disciplines (e.g., literacy).</p>
+
+    <h3>Is teaching a domain? What teachers need to know</h3>
+    <div class="it-grid">
+      <div class="it"><b>Pedagogical knowledge</b><span>General high-quality teaching skill that applies across all disciplines.</span></div>
+      <div class="it"><b>Content knowledge</b><span>Expertise in the actual domain being taught.</span></div>
+      <div class="it"><b>Pedagogical content knowledge (PCK)</b><span>Knowing how to teach <em>this</em> domain: making content accessible, why topics are hard, which student errors signal progress.</span></div>
+      <div class="it"><b>Anticipating misconceptions</b><span>PCK includes knowing the common misconceptions learners bring — and how to surface and rework them.</span></div>
+    </div>
+
+    <h3>Developing expertise: deliberate practice</h3>
+    <p>The key PCK tool for building expertise is <strong>deliberate practice</strong> — repeated, targeted practice of a skill over long periods, with guidance. Its features:</p>
+    <div class="lesson">
+      <div class="step"><div class="body"><p class="idea">Challenging — focused on a skill not yet mastered (just above current level).</p><p class="mech"><b>just-right difficulty</b> Too easy or too hard both undercut learning.</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Intensive — demands real mental or physical exertion (researchers debate whether it can even be enjoyable).</p><p class="mech"><b>effortful</b> Mastery is work, not passive exposure.</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Designed to improve — usually repetition with continuous feedback.</p><p class="mech"><b>feedback loop</b> Improvement is steered by correction.</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Often guided by a coach/teacher who can break performance into parts and evaluate what the learner can't see themselves.</p><p class="mech"><b>expert coaching</b> Looks like situated learning &amp; scaffolding within the ZPD.</p></div></div>
+    </div>
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-top:12px">↳ Self-monitoring (flight simulators) and even <strong>mental rehearsal</strong> (visualizing the kick or the speech) can help — by elaborating mental representations and boosting motivation. Interest and self-efficacy sustain attention and persistence. Deliberate practice matters more in <strong>stable</strong> fields (pastry, radiology) than in ever-changing ones (teaching).</p>
+    <div class="note"><b>Cautionary tale — the "10,000-Hour Rule":</b> Gladwell's maxim oversimplified. Sitting at a piano for 10,000 hours won't make a maestro; <em>how</em> you practice matters. But Gladwell's real point still holds: mastery comes from dedication over time, <strong>not innate talent</strong>.</div>
+  </section>
+
+  <!-- ===== 2.4.2 EXPERTISE ===== -->
+  <section>
+    <h2><span class="num">03</span> 2.4.2 — Expertise: How Novices Differ from Experts</h2>
+    <p>Novices often cling to <strong>misconceptions</strong> ("the earth is flat," "plants aren't alive") rooted in <em>intuitive theories</em> — coherent everyday causal models that can conflict with expert theories. The novice→expert journey means <strong>actively reworking</strong> existing beliefs and accommodating them into a new framework, not just adding facts.</p>
+
+    <div class="bigidea">
+      Classic example: <strong>"Where do trees get their mass from?"</strong> The scientific answer (mostly carbon from CO₂ in the air, via photosynthesis) clashes with the intuitive "plants grow from soil and water." Learners must <em>restructure</em> their mental model of the living world before the new fact can make sense.
+    </div>
+
+    <p>An <strong>expert</strong> attains better results than most people at solving problems or performing in a given area. Crucially, <strong>nobody is an expert in everything</strong> — expertise is bound to specific domains. A modern-Chinese-history expert can't read ancient Egyptian papyrus; a violin virtuoso isn't automatically a pianist.</p>
+
+    <h3>How experts organize knowledge differently</h3>
+    <div class="card schemafig">
+      <svg viewBox="0 0 760 300" role="img" aria-label="Two diagrams side by side: a novice's scattered, disconnected facts versus an expert's richly connected schema organized around core concepts" style="width:100%;height:auto">
+        <text x="190" y="26" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#3d5854" letter-spacing="1">NOVICE — scattered facts</text>
+        <text x="570" y="26" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#0c5450" letter-spacing="1">EXPERT — connected schema</text>
+        <line x1="380" y1="44" x2="380" y2="290" stroke="#cfe4e1" stroke-width="2" stroke-dasharray="4 6"></line>
+
+        <!-- NOVICE: scattered isolated nodes, almost no links -->
+        <g font-family="ui-monospace,Menlo,monospace" font-size="11" text-anchor="middle">
+          <g><circle cx="80" cy="80" r="20" fill="#fff" stroke="#9bbdb9" stroke-width="2"></circle><text x="80" y="84" fill="#3d5854">fact</text></g>
+          <g><circle cx="180" cy="70" r="20" fill="#fff" stroke="#9bbdb9" stroke-width="2"></circle><text x="180" y="74" fill="#3d5854">fact</text></g>
+          <g><circle cx="290" cy="95" r="20" fill="#fff" stroke="#9bbdb9" stroke-width="2"></circle><text x="290" y="99" fill="#3d5854">rule</text></g>
+          <g><circle cx="110" cy="180" r="20" fill="#fff" stroke="#9bbdb9" stroke-width="2"></circle><text x="110" y="184" fill="#3d5854">fact</text></g>
+          <g><circle cx="220" cy="200" r="20" fill="#fff" stroke="#9bbdb9" stroke-width="2"></circle><text x="220" y="204" fill="#3d5854">term</text></g>
+          <g><circle cx="300" cy="250" r="20" fill="#fff" stroke="#9bbdb9" stroke-width="2"></circle><text x="300" y="254" fill="#3d5854">fact</text></g>
+          <g><circle cx="70" cy="255" r="20" fill="#fff" stroke="#9bbdb9" stroke-width="2"></circle><text x="70" y="259" fill="#3d5854">fact</text></g>
+          <!-- one stray weak link -->
+          <line x1="100" y1="80" x2="160" y2="72" stroke="#cdddda" stroke-width="1.5"></line>
+        </g>
+
+        <!-- EXPERT: hub-and-spoke richly connected schema around a core concept -->
+        <g stroke="#7fc7c1" stroke-width="2">
+          <line x1="570" y1="150" x2="470" y2="90"></line>
+          <line x1="570" y1="150" x2="680" y2="85"></line>
+          <line x1="570" y1="150" x2="460" y2="210"></line>
+          <line x1="570" y1="150" x2="690" y2="210"></line>
+          <line x1="570" y1="150" x2="570" y2="255"></line>
+          <line x1="470" y1="90" x2="680" y2="85"></line>
+          <line x1="460" y1="210" x2="570" y2="255"></line>
+          <line x1="690" y1="210" x2="570" y2="255"></line>
+          <line x1="470" y1="90" x2="460" y2="210"></line>
+        </g>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="11" text-anchor="middle">
+          <g><circle cx="570" cy="150" r="34" fill="#dff1ef" stroke="#157f7a" stroke-width="3"></circle><text x="570" y="148" fill="#0c5450">core</text><text x="570" y="162" fill="#0c5450">concept</text></g>
+          <g><circle cx="470" cy="90" r="22" fill="#fff" stroke="#157f7a" stroke-width="2.5"></circle><text x="470" y="94" fill="#0c5450">principle</text></g>
+          <g><circle cx="680" cy="85" r="22" fill="#fff" stroke="#157f7a" stroke-width="2.5"></circle><text x="680" y="89" fill="#0c5450">condition</text></g>
+          <g><circle cx="460" cy="210" r="22" fill="#fff" stroke="#157f7a" stroke-width="2.5"></circle><text x="460" y="214" fill="#0c5450">pattern</text></g>
+          <g><circle cx="690" cy="210" r="22" fill="#fff" stroke="#157f7a" stroke-width="2.5"></circle><text x="690" y="214" fill="#0c5450">method</text></g>
+          <g><circle cx="570" cy="255" r="22" fill="#fff" stroke="#157f7a" stroke-width="2.5"></circle><text x="570" y="259" fill="#0c5450">when-to</text></g>
+        </g>
+      </svg>
+      <p class="figcap">Experts hold <strong>highly organized</strong> mental representations — knowledge, skill, <em>and</em> the conditions for using them — clustered around core ideas. Novices hold isolated, loosely linked facts. (Adapted from Ambrose et al., <em>How Learning Works</em>, 2010.)</p>
+    </div>
+
+    <p>Some expertise is just accumulated experience; some draws on <strong>domain-general</strong> abilities that develop with age — holding more in working memory, reflecting on errors, and using explicit metacognitive strategies to revise beliefs.</p>
+    <div class="note"><b>Talent vs. acquisition:</b> moving from novice to expert means internalizing a discipline's knowledge and methods. Genetics may play <em>some</em> role, but there's little evidence innate capacity <strong>determines</strong> mastery. Expertise develops slowly and gradually, at any age.</div>
+  </section>
+
+  <!-- ===== 2.4.3 CROSSING & CONNECTING DOMAINS ===== -->
+  <section>
+    <h2><span class="num">04</span> 2.4.3 — Crossing &amp; Connecting Domains</h2>
+    <p><strong>Transfer</strong> — using something learned in one situation in another — is essential to learning yet notoriously hard to achieve. Educators distinguish two dimensions: <em>positive vs. negative</em> (does prior learning help or hurt?) and <em>near vs. far</em> (how similar are the situations?).</p>
+
+    <div class="aa">
+      <div class="pane assim">
+        <h4>Near transfer <span class="pill fit">similar contexts</span></h4>
+        <p>A skill generalizes to a <strong>fairly similar</strong> context or domain.</p>
+        <p class="ex"><b>e.g.</b> Mastering percentage equations, then computing a 10% store discount. Or using comic/movie <em>Hamlet</em> to scaffold reading the original play.</p>
+      </div>
+      <div class="pane accom">
+        <h4>Far transfer <span class="pill reshape">dissimilar contexts</span></h4>
+        <p>A skill generalizes across <strong>relatively dissimilar</strong> domains — much harder; researchers even dispute whether/how it happens.</p>
+        <p class="ex"><b>e.g.</b> Strategy skills from Go applied to education policy; a math teacher extending "worked examples" into teaching science.</p>
+      </div>
+    </div>
+
+    <h3>Deep structure vs. surface features</h3>
+    <p>Domains can share <strong>deep structure</strong> (underlying logic) or merely <strong>superficial characteristics</strong>. It's the shared <em>deep</em> structure that enables transfer. The trouble: when deep structure is shared but surface features differ, novices get distracted by surface details and can't tell what's essential. Recognizing deep-structure similarity is itself a <strong>mark of expertise</strong>. (E.g., the 2008 Forgeard study found music lessons correlated with stronger vocabulary — possibly because reading notation and processing sound share deep structure with reading words — but it was <em>correlational</em>, not causal.)</p>
+
+    <div class="card schemafig">
+      <svg viewBox="0 0 760 230" role="img" aria-label="An analogy mapping: source domain 'factory' nodes mapped by dashed lines onto target domain 'cell' nodes, aligning by role" style="width:100%;height:auto">
+        <text x="150" y="24" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#0c5450" letter-spacing="1">SOURCE: factory</text>
+        <text x="610" y="24" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#d98821" letter-spacing="1">TARGET: cell</text>
+
+        <!-- mapping lines -->
+        <g stroke-dasharray="6 5" stroke-width="2">
+          <line x1="245" y1="70" x2="515" y2="70" stroke="#7fc7c1"></line>
+          <line x1="245" y1="125" x2="515" y2="125" stroke="#7fc7c1"></line>
+          <line x1="245" y1="180" x2="515" y2="180" stroke="#7fc7c1"></line>
+        </g>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="12" text-anchor="middle">
+          <!-- source -->
+          <g><rect x="55" y="52" width="190" height="36" rx="9" fill="#fff" stroke="#157f7a" stroke-width="2.5"></rect><text x="150" y="75" fill="#0c5450">control office</text></g>
+          <g><rect x="55" y="107" width="190" height="36" rx="9" fill="#fff" stroke="#157f7a" stroke-width="2.5"></rect><text x="150" y="130" fill="#0c5450">power generator</text></g>
+          <g><rect x="55" y="162" width="190" height="36" rx="9" fill="#fff" stroke="#157f7a" stroke-width="2.5"></rect><text x="150" y="185" fill="#0c5450">assembly line</text></g>
+          <!-- target -->
+          <g><rect x="515" y="52" width="190" height="36" rx="9" fill="#fff" stroke="#d98821" stroke-width="2.5"></rect><text x="610" y="75" fill="#a5650f">nucleus</text></g>
+          <g><rect x="515" y="107" width="190" height="36" rx="9" fill="#fff" stroke="#d98821" stroke-width="2.5"></rect><text x="610" y="130" fill="#a5650f">mitochondrion</text></g>
+          <g><rect x="515" y="162" width="190" height="36" rx="9" fill="#fff" stroke="#d98821" stroke-width="2.5"></rect><text x="610" y="185" fill="#a5650f">ribosome</text></g>
+        </g>
+        <text x="380" y="216" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#3d5854">map by ROLE (deep structure), not appearance (surface)</text>
+      </svg>
+      <p class="figcap">An <strong>analogy</strong> aligns a familiar source with a new target by matching the <em>roles</em> things play — "a cell is like a factory." Good analogies promote transfer; poor ones import false features.</p>
+    </div>
+
+    <h3>Strategies that promote transfer</h3>
+    <div class="it-grid">
+      <div class="it"><b>Active processing</b><span>Build multiple associations between prior and new knowledge; attend to similarities &amp; differences in meaning/pattern (Bjork).</span></div>
+      <div class="it"><b>Motivation</b><span>Engaged, persistent learners make more of the new connections that transfer requires.</span></div>
+      <div class="it"><b>Analogies</b><span>Compare two things for explanation (cell↔factory, Earth's layers↔peach). Powerful, but a bad analogy can mislead.</span></div>
+      <div class="it"><b>Multiple exemplars</b><span>Several versions of the same idea (e.g., Word Generation) let learners extract common elements and generalize — fixing the "single misleading analogy" problem.</span></div>
+    </div>
+    <div class="note"><b>Cautionary tale — the Mozart Effect:</b> a 1993 study claimed listening to Mozart briefly raised spatial-reasoning scores. The effect was tiny, short-lived, and ultimately explained by <strong>improved mood</strong>, not far transfer. Likewise, chess-to-math "transfer" mostly vanished once motivation and expectations were accounted for. Lesson: value each domain on its own, and be skeptical of grand far-transfer claims.</div>
+  </section>
+
+  <!-- ===== 2.4.4 KNOWLEDGE AS A MEANS TO ACTION ===== -->
+  <section>
+    <h2><span class="num">05</span> 2.4.4 — Knowledge as a Means to Action</h2>
+    <p>How do we know what people know? Piaget (rationalist/constructivist, child-centered) and Vygotsky (sociocultural, learning mediated by cultural tools and targeted in the ZPD) disagreed on much — but agreed on one foundational point:</p>
+
+    <div class="bigidea">
+      We don't know what people know until <strong>we see them use it</strong>. For both traditions, <strong>knowledge is a means to action and interaction</strong> in the world. This focuses learning design on <em>what students will do</em> to demonstrate understanding.
+    </div>
+
+    <p>Advanced knowledge is shown by applying understanding <strong>flexibly</strong> — across a <em>range</em> of situations, not just one. Flexibility is the key criterion. This yields Perkins's (1998) working definition: <strong>understanding is "the ability to think and act with what one knows" — a "flexible performance capability."</strong> Learning for understanding is like learning to improvise jazz or rock-climb, not like memorizing multiplication tables or F = ma. Facts can be a backdrop, but learning facts is not learning for understanding.</p>
+
+    <h3>Performance as knowledge in action</h3>
+    <p>Traditional assessments often test <strong>rote recall</strong>, distancing learners from authentic experience. Performance-based assessment instead asks students to <em>use</em> what they know:</p>
+    <div class="aa">
+      <div class="pane accom">
+        <h4>Rote-recall assessment <span class="pill reshape">distant</span></h4>
+        <p>Memorize a presentation on Korean desserts; take a multiple-choice exam on smoking risks.</p>
+      </div>
+      <div class="pane assim">
+        <h4>Performance assessment <span class="pill fit">authentic</span></h4>
+        <p>Order food at a local Korean bakery; design school-wide anti-smoking posters.</p>
+      </div>
+    </div>
+
+    <h3>Thinking dispositions: ability isn't enough</h3>
+    <p>Learners often <em>have</em> a skill yet don't deploy it — they lack the inclination, or don't notice the moment to use it. Diane Halpern argued good thinking requires the right <strong>dispositions</strong> (attitudes). Project Zero (Perkins &amp; Ritchhart, 2004) break a thinking disposition into three parts — <em>individually necessary, collectively sufficient</em>:</p>
+    <div class="lesson">
+      <div class="step"><div class="body"><p class="idea">Ability — the "how": being able to actually perform the skill.</p><p class="mech"><b>can do it</b> Row the boat well enough to cross.</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Sensitivity — the "when/where": noticing the occasion that calls for the skill.</p><p class="mech"><b>spots the moment</b> Notice conditions that recommend a boat.</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Inclination — the motivation: actually being moved to act.</p><p class="mech"><b>chooses to act</b> Decide to row rather than walk to the bridge.</p></div></div>
+    </div>
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-top:12px">↳ Teaching takeaway: cultivating thinkers means building all three — skill, the sensitivity to recognize when it applies, and the disposition to use it.</p>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>domain</summary>
+      <div class="def">An area of capability requiring particular skills or capabilities that do not have widespread, general application; often identified by the limits of a person's expertise.
+        <span class="eg">Go, music, baking, speaking Arabic — getting good at one doesn't make you good at the others.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>domain-specific</summary>
+      <div class="def">Knowledge or skills that make cognitive processing very efficient and effective in a designated area of performance, but have limited use in other contexts.</div>
+    </details>
+
+    <details>
+      <summary>domain-general</summary>
+      <div class="def">Knowledge or skills that help us do a range of things in life and don't depend on task-specific knowledge — but are less efficient and effective for particular tasks.
+        <span class="eg">Metacognition, executive functions.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>discipline</summary>
+      <div class="def">A branch of knowledge with its own intellectual history, accumulated knowledge base, and epistemological rules.</div>
+    </details>
+
+    <details>
+      <summary>pedagogical knowledge</summary>
+      <div class="def">Knowledge about high-quality teaching that is helpful regardless of the discipline being taught.</div>
+    </details>
+
+    <details>
+      <summary>content knowledge</summary>
+      <div class="def">Knowledge of the core understandings and skills of a particular domain.</div>
+    </details>
+
+    <details>
+      <summary>pedagogical content knowledge (PCK)</summary>
+      <div class="def">Knowledge about how to effectively teach the core understandings and skills of a particular domain, including addressing the common misconceptions learners bring to it.
+        <span class="eg">Knowing why a topic is hard, and which student errors actually signal progress.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>deliberate practice</summary>
+      <div class="def">Repeatedly and intentionally practicing a skill to improve performance — often with a teacher/coach who has advanced domain knowledge and can give feedback. It is challenging, intensive, designed to improve, and feedback-rich.</div>
+    </details>
+
+    <details>
+      <summary>misconception</summary>
+      <div class="def">An explanation that contains errors or does not align with that accepted by domain experts.
+        <span class="eg">"Plants get their mass from the soil" rather than from CO₂ in the air.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>transfer</summary>
+      <div class="def">The use of something learned in one situation in another situation.</div>
+    </details>
+
+    <details>
+      <summary>near transfer</summary>
+      <div class="def">Applying knowledge from one context to another that is fairly similar (but not identical).
+        <span class="eg">Percentage equations → calculating a 10% store discount.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>far transfer</summary>
+      <div class="def">Applying knowledge from one context to another very dissimilar context. Considerably harder to facilitate; researchers dispute whether and how it occurs.</div>
+    </details>
+
+    <details>
+      <summary>deep structure</summary>
+      <div class="def">The underlying organization or logic of a concept, phenomenon, or process. Shared deep structure (not surface features) is what enables transfer across domains.</div>
+    </details>
+
+    <details>
+      <summary>analogy</summary>
+      <div class="def">The process by which we implicitly or explicitly compare two things for the purpose of explanation. Used judiciously it promotes transfer; a poor analogy can imply inaccurate things.
+        <span class="eg">"A cell is like a factory"; "Earth's layers are like a peach."</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>exemplar</summary>
+      <div class="def">A typical or standard example of a concept that gives developing learners opportunities to make useful generalizations. Multiple exemplars help learners extract common elements.</div>
+    </details>
+
+    <details>
+      <summary>Mozart Effect</summary>
+      <div class="def">A finding that initially seemed to suggest listening to complex auditory stimuli improved processing of complex visual/spatial stimuli, but was ultimately explained by an effect on the listener's mood — illustrating that apparent far transfer may really be motivation/expectation.</div>
+    </details>
+
+    <details>
+      <summary>understanding</summary>
+      <div class="def">The ability to think and act with what one knows — a "flexible performance capability" (Perkins). Demonstrated by applying knowledge flexibly across a range of situations.</div>
+    </details>
+
+    <details>
+      <summary>dispositions</summary>
+      <div class="def">Attitudes or inclinations that guide behavior toward learning and are essential to developing critical thinking skills. Project Zero frames a disposition as ability + sensitivity + inclination.</div>
+    </details>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Learning is domain-specific.</strong> Skill rarely spreads on its own — don't overestimate how far one domain's understanding carries.</li>
+      <li><strong>Expertise = organized, flexible knowledge,</strong> built by <strong>deliberate practice</strong> (challenging, intensive, feedback-rich, coached) — not innate talent or mere hours.</li>
+      <li><strong>Novices hold scattered facts and misconceptions; experts hold richly connected schemas</strong> plus the conditions for using them, and can spot deep structure.</li>
+      <li><strong>Transfer is hard.</strong> Near transfer (similar contexts) is doable; far transfer is contested. Support it with active processing, motivation, analogies, and multiple exemplars.</li>
+      <li><strong>Deep structure transfers; surface features distract.</strong> Beware Mozart-Effect-style claims that are really about mood, motivation, or expectations.</li>
+      <li><strong>Knowledge is a means to action.</strong> We only know someone understands when they use it flexibly — and using it takes ability <em>plus</em> sensitivity <em>plus</em> inclination.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 2 · Deepening &amp; Extending Learning · study notes</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 1 · Sequence 4 — Scaffolding · Study Notes</title>
+<style>
+  :root{
+    --ink:#2a1f12;
+    --ink-soft:#6a563c;
+    --paper:#fbf6ee;
+    --amber:#d98a1f;
+    --amber-deep:#a8620f;
+    --amber-bright:#eda43a;
+    --teal:#1f8f86;
+    --rose:#c85a4a;
+    --line:#ecdcc4;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(120,76,18,.12);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    /* faint scaffold-grid texture: temporary supports around the learner */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(217,138,31,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(31,143,134,.08) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#6e3c08,#a8620f 60%,#d98a1f);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#ffe6c2;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#fbe9d2;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--amber-deep);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(31,143,134,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--amber-bright);
+    background:linear-gradient(90deg,rgba(217,138,31,.10),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--amber-deep)}
+
+  /* person-in-context motif */
+  .openbox{display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .ob-node{background:#fff;border:2px solid var(--amber);color:var(--amber-deep);
+    padding:10px 16px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center}
+  .ob-mind{background:#fff;border:2px dashed var(--teal);color:var(--teal);
+    padding:12px 18px;border-radius:12px;position:relative;text-align:center;font-weight:700;font-size:.86rem}
+  .ob-mind small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px;font-weight:400}
+  .ob-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* contrast table */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--ink-soft)}
+  table.vs thead th:nth-child(3){color:var(--amber-deep)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:26%}
+  table.vs tr td:nth-child(3){background:rgba(217,138,31,.06)}
+
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+  .svgfig{margin:6px 0 2px}
+
+  /* two-pane layout */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .aa .pane.assim h4{color:var(--teal)}
+  .aa .pane.accom h4{color:var(--rose)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.fit{background:rgba(31,143,134,.14);color:var(--teal)}
+  .pill.reshape{background:rgba(200,90,74,.14);color:var(--rose)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* feature cards */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--amber-deep);display:block;font-size:.95rem;margin-bottom:2px}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+
+  /* numbered step list (apprenticeship) */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--amber);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal);background:rgba(31,143,134,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* glossary */
+  .gloss details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--amber-deep);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between}
+  .gloss summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#5c3107,#9a5a0d);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#ffe6c2;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#f3c585}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  a.skip{position:absolute;left:-999px}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details{break-inside:avoid}
+    .gloss .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.step,.it,.aa .pane,.gloss details{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 1 · Sequence 4</p>
+    <h1>Scaffolding</h1>
+    <p class="sub">A learner is never just an isolated mind. With the right temporary support, they can reach <em>beyond</em> what they could do alone — and grow toward independence.</p>
+    <div class="tags">
+      <span class="tag">person-in-context</span>
+      <span class="tag">ZPD · Vygotsky</span>
+      <span class="tag">situated learning</span>
+      <span class="tag">scaffolding · fading</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">This sequence zooms out, then back in. It starts by <strong>relocating the learner inside a social context</strong>, formalizes the <strong>Zone of Proximal Development</strong>, shows how learning is <strong>situated</strong> in real communities of practice, and finishes with the practical "micro" technique that ties it all together: <strong>scaffolding</strong>.</p>
+
+    <div class="bigidea">
+      The big shift: stop asking only <strong>"what can this learner do alone?"</strong> Ask instead <strong>"what can this learner do <em>with support</em>?"</strong> Capability emerges far earlier with help than in independent performance. Good teaching meets learners in that gap and provides temporary supports that are gradually removed.
+    </div>
+
+    <div class="card">
+      <div class="openbox">
+        <div class="ob-node">PERSON<br>alone</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-mind">PERSON-IN-ACTIVITY-IN-CONTEXT<small>peers · experts · tools · culture</small></div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">GREATER<br>capability</div>
+      </div>
+      <p class="figcap">A contextualist studies the whole system, not the isolated individual.</p>
+    </div>
+  </section>
+
+  <!-- ===== 1.4.1 ===== -->
+  <section>
+    <h2><span class="num">02</span> 1.4.1 — From the Person to the Person-in-Activity-in-Context</h2>
+    <p>Focusing only on an individual's <em>current developmental stage</em> can distort what we think a learner can do. A <strong>contextualist approach</strong> always sees the developing learner <strong>in context</strong> — part of a dynamic system of person, activities, peers, and more-capable experts.</p>
+
+    <div class="bigidea">
+      Building on <strong>Vygotsky</strong>, we reject the picture of the learner as an autonomous individual whose skills unfold on a fixed biological schedule. A learner is best understood as <strong>a person in an activity in a wider context</strong> — performance varies by task and by the level of support the social context provides.
+    </div>
+
+    <h3>The reading example</h3>
+    <p>A child tackling a hard storybook, or an adult reading an Arabic text in an intermediate language course, can <strong>persist and show understanding</strong> when a teacher offers just-in-time support in decoding tough words or grammar — demonstrating more than they could alone. Never settle for "has / hasn't developed the skill independently"; highlight everything the learner <em>can do with a supportive context</em>.</p>
+
+    <h3>The ecology of development</h3>
+    <p><strong>Urie Bronfenbrenner's</strong> "ecology of development" places the individual inside <strong>concentric circles of relationships</strong> — from families, to settings, to communities, to cultures. It forces us to see development as shaped by influences from the very local all the way to the broadly societal, at a moment in time and changing over time.</p>
+
+    <div class="card svgfig">
+      <svg viewBox="0 0 760 300" role="img" aria-label="Concentric rings of the ecological model, from the individual outward to culture" style="width:100%;height:auto">
+        <g font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+          <circle cx="250" cy="150" r="135" fill="#fdf2e0" stroke="#d98a1f" stroke-width="2"></circle>
+          <circle cx="250" cy="150" r="103" fill="#fbe7c8" stroke="#d98a1f" stroke-width="2"></circle>
+          <circle cx="250" cy="150" r="71" fill="#f8d8a8" stroke="#d98a1f" stroke-width="2"></circle>
+          <circle cx="250" cy="150" r="38" fill="#fff" stroke="#a8620f" stroke-width="2.5"></circle>
+          <text x="250" y="148" font-size="12" fill="#a8620f" font-weight="700">PERSON</text>
+          <text x="250" y="163" font-size="9.5" fill="#6a563c">developing</text>
+          <text x="250" y="98" font-size="11" fill="#6a563c">settings</text>
+          <text x="250" y="63" font-size="11" fill="#6a563c">communities</text>
+          <text x="250" y="30" font-size="11" fill="#6a563c">cultures</text>
+        </g>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#2a1f12">
+          <line x1="500" y1="150" x2="560" y2="150" stroke="#1f8f86" stroke-width="2.5" stroke-dasharray="6 5"></line>
+          <text x="640" y="86" text-anchor="middle" fill="#6a563c" font-size="11">influence flows</text>
+          <text x="640" y="102" text-anchor="middle" fill="#6a563c" font-size="11">inward AND outward,</text>
+          <text x="640" y="118" text-anchor="middle" fill="#6a563c" font-size="11">local → societal,</text>
+          <text x="640" y="134" text-anchor="middle" fill="#6a563c" font-size="11">and over time</text>
+          <text x="640" y="180" text-anchor="middle" fill="#a8620f" font-size="13" font-weight="700">Bronfenbrenner's</text>
+          <text x="640" y="198" text-anchor="middle" fill="#a8620f" font-size="13" font-weight="700">ecology of development</text>
+        </g>
+      </svg>
+      <p class="figcap">The individual sits inside nested layers of social reality — none of which act in isolation.</p>
+    </div>
+  </section>
+
+  <!-- ===== 1.4.2 ===== -->
+  <section>
+    <h2><span class="num">03</span> 1.4.2 — "In the Zone": ZPD &amp; the Social Nature of Learning</h2>
+    <p>Imagine measuring how well a learner takes the perspective of a story character ("How is Ramón feeling now?") under <strong>two conditions</strong>, and marking each on a measuring stick:</p>
+
+    <div class="aa">
+      <div class="pane assim">
+        <h4>Independent level <span class="pill fit">alone</span></h4>
+        <p>What the learner does <strong>with no help</strong> — here, a hesitant, partial "I don't know."</p>
+        <p class="ex"><b>Vygotsky:</b> the <em>actual development level</em> — it characterizes development <em>retrospectively</em> (the "fruits").</p>
+      </div>
+      <div class="pane accom">
+        <h4>Assisted level <span class="pill reshape">with help</span></h4>
+        <p>What the learner can do <strong>collaborating with capable others</strong>. Guided by the teacher's questions, "He's not happy because she was mean to him."</p>
+        <p class="ex"><b>Vygotsky:</b> characterizes development <em>prospectively</em> — the "buds and flowers," functions maturing tomorrow.</p>
+      </div>
+    </div>
+
+    <div class="bigidea">
+      The distance between those two points is the <strong>Zone of Proximal Development (ZPD)</strong> — "those functions that have not yet matured but are in the process of maturation… in an embryonic state" <em>(Mind in Society, 1978, p. 86)</em>. Inside the ZPD, a learner has a <strong>range of possible performances</strong> depending on whether conditions provide low or high support. Development itself proceeds in <strong>spurts and plateaus</strong>, not a steady line.
+    </div>
+
+    <div class="card svgfig">
+      <svg viewBox="0 0 760 280" role="img" aria-label="Three concentric zones: can do alone, the ZPD with help, and cannot do yet" style="width:100%;height:auto">
+        <g text-anchor="middle" font-family="ui-monospace,Menlo,monospace">
+          <circle cx="300" cy="140" r="128" fill="#fbeede" stroke="#c85a4a" stroke-width="2" stroke-dasharray="7 6"></circle>
+          <circle cx="300" cy="140" r="92" fill="#fce2bf" stroke="#d98a1f" stroke-width="2.5"></circle>
+          <circle cx="300" cy="140" r="50" fill="#fff" stroke="#1f8f86" stroke-width="2.5"></circle>
+          <text x="300" y="136" font-size="11.5" fill="#1f8f86" font-weight="700">CAN DO</text>
+          <text x="300" y="152" font-size="11.5" fill="#1f8f86" font-weight="700">ALONE</text>
+          <text x="300" y="78" font-size="12" fill="#a8620f" font-weight="700">ZPD</text>
+          <text x="300" y="95" font-size="9.5" fill="#6a563c">can do WITH help</text>
+          <text x="300" y="248" font-size="11" fill="#c85a4a">CANNOT do yet</text>
+        </g>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="11.5" fill="#2a1f12" text-anchor="start">
+          <text x="500" y="96" fill="#1f8f86" font-weight="700">inner ring</text>
+          <text x="500" y="113" fill="#6a563c">independent capability</text>
+          <text x="500" y="150" fill="#a8620f" font-weight="700">middle ring = the ZPD</text>
+          <text x="500" y="167" fill="#6a563c">where teaching belongs:</text>
+          <text x="500" y="183" fill="#6a563c">achievable with support</text>
+          <text x="500" y="220" fill="#c85a4a" font-weight="700">outer ring</text>
+          <text x="500" y="237" fill="#6a563c">beyond reach even with help</text>
+        </g>
+      </svg>
+      <p class="figcap">Aim instruction at the middle ring — challenging tasks the learner can reach <em>with</em> support.</p>
+    </div>
+  </section>
+
+  <!-- ===== 1.4.3 ===== -->
+  <section>
+    <h2><span class="num">04</span> 1.4.3 — Situated Learning</h2>
+    <p>Development doesn't stop in childhood — <strong>we keep developing throughout adulthood</strong>, as individual learners and as education professionals. That calls for empathy toward the challenge of being a developing learner in a world that expects adults to already be "expert" and "mature."</p>
+
+    <p>Some of the richest insights about the social side of learning come from the classic model of <strong>apprenticeship</strong>. By tracing how a newcomer is trained in a trade — tailors, chefs — <strong>Jean Lave and Etienne Wenger</strong> described <strong>situated learning</strong>: learning by participation in a <strong>community of practice</strong>, in the authentic, practice-oriented setting where the learning will actually be used. (Related terms like "professional learning community" trace back to this research.)</p>
+
+    <h3>Concepts in action: the apprentice tailor</h3>
+    <div class="lesson">
+      <div class="step"><div class="body">
+        <p class="idea">Watches master tailors at their craft, then cuts out paper patterns for them to use.</p>
+        <p class="mech"><b>Legitimate peripheral start</b> A real but low-stakes task, authentic to the practice.</p>
+      </div></div>
+      <div class="step"><div class="body">
+        <p class="idea">After a mentor's demonstration, uses a paper pattern to cut costly fabric — a harder, higher-stakes task.</p>
+        <p class="mech"><b>Working in the ZPD</b> Challenging but achievable with social support; not asked to make a whole garment alone.</p>
+      </div></div>
+      <div class="step"><div class="body">
+        <p class="idea">With feedback and practice, becomes adept at independent cutting, then moves to guided stitching. Learns the trade's terms ("on the bias") and <em>when and why</em> techniques are used.</p>
+        <p class="mech"><b>Increasing autonomy</b> Guided practice with feedback in authentic settings builds independent, complex work.</p>
+      </div></div>
+      <div class="step"><div class="body">
+        <p class="idea">Takes on greater responsibility, masters the practitioners' repertoires, and eventually develops a <em>new identity</em> as a full member of the guild.</p>
+        <p class="mech"><b>Identity, not just skill</b> Becoming a full participant in the community is the endpoint of situated learning.</p>
+      </div></div>
+    </div>
+
+    <h3>In formal education</h3>
+    <p>Classrooms are rarely "authentic" in the way social scientists study, but educators approximate it with <strong>simulations, project-based learning, problem-based learning, and field visits</strong>. Like any learning design, these can be powerful or disappointing — it depends entirely on <em>how well they are implemented</em> to support learners.</p>
+
+    <div class="bigidea">
+      <strong>Connecting to practice:</strong> the Ed.M. program and HGSE are themselves <strong>communities of practice</strong>. In areas where you have experience you act as a <strong>more-capable other</strong>; in areas where you're a novice, peers, Teaching Fellows, and faculty model and mentor you toward greater skill and autonomy.
+    </div>
+  </section>
+
+  <!-- ===== 1.4.4 ===== -->
+  <section>
+    <h2><span class="num">05</span> 1.4.4 — Going "Micro": Scaffolding</h2>
+    <p><strong>Scaffolds</strong> are <strong>temporary supports</strong> that are shed or gradually diminished — <strong>"faded"</strong> — as learners gain new skills. Scaffolding builds on what a learner already knows, providing assistance that lets them <strong>work inside their ZPD toward independence</strong>. Common forms: expert modeling, coaching, material and technological tools, and (thinking like contextualists) culturally relevant practices tied to the learner's own communities and identities.</p>
+
+    <div class="card svgfig">
+      <svg viewBox="0 0 760 250" role="img" aria-label="Scaffolding support fading over time as independent performance rises" style="width:100%;height:auto">
+        <line x1="70" y1="200" x2="710" y2="200" stroke="#caa979" stroke-width="2"></line>
+        <line x1="70" y1="200" x2="70" y2="35" stroke="#caa979" stroke-width="2"></line>
+        <text x="40" y="120" font-family="ui-monospace,monospace" font-size="10" fill="#6a563c" transform="rotate(-90 40 120)">capability</text>
+        <text x="390" y="232" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#6a563c">time →</text>
+        <!-- fading scaffold bars -->
+        <g>
+          <rect x="110" y="60" width="46" height="140" rx="4" fill="#f6cf95" stroke="#d98a1f" stroke-width="1.5"></rect>
+          <rect x="240" y="95" width="46" height="105" rx="4" fill="#f7d6a4" stroke="#d98a1f" stroke-width="1.5"></rect>
+          <rect x="370" y="130" width="46" height="70" rx="4" fill="#f9e0bb" stroke="#d98a1f" stroke-width="1.5"></rect>
+          <rect x="500" y="165" width="46" height="35" rx="4" fill="#fbecd5" stroke="#d98a1f" stroke-width="1.5"></rect>
+          <rect x="630" y="194" width="46" height="6" rx="3" fill="#fff" stroke="#caa979" stroke-width="1.5" stroke-dasharray="4 3"></rect>
+        </g>
+        <text x="133" y="50" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#a8620f">high support</text>
+        <text x="653" y="186" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#6a563c">faded out</text>
+        <!-- rising independence line -->
+        <polyline points="115,185 250,160 380,120 510,80 645,50" fill="none" stroke="#1f8f86" stroke-width="3"></polyline>
+        <circle cx="645" cy="50" r="5" fill="#1f8f86"></circle>
+        <text x="645" y="40" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#1f8f86" font-weight="700">independent</text>
+      </svg>
+      <p class="figcap">As the learner internalizes the skill (teal line rises), the scaffold (amber bars) is faded away.</p>
+    </div>
+
+    <h3>Three key features of scaffolding</h3>
+    <div class="it-grid">
+      <div class="it"><b>Shared goal</b><span>Learner and more-capable other share an understanding of the activity's goal — giving the learner ownership and helping the expert sustain motivation and investment.</span></div>
+      <div class="it"><b>Monitored &amp; adjusted</b><span>The more-capable other tracks progress and adjusts the type and level of support. It's <em>collaborative, not evaluative</em>: clarifying, suggesting strategies, hinting, questioning, modeling, encouraging.</span></div>
+      <div class="it"><b>Support fades</b><span>Support is gradually withdrawn so the learner can perform <em>independently</em>, having internalized the needed understanding, skills, and strategies.</span></div>
+      <div class="it"><b>Proxies can scaffold</b><span>"More-capable others" need not be people — media, technology programs, and tools can act as scaffolds too.</span></div>
+    </div>
+
+    <div class="bigidea">
+      <strong>Takeaways:</strong> scaffolding supports learners toward performance at the <strong>upper end of the ZPD</strong>. The learner's developmental stage and the characteristics of their <strong>ecosystem</strong> give insight into which scaffolds fit. And scaffolding can be explored at every level — <strong>learner, program, and system</strong>.
+    </div>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>ecology of development</summary>
+      <div class="def">A model (originated by Urie Bronfenbrenner) which situates an individual in the midst of concentric circles of relationships — from nuclear families to larger social settings to communities to cultures.
+        <span class="eg">Forces us to see development as shaped by influences from the very local to the broadly societal.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>Vygotsky</summary>
+      <div class="def">Influential 20th-century Soviet psychologist/theorist who emphasized the fundamental role of social interaction in human learning and development; originator of the ZPD.
+        <span class="eg">Shifted the focus from the isolated individual to the person learning in a social context.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>zone of proximal development (ZPD)</summary>
+      <div class="def">In Vygotsky's theory, the range between a learner's present level of performance and their potential performance with optimal scaffolding (guidance and support).
+        <span class="eg">The "buds and flowers" of development — functions maturing tomorrow, not yet the "fruits."</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>apprenticeship</summary>
+      <div class="def">Time spent as a novice learning from an expert by working under the supervision of the expert.
+        <span class="eg">The apprentice tailor: pattern-cutting before garment-making, gaining autonomy over time.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>situated learning</summary>
+      <div class="def">Learning that occurs within an authentic activity valued by the experts in the local context or culture (Lave &amp; Wenger).
+        <span class="eg">You learn the trade by doing real, valued work inside the practice — not from abstract instruction alone.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>community of practice</summary>
+      <div class="def">A group of people with common interests who come together to create, store, and share knowledge of a specific topic.
+        <span class="eg">HGSE and the Ed.M. program are communities of practice you now belong to.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>scaffolding</summary>
+      <div class="def">Learning supports that allow students to complete tasks they are not able to complete independently — temporary, built on prior knowledge, letting learners work within their ZPD.
+        <span class="eg">Expert modeling, coaching, tools, hints, culturally relevant practices.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>fading</summary>
+      <div class="def">The process of gradually diminishing scaffolds for learning over time, as the learner attains the skills and abilities to accomplish a task independently.
+        <span class="eg">Pull the scaffold away slowly as the learner internalizes the skill.</span>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>See the person-in-activity-in-context,</strong> not the isolated individual — performance shifts with the support a context provides.</li>
+      <li><strong>The ZPD is the gap</strong> between what a learner can do alone and what they can do with help — aim teaching there.</li>
+      <li><strong>Development is social, lifelong, and uneven</strong> — spurts and plateaus, continuing well into adulthood.</li>
+      <li><strong>Learning is situated:</strong> apprentices learn by authentic participation in a community of practice, eventually gaining a new identity.</li>
+      <li><strong>Scaffolds are temporary.</strong> Build on prior knowledge, share the goal, monitor and adjust, then <em>fade</em> support toward independence.</li>
+      <li><strong>More-capable others can be proxies</strong> — media, technology, and tools scaffold too.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 1 · Scaffolding · study notes · © Harvard content paraphrased for personal study</footer>
+
+</div>
+</body>
+</html>

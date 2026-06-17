@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 1 · Sequence 2 — Developmental Pathways · Study Notes</title>
+<style>
+  :root{
+    --ink:#15233a;
+    --ink-soft:#41597a;
+    --paper:#f1f6fc;
+    --ocean:#2f6fd0;
+    --ocean-deep:#1c4a93;
+    --ocean-bright:#4f8de6;
+    --teal:#1f9d8f;
+    --amber:#e0962b;
+    --rose:#d8557f;
+    --line:#cfdcef;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(22,55,110,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    /* faint connected-node texture: pathways branching outward */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(47,111,208,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(31,157,143,.07) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#143562,#1c4a93 60%,#2f6fd0);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#cfe0ff;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#dfeafb;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--ocean);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(31,157,143,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--ocean-bright);
+    background:linear-gradient(90deg,rgba(47,111,208,.08),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--ocean)}
+
+  /* pathway motif */
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+  .pathfig{margin:6px 0 2px}
+
+  /* two-lens panes (practitioner vs theorist) */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .aa .pane.assim h4{color:var(--teal)}
+  .aa .pane.accom h4{color:var(--ocean)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.fit{background:rgba(31,157,143,.14);color:var(--teal)}
+  .pill.reshape{background:rgba(47,111,208,.14);color:var(--ocean)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .pane ul{font-size:.9rem;color:var(--ink-soft);margin:8px 0 0;padding-left:18px}
+  .aa .pane li{margin:5px 0}
+
+  /* contrast / facts table */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--ink-soft)}
+  table.vs thead th:nth-child(3){color:var(--ocean)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:26%}
+  table.vs tr td:nth-child(3){background:rgba(47,111,208,.05)}
+
+  /* concept cards grid */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--amber);display:block;font-size:.95rem;margin-bottom:2px}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+
+  /* stage / step ladder */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--ocean);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal);background:rgba(31,157,143,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* glossary */
+  .gloss details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--ocean);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between}
+  .gloss summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#143562,#1c4a93);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#cfe0ff;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#9cc2ff}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  a.skip{position:absolute;left:-999px}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details{break-inside:avoid}
+    .gloss .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.step,.it,.aa .pane,.gloss details{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 1 · Sequence 2</p>
+    <h1>Developmental Pathways</h1>
+    <p class="sub">Development follows generalized <em>trajectories</em> — common in order, loose in timing — and our theories only count as universal if the evidence reaches beyond a narrow slice of humanity.</p>
+    <div class="tags">
+      <span class="tag">developmental trajectory</span>
+      <span class="tag">perspective-taking</span>
+      <span class="tag">stage theories</span>
+      <span class="tag">WEIRD critique</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">Children develop in a recognizable progression — most point before they label, babble "ba" and "ga" before words. But skills don't lock in on a strict timetable. There's usually a <strong>long window</strong> in which a capacity may emerge, shaped by many factors.</p>
+
+    <div class="bigidea">
+      A <strong>developmental trajectory</strong> is a generalized timeline for the emergence of successively more complex skills and performances. It lets us name <strong>what's common</strong> across typically developing learners while acknowledging that <strong>individual differences and experience</strong> influence each learner's rate of growth and ultimate capacities.
+    </div>
+
+    <div class="card pathfig">
+      <svg viewBox="0 0 760 280" role="img" aria-label="A developmental trajectory drawn as a branching timeline from infancy to adulthood, with individual paths fanning around a typical center line" style="width:100%;height:auto">
+        <defs>
+          <marker id="arrow" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#1c4a93"></path>
+          </marker>
+        </defs>
+        <!-- axis -->
+        <line x1="60" y1="240" x2="720" y2="240" stroke="#9fb6d6" stroke-width="2" marker-end="url(#arrow)"></line>
+        <text x="60" y="262" font-family="ui-monospace,monospace" font-size="11" fill="#41597a">infancy</text>
+        <text x="290" y="262" font-family="ui-monospace,monospace" font-size="11" fill="#41597a" text-anchor="middle">childhood</text>
+        <text x="500" y="262" font-family="ui-monospace,monospace" font-size="11" fill="#41597a" text-anchor="middle">adolescence</text>
+        <text x="700" y="262" font-family="ui-monospace,monospace" font-size="11" fill="#41597a" text-anchor="end">adulthood</text>
+        <!-- typical center trajectory -->
+        <path d="M70,210 C200,180 320,120 460,95 C560,78 640,70 710,64" fill="none" stroke="#2f6fd0" stroke-width="3.5"></path>
+        <!-- individual variation band (dashed faster / slower) -->
+        <path d="M70,210 C190,150 300,95 440,70 C540,55 630,48 700,44" fill="none" stroke="#4f8de6" stroke-width="2" stroke-dasharray="6 6"></path>
+        <path d="M70,210 C210,200 340,150 480,128 C580,112 650,102 710,96" fill="none" stroke="#1f9d8f" stroke-width="2" stroke-dasharray="6 6"></path>
+        <!-- milestone nodes on the center line -->
+        <g font-family="ui-monospace,monospace" font-size="11" text-anchor="middle">
+          <circle cx="120" cy="198" r="7" fill="#fff" stroke="#2f6fd0" stroke-width="2.5"></circle>
+          <text x="120" y="184" fill="#15233a">point</text>
+          <circle cx="270" cy="143" r="7" fill="#fff" stroke="#2f6fd0" stroke-width="2.5"></circle>
+          <text x="270" y="129" fill="#15233a">first words</text>
+          <circle cx="430" cy="100" r="7" fill="#fff" stroke="#2f6fd0" stroke-width="2.5"></circle>
+          <text x="430" y="86" fill="#15233a">perspective-taking</text>
+          <circle cx="640" cy="69" r="7" fill="#fff" stroke="#2f6fd0" stroke-width="2.5"></circle>
+          <text x="640" y="55" fill="#15233a">opportunity-driven</text>
+        </g>
+        <!-- legend -->
+        <g font-family="ui-monospace,monospace" font-size="10.5">
+          <line x1="70" y1="22" x2="100" y2="22" stroke="#2f6fd0" stroke-width="3.5"></line>
+          <text x="106" y="26" fill="#41597a">typical trajectory</text>
+          <line x1="250" y1="22" x2="280" y2="22" stroke="#4f8de6" stroke-width="2" stroke-dasharray="6 6"></line>
+          <text x="286" y="26" fill="#41597a">accelerated / delayed individual paths</text>
+        </g>
+      </svg>
+      <p class="figcap">Common in order, variable in timing — individuals conform more or less strictly to the general pattern.</p>
+    </div>
+
+    <p>This sequence uses one domain — <strong>social perspective-taking</strong> (how people come to understand others' beliefs and intentions) — as a concrete case study of what a trajectory looks like, then zooms out to stage theories and to who developmental science has actually studied.</p>
+  </section>
+
+  <!-- ===== 1.2.1 TRAJECTORIES ===== -->
+  <section>
+    <h2><span class="num">02</span> 1.2.1 · Developmental Trajectories</h2>
+    <p>Some skills emerge at about the <strong>same age</strong> for most children worldwide, regardless of geography or environment. Others emerge in a <strong>predictable order but not a predictable age</strong>. A trajectory captures both regularities while leaving room for individual variation.</p>
+
+    <p>Example of variation: while hearing children learn to distinguish the sounds of their native language, deaf children instead develop much more elaborate <strong>gestural communication</strong>. Individual differences can accelerate development of some capacities.</p>
+
+    <p>Practitioners and theorists approach the same concept with <strong>different questions</strong>:</p>
+    <div class="aa">
+      <div class="pane assim">
+        <h4>The educator / practitioner <span class="pill fit">apply</span></h4>
+        <ul>
+          <li><b>When</b> is a learner showing normal vs. delayed development of a skill?</li>
+          <li><b>How</b> can we best support the emergence and ongoing development of key skills?</li>
+          <li><b>What</b> steps do we take if learners aren't making expected progress?</li>
+        </ul>
+      </div>
+      <div class="pane accom">
+        <h4>The developmental theorist <span class="pill reshape">explain</span></h4>
+        <ul>
+          <li><b>When</b> does a skill tend to emerge — and why not earlier?</li>
+          <li><b>How</b> do environmental forces influence the timing, speed, and ease of development?</li>
+          <li><b>What</b> are the constraints on the order and speed of development?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bigidea" style="margin-top:18px">
+      A <strong>domain of development</strong> is an area of capability that people can develop over the life course, from infancy into adulthood — an area in which people grow in some capacity to engage with the world. (We'll revisit "domains" later in the course.)
+    </div>
+  </section>
+
+  <!-- ===== 1.2.2 PERSPECTIVE-TAKING ===== -->
+  <section>
+    <h2><span class="num">03</span> 1.2.2 · Development in Social Perspective-Taking</h2>
+    <p>The ability to attribute mental states to ourselves and others — to infer people's beliefs, thoughts, feelings, and intentions — is <strong>theory of mind</strong>, and it's essential for navigating social life. Crucially, <strong>people are not born with it</strong>: young children can be genuinely confused about what others think.</p>
+
+    <div class="card">
+      <h3 style="margin-top:0">The Holly Dilemma — eliciting the trajectory</h3>
+      <p style="margin-bottom:0">A task created by HGSE Professor <strong>Robert Selman</strong> to elicit children's thinking about moral issues. Holly has promised her father she won't climb trees, but her friend's kitten is stuck up one. Researchers presented the dilemma to <strong>many children of different ages and backgrounds</strong>, then looked across the aggregated responses to find meaningful age-to-age differences — and from that <strong>theorized a typical developmental trajectory</strong> for social perspective-taking.</p>
+    </div>
+
+    <h3>What does (and doesn't) count as theory of mind?</h3>
+    <p>The check-for-understanding items hinge on one distinction: theory of mind is about <strong>recognizing that another person's mental states differ from your own</strong> — not about obedience, moral ranking, or noticing danger.</p>
+    <div class="card" style="padding:6px 10px">
+      <table class="vs">
+        <thead>
+          <tr><th>Holly…</th><th>Theory of mind?</th><th>Why</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>learns to obey her father</td><td>No</td><td>Obedience is a reaction to what a parent says — it needn't involve inferring what the parent <em>thinks</em>.</td></tr>
+          <tr><td>thinks saving the kitten beats obeying</td><td>No</td><td>May be true, but it's about ranking values — irrelevant to theory of mind.</td></tr>
+          <tr><td>knows Dad didn't want her to climb, yet may climb anyway</td><td>Yes</td><td>She grasps that another's feelings/opinions differ from her own — a hallmark of developing theory of mind.</td></tr>
+          <tr><td>wants to both obey Dad and help her friend</td><td>Yes</td><td>She sees the conflict isn't simply "good vs. evil" and that resolving it means hard trade-offs between perspectives.</td></tr>
+          <tr><td>her friends know climbing is dangerous</td><td>No</td><td>Recognizing danger isn't relevant to theory of mind.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.92rem;color:var(--ink-soft)">↳ Researchers use the same method — present a task across ages, aggregate, compare — to chart trajectories in other domains (computational thinking, identity) and to ask how trajectories <em>vary</em> by socioeconomic resources, an ASD diagnosis, and more. Even with a mature theory of mind, seeing another's point of view stays hard into adulthood (politics, religion, economics).</p>
+  </section>
+
+  <!-- ===== 1.2.3 DOMAINS & STAGE THEORIES ===== -->
+  <section>
+    <h2><span class="num">04</span> 1.2.3 · Domains &amp; Stage Theories</h2>
+    <p>Do trajectories in any two domains have unique "fingerprints," or shared commonalities? One way to look for commonalities is to seek <strong>domain-general</strong> changes — similarities in the <em>complexity</em> of abilities displayed across specific domains.</p>
+
+    <h3>Piaget's stages — and their cracks</h3>
+    <p>Swiss psychologist <strong>Jean Piaget</strong> proposed sequential <strong>stages</strong> in children's cognitive abilities, seeing them as the product of the child's <em>autonomous actions</em> in the world — de-emphasizing instruction or engineering of the social environment. But children's behavior was never as cleanly delineated as the theory required. Piaget coined <strong>"décalage"</strong> for this blurriness — uncorrelated, inconsistent stage transitions.</p>
+
+    <div class="it-grid">
+      <div class="it"><b>Neo-Piagetians</b><span>Successors (incl. HGSE's Kurt Fischer) reinterpreted "blurriness": inconsistent performance can be evidence of a period of <em>reorganization</em> that precedes new skills.</span></div>
+      <div class="it"><b>Object permanence</b><span>Infants <em>do</em> have conceptual knowledge — they know objects keep existing when out of view — overturning the older "infants are merely perceptual" view.</span></div>
+      <div class="it"><b>Décalage in action</b><span>A 4-month-old is surprised when a tall object hides behind a short occluder, yet a 6-month-old may fail the same logic when objects go into <em>containers</em>.</span></div>
+      <div class="it"><b>We underestimate kids</b><span>With clever designs, even infants reason about probability, logic, analogy, and causality — toddlers learn abstract "same"/"different" rules to activate a toy.</span></div>
+    </div>
+
+    <h3>Performance is a range, not a fixed stage</h3>
+    <p>Context shapes performance: prior knowledge, task complexity, and whether explicit/verbal/<strong>metacognitive</strong> skills are required. With the right support — a model to imitate, an expert's guidance — learners show high sophistication. (A fourth grader stuck on "collectivization" succeeds when a teacher covers syllables so she can read "collect," then build up.)</p>
+    <div class="bigidea">
+      Neo-Piagetians argue it's incorrect to fix a learner <em>at</em> a stage. We all operate on any task within a <strong>range of performance</strong> — near the bottom if tired, sick, or unfamiliar; much closer to the top with appropriate support.
+    </div>
+
+    <h3>Takeaways from this unit</h3>
+    <div class="lesson">
+      <div class="step"><div class="body"><p class="idea">A stage theory delineates the order in which qualitatively more complex capabilities emerge, and identifies constraints on progression.</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Stage theories have limits — domains shaped by instruction (literacy, math) don't fully fit, and much reasoning is already present in infancy and enriched over time.</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Development continues through adolescence and adulthood — less a predictable sequence, more a result of opportunities to learn (cf. Robert Kegan's adult development).</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Despite differences in values, domains, and tasks, human development is a universal process of increasing qualitative capability and complexity.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ===== 1.2.4 WEIRD ===== -->
+  <section>
+    <h2><span class="num">05</span> 1.2.4 · Cultural Differences &amp; WEIRD Science</h2>
+    <p>Do these influential theories apply to <strong>all</strong> learners — or only to the ones actually studied? Critiques of early developmental research focus on the <strong>samples</strong>: which cultural contexts were studied, and who was excluded from claims about "typical" development.</p>
+
+    <div class="bigidea">
+      <strong>WEIRD</strong> = <strong>W</strong>estern, <strong>E</strong>ducated, <strong>I</strong>ndustrialized, <strong>R</strong>ich, and <strong>D</strong>emocratic — an acronym for the overemphasis on a small slice of the world's population. A framework can't claim to be <em>universal</em> unless it holds across diverse populations: cultures, ethnicities, gender identities, economic statuses, linguistic environments, disabilities, and individual traits.
+    </div>
+
+    <div class="card pathfig">
+      <svg viewBox="0 0 760 230" role="img" aria-label="A diagram showing a tiny WEIRD sample being generalized to all of humanity, illustrating sampling bias" style="width:100%;height:auto">
+        <!-- small sample -->
+        <circle cx="150" cy="115" r="58" fill="#dbe8fb" stroke="#2f6fd0" stroke-width="3"></circle>
+        <text x="150" y="100" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#1c4a93" font-weight="700">WEIRD</text>
+        <text x="150" y="118" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#41597a">narrow</text>
+        <text x="150" y="131" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#41597a">sample</text>
+        <!-- overreaching arrow -->
+        <line x1="215" y1="115" x2="470" y2="115" stroke="#d8557f" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"></line>
+        <polygon points="470,108 486,115 470,122" fill="#d8557f"></polygon>
+        <text x="345" y="100" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10.5" fill="#d8557f">sweeping claim about…</text>
+        <!-- all humanity -->
+        <circle cx="610" cy="115" r="100" fill="none" stroke="#1f9d8f" stroke-width="3" stroke-dasharray="4 6"></circle>
+        <g fill="#1f9d8f">
+          <circle cx="560" cy="70" r="6"></circle><circle cx="640" cy="60" r="6"></circle>
+          <circle cx="690" cy="110" r="6"></circle><circle cx="660" cy="170" r="6"></circle>
+          <circle cx="560" cy="165" r="6"></circle><circle cx="530" cy="120" r="6"></circle>
+          <circle cx="615" cy="115" r="6"></circle><circle cx="605" cy="60" r="6"></circle>
+        </g>
+        <text x="610" y="208" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#1f9d8f">…all of humanity</text>
+      </svg>
+      <p class="figcap">The bias: inferences drawn from a limited sample, then generalized to every human being.</p>
+    </div>
+
+    <h3>Case study — moral development</h3>
+    <p>Prevailing late-20th-century views ranked moral development by increasing attention to <strong>fairness and justice</strong> — but that research was carried out <strong>exclusively with undergraduate men in the U.S.</strong> The 1986 study <em>Women's Ways of Knowing</em> (Belenky, Clinchy, Goldberger &amp; Tarule), studying a diverse group of women, advanced a new view placing <strong>interpersonal relationships and responsibilities</strong> at the center of moral decision-making.</p>
+    <p>Alongside Carol Gilligan, these authors argued that by excluding women's voices, prior research had missed the <strong>relationally connected quality</strong> of women's knowing — tied to experience, questioning, and communities. (The critique itself has limits the authors didn't address — e.g. treating gender as a binary.)</p>
+
+    <div class="bigidea">
+      <strong>Take a critical stance.</strong> The lesson isn't that development can't be studied scientifically — it's that developmental science must hold itself to a high standard: resist sweeping claims from limited samples, and always ask whether the available evidence supports the use you want to make of it, in <em>your</em> context, with <em>your</em> learners.
+    </div>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>developmental trajectory</summary>
+      <div class="def">A generalized timeline for the emergence of successively more complex skills and performances by an individual.
+        <span class="eg">Common in order, loose in timing — individuals conform more or less strictly to it.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>social perspective-taking</summary>
+      <div class="def">What individuals understand about other people's emotions, beliefs, intentions, and likely reactions.
+        <span class="eg">The case-study domain used in this sequence (the Holly Dilemma).</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>domain of development</summary>
+      <div class="def">Areas of capability that people can develop over their life course, from infancy into adulthood.
+        <span class="eg">An area in which people grow in some capacity to engage with the world.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>theory of mind</summary>
+      <div class="def">The ability to recognize that other people's mental states may differ from one's own.
+        <span class="eg">Not present at birth; obedience or moral ranking alone doesn't demonstrate it.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>domain-general</summary>
+      <div class="def">Similarities in the complexity of abilities displayed across different domains.
+        <span class="eg">The lens behind broad stage theories — seeking shared complexity, not domain-specific detail.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>stage theory</summary>
+      <div class="def">A theory that depicts development as a series of relatively discrete periods (stages) that occur in a specific order.
+        <span class="eg">Piaget's framework — order and constraints, but too simple to capture all of development.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>décalage</summary>
+      <div class="def">The "blurriness" of stage transitions — instances where a learner's performance does not consistently fit within a stage.
+        <span class="eg">e.g. succeeding on object permanence behind an occluder but failing it inside a container.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>WEIRD</summary>
+      <div class="def">An acronym for an overemphasis on a small slice of the world's population: Western, Educated, Industrialized, Rich, and Democratic.
+        <span class="eg">Frameworks aren't universal unless shown to hold across diverse populations.</span>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>A trajectory is a generalized timeline</strong> — skills are common in <em>order</em> but variable in <em>timing</em>; individual differences shape rate and ceiling.</li>
+      <li><strong>Theory of mind develops; it isn't innate.</strong> It's recognizing that others' mental states differ from your own — not obedience, value-ranking, or sensing danger.</li>
+      <li><strong>Researchers build trajectories empirically</strong> — present a task (e.g. the Holly Dilemma) across many ages, aggregate, and compare to theorize the typical path.</li>
+      <li><strong>Stage theories capture order but oversimplify.</strong> "Décalage," early infant reasoning, and context effects show performance is a <em>range</em>, not a fixed stage — higher with support.</li>
+      <li><strong>Development runs into adulthood</strong> as opportunity-driven learning, yet remains a universal process of increasing qualitative complexity.</li>
+      <li><strong>Beware WEIRD samples.</strong> Claims from Western, Educated, Industrialized, Rich, Democratic groups aren't universal — demand evidence across diverse populations before applying it to your learners.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 1 · Developmental Pathways · study notes</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 2 · Sequence 1 — Theories of Learning · Study Notes</title>
+<style>
+  :root{
+    --ink:#1c1733;
+    --ink-soft:#4a4170;
+    --paper:#f6f4fb;
+    --violet:#5b3bb5;
+    --violet-bright:#7c52e0;
+    --teal:#1f9d8f;
+    --amber:#e0962b;
+    --rose:#d8557f;
+    --line:#d9d2ef;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(40,22,90,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(124,82,224,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(31,157,143,.08) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#2a1b5c,#5b3bb5 70%,#7c52e0);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#d9ccff;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#e7defc;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--violet);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(31,157,143,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--violet-bright);
+    background:linear-gradient(90deg,rgba(124,82,224,.08),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--violet)}
+
+  /* theory header chip */
+  .theory-tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.06em;text-transform:uppercase;font-weight:700;
+    padding:3px 10px;border-radius:999px;display:inline-block;margin-bottom:2px}
+  .t-beh{background:rgba(224,150,43,.16);color:#b3700f}
+  .t-cog{background:rgba(31,157,143,.14);color:var(--teal)}
+  .t-con{background:rgba(124,82,224,.12);color:var(--violet)}
+  .t-cri{background:rgba(216,85,127,.14);color:var(--rose)}
+
+  /* key/value mini-rows inside a theory card */
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin-top:12px;
+    font-size:.93rem}
+  .kv dt{font-family:"SF Mono",ui-monospace,monospace;font-size:.68rem;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);
+    padding-top:2px;white-space:nowrap}
+  .kv dd{margin:0;color:var(--ink)}
+
+  .terms{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+  .terms .chip{font-family:"SF Mono",ui-monospace,monospace;font-size:.66rem;
+    background:var(--paper);border:1px solid var(--line);color:var(--ink-soft);
+    padding:3px 9px;border-radius:7px;letter-spacing:.03em}
+
+  /* spectrum SVG caption */
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* comparison table across four theories */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.9rem}
+  table.vs th,table.vs td{padding:11px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.66rem;
+    letter-spacing:.06em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:#b3700f}
+  table.vs thead th:nth-child(3){color:var(--teal)}
+  table.vs thead th:nth-child(4){color:var(--violet)}
+  table.vs thead th:nth-child(5){color:var(--rose)}
+  table.vs td:first-child,table.vs th:first-child{font-weight:700;color:var(--ink);width:18%}
+  table.vs tbody td:first-child{font-family:"SF Mono",ui-monospace,monospace;
+    font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
+
+  /* glossary */
+  .gloss details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--violet);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between}
+  .gloss summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#2a1b5c,#4a2f9e);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#d9ccff;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#b79cff}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  @media (max-width:680px){
+    header.masthead h1{font-size:1.7rem}
+    .kv{grid-template-columns:1fr}
+    .kv dt{padding-top:8px}
+    table.vs{font-size:.78rem}
+    table.vs th,table.vs td{padding:8px 7px}
+  }
+
+  /* print: expand glossary, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details{break-inside:avoid}
+    .gloss .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.gloss details{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 2 · Sequence 1</p>
+    <h1>Theories of Learning</h1>
+    <p class="sub">Four lenses on the same lesson. Each brings part of learning into focus — and blurs the rest. Knowing all four lets you diagnose, and re-frame, any classroom.</p>
+    <div class="tags">
+      <span class="tag">behaviorism</span>
+      <span class="tag">cognitivism</span>
+      <span class="tag">constructivism · constructionism</span>
+      <span class="tag">critical consciousness</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> Four lenses on learning</h2>
+    <p class="lead">A theory of learning is a <strong>lens</strong>: it brings certain aspects of how we grow and change into sharp view, while letting others recede or blur. This sequence examines four theories that shaped a century of education — each illustrated through one teacher, <strong>Nyan</strong>, planning the same lesson on the 1942–45 U.S. internment of Japanese Americans.</p>
+
+    <div class="bigidea">
+      The theories are <strong>not mutually exclusive</strong>, and there is <strong>no single "right" one</strong>. Each clarifies some things while deemphasizing others. The educator's job is to recognize the implicit theory behind their choices — and to switch lenses when another would better serve the learner.
+    </div>
+
+    <div class="card">
+      <svg viewBox="0 0 820 260" role="img" aria-label="The four theories arranged on a spectrum from external behavior to internal mind to constructed knowledge to social and critical" style="width:100%;height:auto">
+        <defs>
+          <linearGradient id="spec" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#e0962b"></stop>
+            <stop offset="0.4" stop-color="#1f9d8f"></stop>
+            <stop offset="0.72" stop-color="#5b3bb5"></stop>
+            <stop offset="1" stop-color="#d8557f"></stop>
+          </linearGradient>
+        </defs>
+        <!-- spectrum bar -->
+        <rect x="40" y="120" width="740" height="8" rx="4" fill="url(#spec)"></rect>
+        <text x="40" y="150" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#4a4170">EXTERNAL · observable behavior</text>
+        <text x="780" y="150" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#4a4170">INTERNAL · social &amp; critical</text>
+
+        <!-- node 1 behaviorism -->
+        <circle cx="115" cy="124" r="9" fill="#e0962b" stroke="#fff" stroke-width="3"></circle>
+        <g font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+          <text x="115" y="86" font-size="13" font-weight="700" fill="#b3700f">Behaviorism</text>
+          <text x="115" y="104" font-size="10.5" fill="#4a4170">black box</text>
+          <text x="115" y="186" font-size="10.5" fill="#4a4170">2.1.1</text>
+          <text x="115" y="202" font-size="10.5" fill="#4a4170">stimulus → response</text>
+        </g>
+        <!-- node 2 cognitivism -->
+        <circle cx="335" cy="124" r="9" fill="#1f9d8f" stroke="#fff" stroke-width="3"></circle>
+        <g font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+          <text x="335" y="86" font-size="13" font-weight="700" fill="#1f9d8f">Cognitivism</text>
+          <text x="335" y="104" font-size="10.5" fill="#4a4170">open the mind</text>
+          <text x="335" y="186" font-size="10.5" fill="#4a4170">2.1.2</text>
+          <text x="335" y="202" font-size="10.5" fill="#4a4170">change schemas</text>
+        </g>
+        <!-- node 3 constructivism -->
+        <circle cx="560" cy="124" r="9" fill="#5b3bb5" stroke="#fff" stroke-width="3"></circle>
+        <g font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+          <text x="560" y="86" font-size="13" font-weight="700" fill="#5b3bb5">Constructivism</text>
+          <text x="560" y="104" font-size="10.5" fill="#4a4170">build knowledge</text>
+          <text x="560" y="186" font-size="10.5" fill="#4a4170">2.1.3</text>
+          <text x="560" y="202" font-size="10.5" fill="#4a4170">make meaning</text>
+        </g>
+        <!-- node 4 critical -->
+        <circle cx="745" cy="124" r="9" fill="#d8557f" stroke="#fff" stroke-width="3"></circle>
+        <g font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+          <text x="745" y="86" font-size="13" font-weight="700" fill="#d8557f">Critical</text>
+          <text x="745" y="104" font-size="10.5" fill="#4a4170">transform society</text>
+          <text x="745" y="186" font-size="10.5" fill="#4a4170">2.1.4</text>
+          <text x="745" y="202" font-size="10.5" fill="#4a4170">name &amp; resist power</text>
+        </g>
+      </svg>
+      <p class="figcap">Black box → open the mind → builds knowledge → transforms society. The lens shifts from what's <em>outside</em> the learner to what's <em>inside</em>, then to what the learner <em>makes</em> and the <em>society</em> they're in.</p>
+    </div>
+  </section>
+
+  <!-- ===== BEHAVIORISM ===== -->
+  <section>
+    <h2><span class="num">02</span> Behaviorism — Unit 2.1.1</h2>
+    <span class="theory-tag t-beh">the black box</span>
+    <p>Behaviorism holds that behaviors are the result of <strong>reflexes and consequences</strong> — responses to environmental stimuli plus an individual's history of past rewards and punishments. Behaviors are <strong>learned, not innate</strong>; environment and experience are the key drivers.</p>
+    <p>Crucially, it does <strong>not care what happens "inside the head."</strong> The mind is treated as a <strong>black box</strong> — what's inside is unknown, but that's fine, because to produce learning we only need to manage the observable <em>inputs</em> (stimuli) and <em>outputs</em> (behavior).</p>
+
+    <div class="card">
+      <h3 style="margin-top:0">Learning happens through conditioning</h3>
+      <dl class="kv">
+        <dt>Classical</dt>
+        <dd>Learning by <strong>association</strong>, no reward or punishment. Pavlov's bell becomes linked to feeding; the response is <em>involuntary</em>. Two stimuli (one neutral, one potent) are paired until the neutral one alone provokes the response.</dd>
+        <dt>Operant</dt>
+        <dd>A <em>voluntary</em> behavior (the "operant") is emitted, then <strong>reinforced or punished</strong>, changing how likely it is to recur. B.F. Skinner's domain — and the heart of behaviorist <em>teaching</em>: reinforce desired behaviors.</dd>
+        <dt>Bottom-up</dt>
+        <dd>Both are <strong>bottom-up, associative learning</strong>: the stimulus drives a reflexive response; no cognition or reflection is brought in. Related to <strong>rote learning</strong> (memorization by repetition).</dd>
+        <dt>Modern echo</dt>
+        <dd><strong>Reinforcement learning</strong> in AI (e.g. how ChatGPT trains) is bottom-up too — it predicts word associations and is rewarded/punished for accuracy, with no "understanding," planning, or reasoning.</dd>
+      </dl>
+      <div class="terms">
+        <span class="chip">stimulus → response</span>
+        <span class="chip">reinforcement / punishment</span>
+        <span class="chip">immediate vs. delayed feedback</span>
+        <span class="chip">grades &amp; stars as reinforcers</span>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px"><b>Nyan, behaviorist:</b> graded quizzes (points reinforce study), a flashcard game (stars reward, losing stars punishes) with <em>immediate feedback</em>, and hand-written comments for top scorers (another reward). The ungraded pre-test is deliberately neither reinforced nor punished.</p>
+  </section>
+
+  <!-- ===== COGNITIVISM ===== -->
+  <section>
+    <h2><span class="num">03</span> Cognitivism — Unit 2.1.2</h2>
+    <span class="theory-tag t-cog">open the mind</span>
+    <p>Emerging mid-20th century partly <strong>in reaction to behaviorism</strong>, cognitivism focuses on how information is <strong>received, organized, stored, and retrieved</strong> by the mind. Like behaviorists, cognitivists agree the environment shapes learning — but the mind is <strong>absolutely not a black box</strong>. The learner is <strong>active</strong>: they plan, set goals, rehearse, store, and relate new information to what they already know. Thoughts, beliefs, attitudes, and values all matter.</p>
+
+    <div class="bigidea">
+      Learning = <strong>changing or elaborating mental representations and structures.</strong> Knowledge lives in <strong>schemas</strong> — organized webs of ideas, meanings, and the relationships among them. Learning wires a new node into the web or rebuilds the web; it isn't just adding an isolated fact.
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0">Intuitive theories — abstract first</h3>
+      <p style="margin-top:4px">Beyond schemas, learners hold <strong>intuitive theories</strong>: abstract, causal frameworks used to predict, explain, reason about, and intervene on the world — like scientists' theories of nature. Contrary to the assumption that knowledge goes concrete → abstract, even very young children form <strong>abstract causal theories early</strong>, sometimes before the concrete facts.</p>
+      <dl class="kv">
+        <dt>Goals first</dt>
+        <dd>Infants expect agents to pursue goals via the easiest path — before learning customs like handshakes.</dd>
+        <dt>Rules first</dt>
+        <dd>Toddlers grasp abstract syntax before irregulars — hence "I goed" instead of "I went."</dd>
+        <dt>"Why?"</dt>
+        <dd>Frank Keil (<em>Wonder</em>): kids constantly ask explanatory "why" questions. Delaying causal science to grades 6–8 <strong>underestimates</strong> them.</dd>
+      </dl>
+      <div class="terms">
+        <span class="chip">schemas</span>
+        <span class="chip">assimilation / accommodation</span>
+        <span class="chip">intuitive theories</span>
+        <span class="chip">active learner</span>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px"><b>Nyan, cognitivist:</b> a discussion that <em>surfaces existing beliefs</em> (activating prior schemas), asking whether the internment idea applies to Native American reservations (stretching/rebuilding a schema across contexts), and concept maps that make the web of relationships visible.</p>
+  </section>
+
+  <!-- ===== CONSTRUCTIVISM ===== -->
+  <section>
+    <h2><span class="num">04</span> Constructivism &amp; Constructionism — Unit 2.1.3</h2>
+    <span class="theory-tag t-con">build knowledge</span>
+    <p>Generally a <strong>branch of cognitivism</strong>, but it treats the world as <em>less</em> external and objective. Constructivists argue learning is <strong>creating meaning from experience</strong> — we <em>create</em> knowledge rather than acquire it. Learners build internal representations from their own experiences and interactions, always open to revision. <strong>John Dewey</strong> is its philosophical founder: he rejected drill and rote in favor of <strong>"directed living"</strong> — real-world activity that demands thinking, from which <em>"learning naturally results."</em> It's compatible with both Piagetian and Vygotskian views (deep structures built over time, through social interaction).</p>
+
+    <div class="card">
+      <dl class="kv">
+        <dt>Theory theory</dt>
+        <dd>Researchers applying constructivism to intuitive theories. The theories are <strong>defeasible</strong> — flexibly revised from observation, like scientific inquiry. This straddles cognitivism and constructivism.</dd>
+        <dt>Inductive inference</dt>
+        <dd>Children also learn by <strong>guessing general rules from a few observations</strong>, guided by prior knowledge ("inductive biases"). E.g. infants expect a <em>human hand</em> (but not a robotic claw) to keep pursuing a toy that has moved — they attribute goals to agents. This contrasts with behaviorism's bottom-up-only account.</dd>
+        <dt>Constructionism</dt>
+        <dd><strong>"Learning through making."</strong> <strong>Seymour Papert</strong>: we learn best by <em>doing</em>, and better still by <em>talking and thinking</em> about what we made — "especially felicitously" when consciously building a <em>public</em> entity. Project-based learning and tools/artifacts/media externalize understanding.</dd>
+      </dl>
+      <p style="font-size:.9rem;color:var(--ink-soft);margin-top:6px"><b>The sibling difference:</b> constructivists care about learning from <em>any</em> experience and reflection on it; constructionists emphasize actually <em>making personally meaningful, often public, things</em>. Both prize learner <strong>agency</strong> and both see learning as deeply social.</p>
+      <div class="terms">
+        <span class="chip">constructivism</span>
+        <span class="chip">constructionism</span>
+        <span class="chip">inductive inference</span>
+        <span class="chip">Dewey · Papert</span>
+        <span class="chip">learner agency</span>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px"><b>Nyan, constructivist/constructionist:</b> group interviews with internment survivors (collaborative, inquiry-driven meaning-making), a first-person journal reflection (building internal representations), and a student-made podcast or video (building knowledge through making — with the choice itself giving agency).</p>
+  </section>
+
+  <!-- ===== CRITICAL CONSCIOUSNESS ===== -->
+  <section>
+    <h2><span class="num">05</span> Critical Consciousness &amp; Synthesis — Unit 2.1.4</h2>
+    <span class="theory-tag t-cri">transform society</span>
+    <p>This lens originates <strong>not in a view of cognition but in a view of social reality</strong>: what we learn, and how, is shaped by the maintenance of some groups' <strong>power</strong>. Beyond describing society's rules and norms, critically conscious thinkers <strong>expose how the "normal" advantages the powerful at others' expense</strong>. Brazilian educator <strong>Paulo Freire</strong> advanced this framework in the 1970s. Critically conscious learners actively <strong>name and resist injustice</strong> — even questioning "WEIRD" science (Module 1) is a small act of it.</p>
+
+    <div class="card">
+      <h3 style="margin-top:0">Double consciousness</h3>
+      <p style="margin-top:4px"><strong>W.E.B. Du Bois (1903)</strong>: the experience of seeing oneself through <em>both</em> one's own authentic lived experience <em>and</em> the "jarring, denigrating view" of dominant groups. (Harvard gave Du Bois — among its most influential graduates — only partial credit for his Fisk HBCU degree.) The dominant story protects the powerful but is <em>harmfully inaccurate</em> and ignores the lived reality of the subordinated. Scholars extend it to gender, sexuality, class, citizenship, religion, and more — e.g. Thai <em>kathoey</em> identities and Afro-Brazilian "double linguistic consciousness."</p>
+      <div class="terms">
+        <span class="chip">critical consciousness</span>
+        <span class="chip">conscientização (Freire)</span>
+        <span class="chip">double consciousness (Du Bois)</span>
+        <span class="chip">power &amp; oppression</span>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px"><b>Nyan, critical:</b> researching whether internment is isolated or echoed today, contrasting an official military history with survivor-centered accounts (whose perspectives get told?), and connecting to modern family separation at the border and the activists resisting it.</p>
+
+    <div class="bigidea" style="margin-top:18px">
+      <strong>Thinking across theories:</strong> none is "the right one." Each clarifies some of learning and obscures the rest, so we risk an incomplete picture if we don't put them in dialogue. Use them to <strong>diagnose the assumptions</strong> behind a learning experience and to <strong>re-frame</strong> it with an alternative when that better serves your goals.
+    </div>
+  </section>
+
+  <!-- ===== COMPARISON TABLE ===== -->
+  <section>
+    <h2><span class="num">06</span> The four theories at a glance</h2>
+    <p>One synthesis table — the spine of this sequence. Read each row across to see how the lens shifts.</p>
+    <div class="card" style="padding:6px 10px;overflow-x:auto">
+      <table class="vs">
+        <thead>
+          <tr><th></th><th>Behaviorism</th><th>Cognitivism</th><th>Constructivism &amp; -ism</th><th>Critical Consciousness</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>View of mind</td>
+            <td>A "black box" — irrelevant; study inputs &amp; outputs only</td>
+            <td>Open it up — concepts, schemas, intuitive theories inside</td>
+            <td>Mind builds internal models; world is less external/objective</td>
+            <td>Mind situated in society; cognition shaped by power</td>
+          </tr>
+          <tr>
+            <td>What's learned</td>
+            <td>Stimulus → response associations (conditioning)</td>
+            <td>Changed/elaborated mental representations &amp; schemas</td>
+            <td>Self-created meaning from experience; made artifacts</td>
+            <td>Awareness of injustice; the hidden workings of power</td>
+          </tr>
+          <tr>
+            <td>Role of learner</td>
+            <td>Reactive — responds to stimuli &amp; consequences</td>
+            <td>Active processor — plans, relates, reorganizes</td>
+            <td>Agentic maker — constructs knowledge, often publicly</td>
+            <td>Critical agent — names &amp; resists oppression</td>
+          </tr>
+          <tr>
+            <td>Classroom move</td>
+            <td>Reinforce desired behavior; quizzes, points, immediate feedback</td>
+            <td>Surface &amp; reshape schemas; analogies, concept maps</td>
+            <td>Inquiry, projects, making, collaboration, reflection</td>
+            <td>Examine whose story is told; connect to today; act for justice</td>
+          </tr>
+          <tr>
+            <td>Key figures</td>
+            <td>Pavlov · Skinner</td>
+            <td>(schema / intuitive-theory researchers; Keil)</td>
+            <td>Dewey · Papert</td>
+            <td>Freire · Du Bois</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">07</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Every key term from the four units' glossaries. Try to define each before you reveal it.</p>
+
+    <details>
+      <summary>behaviorism</summary>
+      <div class="def">A theory of learning suggesting that people's behaviors are responses to environmental stimuli, and thus can be shaped by conditioning.
+        <span class="eg">Treats the mind as a "black box" — only inputs and outputs matter.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>conditioning</summary>
+      <div class="def">The process of a person associating certain stimuli with particular behaviors.</div>
+    </details>
+
+    <details>
+      <summary>classical conditioning</summary>
+      <div class="def">Learning that occurs from repeated pairing of two stimuli, one neutral and the other biologically potent and able to provoke a response. Eventually the neutral stimulus alone provokes the same response as the potent stimulus.
+        <span class="eg">Pavlov's bell → salivation. Association only; no reward or punishment.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>operant conditioning</summary>
+      <div class="def">Learning in which the strength of a behavior is reinforced through reward (or omission of reward) or through punishment.
+        <span class="eg">Skinner's domain — the basis of behaviorist teaching.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>bottom-up, associative learning</summary>
+      <div class="def">A way of learning by forming connections based on repeated experiences; starts from basic sensory information but can build to more complex representations. The stimulus drives the response; no cognition or reflection is brought in.</div>
+    </details>
+
+    <details>
+      <summary>rote learning</summary>
+      <div class="def">A memorization technique using repetitions, often without full understanding of the content or deployment of reflective, "top-down" engagement with the material.</div>
+    </details>
+
+    <details>
+      <summary>reinforcement learning</summary>
+      <div class="def">A type of learning where a learner (or algorithm, in machine learning) learns to make decisions by receiving rewards or penalties for its actions.
+        <span class="eg">How models like ChatGPT train — bottom-up, no real "understanding."</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>cognitivism</summary>
+      <div class="def">A theory positing that learning is an active mental process of changing mental representations and structures.
+        <span class="eg">The mind is absolutely <em>not</em> a black box.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>schemas</summary>
+      <div class="def">Organized mental systems of information, ideas, meanings, conditions, and the relationships among these components. Learning happens by changing or elaborating them.</div>
+    </details>
+
+    <details>
+      <summary>intuitive theory</summary>
+      <div class="def">An abstract, causal mental framework that supports prediction, explanation, reasoning, and exploration.
+        <span class="eg">"I goed" — a child applies an abstract rule before learning the irregular exception.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>constructivism</summary>
+      <div class="def">A theory that posits learning is a process of creating meaning from experience — building and modifying internal representations of knowledge based on one's individual experiences and interactions.</div>
+    </details>
+
+    <details>
+      <summary>constructionism</summary>
+      <div class="def">A theory that people learn best when engaged in making tangible objects.
+        <span class="eg">Papert's "learning through making" — often building a public entity.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>inductive inference</summary>
+      <div class="def">A type of reasoning or learning where one makes a general guess or prediction based on a few specific observations or examples.
+        <span class="eg">Depends on prior "inductive biases" shaping how the learner generalizes.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>critical consciousness</summary>
+      <div class="def">The view that what and how we learn are shaped by the systems of power and oppression within society.
+        <span class="eg">Freire's framework: name and resist injustice (conscientização).</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>double consciousness</summary>
+      <div class="def">W. E. B. Du Bois's description of the experience of members of oppressed social groups seeing the world through both their own authentic lived experiences and simultaneously through the jarring, denigrating view of socially dominant groups.</div>
+    </details>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Four lenses, one lesson.</strong> Behaviorism, cognitivism, constructivism, and critical consciousness each foreground different parts of learning — none is "the right one."</li>
+      <li><strong>The spectrum runs outside → inside → made → social.</strong> Black box (behavior) → open mind (schemas) → builds knowledge (meaning &amp; making) → transforms society (power).</li>
+      <li><strong>Behaviorism = stimulus &amp; response.</strong> Learning by conditioning (classical = association; operant = reward/punishment); the mind is ignored.</li>
+      <li><strong>Cognitivism &amp; constructivism open and build the mind.</strong> Cognitivists reshape <em>schemas</em>; constructivists/constructionists say we <em>create</em> knowledge — especially by making things (Dewey, Papert).</li>
+      <li><strong>Critical consciousness asks "whose power?"</strong> Freire and Du Bois: learning means seeing and resisting how the "normal" advantages some at others' expense (double consciousness).</li>
+      <li><strong>Switch lenses on purpose.</strong> Use the theories to diagnose the assumptions behind a learning experience and re-frame it when another lens serves learners better.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 2 · Theories of Learning · study notes</footer>
+
+</div>
+</body>
+</html>

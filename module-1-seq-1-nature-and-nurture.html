@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 1 · Sequence 1 — Nature &amp; Nurture · Study Notes</title>
+<style>
+  :root{
+    --ink:#16271f;
+    --ink-soft:#3f5b4d;
+    --paper:#f1f7f3;
+    --emerald:#1f8a5b;
+    --emerald-bright:#27a86f;
+    --emerald-deep:#0f5538;
+    --teal:#1f9d8f;
+    --amber:#c98a1e;
+    --rose:#d8557f;
+    --line:#cfe5d8;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(15,85,56,.12);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    /* faint organic texture: growth & development */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(31,138,91,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(31,157,143,.07) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#0c4a30,#1f8a5b 70%,#27a86f);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#c8f0db;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#dcf4e8;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--emerald);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(31,157,143,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--emerald-bright);
+    background:linear-gradient(90deg,rgba(39,168,111,.10),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--emerald)}
+
+  /* key-points list */
+  .keys{list-style:none;margin:12px 0 0;padding-left:0}
+  .keys li{position:relative;padding:6px 0 6px 26px;border-bottom:1px dashed var(--line)}
+  .keys li:last-child{border-bottom:none}
+  .keys li::before{content:"▸";position:absolute;left:4px;color:var(--emerald)}
+  .keys b{color:var(--emerald-deep)}
+
+  /* contrast table */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--ink-soft)}
+  table.vs thead th:nth-child(3){color:var(--emerald)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:26%}
+  table.vs tr td:nth-child(3){background:rgba(31,138,91,.05)}
+
+  /* figures */
+  .schemafig{margin:6px 0 2px}
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* two-pane compare */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .aa .pane.nature h4{color:var(--emerald)}
+  .aa .pane.nurture h4{color:var(--teal)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.gene{background:rgba(31,138,91,.14);color:var(--emerald)}
+  .pill.env{background:rgba(31,157,143,.14);color:var(--teal)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* assumption cards */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--amber);display:block;font-size:.88rem;margin-bottom:4px;font-style:italic;font-weight:600}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+  .it span b{display:inline;font-style:normal;color:var(--emerald-deep);font-family:"SF Mono",monospace;
+    font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;margin:0}
+
+  /* glossary */
+  .gloss details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--emerald);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between}
+  .gloss summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#0c4a30,#157a4f);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#c8f0db;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#8fe0b6}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  a.skip{position:absolute;left:-999px}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+  }
+
+  /* print: expand glossary, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details{break-inside:avoid}
+    .gloss .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.it,.aa .pane,.gloss details{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 1 · Sequence 1</p>
+    <h1>Nature &amp; Nurture</h1>
+    <p class="sub">It was never "either/or." Development is genes <em>and</em> experience, continuously intertwined across a whole lifespan.</p>
+    <div class="tags">
+      <span class="tag">development</span>
+      <span class="tag">nature ⇄ nurture</span>
+      <span class="tag">epigenetics</span>
+      <span class="tag">sensitive periods</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea of the sequence</h2>
+    <p class="lead">"Development" is the process of change over an organism's life toward a more complex organism — but how we <em>define</em> it is loaded with cultural values. This sequence retires the old nature-vs-nurture either/or and replaces it with a richer, biologically grounded picture.</p>
+
+    <div class="bigidea">
+      The big move: stop asking <strong>"nature OR nurture?"</strong> Human development is a product of <strong>both genes and experience</strong>, and modern biology (<strong>epigenetics</strong>) shows they are <strong>actively and continuously intertwined</strong>. The <em>timing</em> of experience also matters — there are <strong>sensitive periods</strong> when experience has outsized, lasting effects — yet the brain stays plastic and "adult" never means "finished growing."
+    </div>
+
+    <div class="card">
+      <ul class="keys">
+        <li><b>1.1.1</b> — What we even mean by "development" is culturally and historically shaped; take a critical stance toward whose research defines it.</li>
+        <li><b>1.1.2</b> — The classic debate runs from pure heredity to the "blank slate" (tabula rasa); educators' beliefs carry hidden assumptions.</li>
+        <li><b>1.1.3</b> — Science says it's both: epigenetics is the mechanism by which environment switches genes on and off.</li>
+        <li><b>1.1.4</b> — Timing matters: critical vs. sensitive periods — but stay skeptical of overgeneralized claims about people.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 1.1.1 ===== -->
+  <section>
+    <h2><span class="num">02</span> 1.1.1 · Thinking about "Development"</h2>
+    <p>Words like <em>learn</em> and <em>develop</em> are not neutral — they're "laden with underlying values and interpretations." Dr. Barry Brazelton's relational, child-centered view of the newborn is a <strong>contemporary, Western</strong> conception, not a universal truth.</p>
+
+    <h3>Key moves</h3>
+    <ul class="keys">
+      <li>Ideas about childhood are rooted in <b>specific intellectual, social, and cultural contexts</b>; until the last century, prevailing views of childhood were very different.</li>
+      <li>We still debate what makes childhood/adolescence <b>distinct from adulthood</b>, what's biology vs. experience, and what that means for teaching.</li>
+      <li><i>The Scientist in the Crib</i> argues even very young children have <b>innate motivation to learn</b> by exploring — purposeful, like little adults.</li>
+      <li>Some concepts (germs, deities) can <b>only</b> be learned from other people; even grade-by-age schooling is debated (mixed-age grouping may sometimes be better).</li>
+      <li><b>Development is lifelong</b> — "adult" does not mean "finished changing."</li>
+    </ul>
+
+    <div class="bigidea">
+      <strong>Take a critical stance.</strong> Most research evidence has been shaped by European and North American academic traditions. Theories rarely represent <em>holistic</em>, global views of development, so evaluate your sources critically and watch for under- or misrepresented perspectives.
+    </div>
+  </section>
+
+  <!-- ===== 1.1.2 ===== -->
+  <section>
+    <h2><span class="num">03</span> 1.1.2 · Perspectives on Nature &amp; Nurture</h2>
+    <p>When does nature vs. nurture exert the greater influence? The debate stretches between two extremes:</p>
+
+    <div class="aa">
+      <div class="pane nature">
+        <h4>Nature <span class="pill gene">heredity</span></h4>
+        <p>Most of who we become is shaped by <strong>heredity</strong> — the genes and bodies we're born with.</p>
+        <p class="ex"><b>Extreme view:</b> personhood is largely fixed at birth.</p>
+      </div>
+      <div class="pane nurture">
+        <h4>Nurture <span class="pill env">tabula rasa</span></h4>
+        <p>Each of us is born a <strong>"blank slate" (tabula rasa)</strong> that fills in through stimuli and varied experience in the world.</p>
+        <p class="ex"><b>Extreme view:</b> who we become is written entirely by environment.</p>
+      </div>
+    </div>
+
+    <h3>Beliefs carry hidden assumptions</h3>
+    <p>Educators' opinions about biology vs. environment smuggle in assumptions that shape practice. The unit surfaces them:</p>
+    <div class="it-grid">
+      <div class="it"><b>"Educated parents → kids do well because of inherited capacity."</b><span><b>Assumption</b> Intelligence is primarily determined by heredity.</span></div>
+      <div class="it"><b>"Stressful early home → unlikely to excel academically."</b><span><b>Assumption</b> Early exposure to stress influences cognitive development.</span></div>
+      <div class="it"><b>"A teacher who expects all students can succeed is the top predictor."</b><span><b>Assumption</b> Teacher expectations matter more than pedagogical skill for student growth.</span></div>
+      <div class="it"><b>"Inequitable access by race/income harms outcomes more than bad teaching."</b><span><b>Assumption</b> Institutional factors outweigh interpersonal ones in disadvantaging groups.</span></div>
+      <div class="it"><b>"We need tracks/GATE or too many students aren't at the right level."</b><span><b>Assumption</b> Some students simply can't learn as fast — intelligence is relatively fixed.</span></div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px">↳ Takeaway: there's a full array of views. The essential skill is to think <strong>critically about your own stance</strong> and its implications for working with developing learners.</p>
+  </section>
+
+  <!-- ===== 1.1.3 ===== -->
+  <section>
+    <h2><span class="num">04</span> 1.1.3 · Genetics, Environment &amp; Epigenetics</h2>
+    <p>What does science actually say? Recent biology <strong>upended</strong> last century's assumptions. Genes and experience aren't separate inputs — they are <strong>actively and continuously intertwined</strong>, and the field studying that intersection is <strong>epigenetics</strong>.</p>
+
+    <div class="bigidea">
+      The genetic code is <strong>less like a fixed formula and more like a symphonic score</strong> — interpreted differently by every conductor and orchestra. The environment is the conductor: it decides how and when each part is played. The centrality of both genes and experience is common to us all; the <em>details</em> of the interaction are unique to each person.
+    </div>
+
+    <div class="card schemafig">
+      <svg viewBox="0 0 760 250" role="img" aria-label="Genes and environment connected through epigenetics, which turns genes on and off and shapes development" style="width:100%;height:auto">
+        <defs>
+          <marker id="ar" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto">
+            <path d="M0,0 L9,4.5 L0,9 Z" fill="#1f8a5b"></path>
+          </marker>
+          <marker id="art" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto">
+            <path d="M0,0 L9,4.5 L0,9 Z" fill="#1f9d8f"></path>
+          </marker>
+        </defs>
+        <!-- genes <-> environment two-way -->
+        <line x1="195" y1="78" x2="455" y2="78" stroke="#1f8a5b" stroke-width="3" marker-end="url(#ar)"></line>
+        <line x1="455" y1="104" x2="195" y2="104" stroke="#1f9d8f" stroke-width="3" marker-end="url(#art)"></line>
+        <!-- down to epigenetics -->
+        <line x1="325" y1="120" x2="325" y2="158" stroke="#0f5538" stroke-width="3" marker-end="url(#ar)"></line>
+        <!-- epigenetics to development -->
+        <line x1="455" y1="190" x2="560" y2="190" stroke="#1f8a5b" stroke-width="3" marker-end="url(#ar)"></line>
+
+        <g font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+          <!-- genes -->
+          <rect x="60" y="60" width="135" height="62" rx="12" fill="#e3f3ea" stroke="#1f8a5b" stroke-width="2.5"></rect>
+          <text x="127" y="86" font-size="15" fill="#0f5538" font-weight="700">GENES</text>
+          <text x="127" y="106" font-size="10.5" fill="#3f5b4d">heredity · the score</text>
+
+          <!-- environment -->
+          <rect x="455" y="60" width="160" height="62" rx="12" fill="#e2f4f1" stroke="#1f9d8f" stroke-width="2.5"></rect>
+          <text x="535" y="86" font-size="15" fill="#0d6b61" font-weight="700">ENVIRONMENT</text>
+          <text x="535" y="106" font-size="10.5" fill="#3f5b4d">experience · diet · stress</text>
+
+          <!-- epigenetics -->
+          <rect x="195" y="158" width="260" height="64" rx="14" fill="#fff" stroke="#0f5538" stroke-width="3"></rect>
+          <text x="325" y="183" font-size="15" fill="#0f5538" font-weight="700">EPIGENETICS</text>
+          <text x="325" y="203" font-size="10.5" fill="#3f5b4d">switches genes "on" / "off"</text>
+
+          <!-- development -->
+          <rect x="560" y="160" width="150" height="60" rx="12" fill="#e3f3ea" stroke="#1f8a5b" stroke-width="2.5"></rect>
+          <text x="635" y="186" font-size="14" fill="#0f5538" font-weight="700">DEVELOPMENT</text>
+          <text x="635" y="205" font-size="10.5" fill="#3f5b4d">unique to each person</text>
+        </g>
+        <text x="325" y="50" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#1f8a5b">continuously intertwined — both ways</text>
+      </svg>
+      <p class="figcap">Environment doesn't rewrite the DNA letters — it changes which genes are expressed, shaping development.</p>
+    </div>
+
+    <h3>What epigenetics tells us (Check-for-Understanding)</h3>
+    <ul class="keys">
+      <li>There <b>is</b> a biological mechanism by which environment influences biology — epigenetics studies that interaction.</li>
+      <li>Positive and negative environments can have a <b>lasting impact</b> on which genes are turned on and off.</li>
+      <li>Triggers include <b>social experiences, diet, chemical exposure, and medication</b> — not just one kind of factor.</li>
+      <li>Crucially, it <b>does not change the genetic code itself</b> — it modifies gene <em>expression</em>.</li>
+      <li>Most epigenetic marks are <b>erased</b>, but some <b>may be passed to subsequent generations</b>.</li>
+    </ul>
+  </section>
+
+  <!-- ===== 1.1.4 ===== -->
+  <section>
+    <h2><span class="num">05</span> 1.1.4 · Brain Development &amp; "Sensitive Periods"</h2>
+    <p>Are there times when experience has a <em>pronounced</em> influence? In the animal kingdom, <strong>goslings imprint</strong> during a rigid <strong>critical period</strong> — miss it and they won't imprint under any conditions. Humans are different: we <strong>attach</strong> rather than imprint, over a longer, fuzzier window.</p>
+
+    <h3>Critical vs. sensitive period</h3>
+    <div class="card" style="padding:6px 10px">
+      <table class="vs">
+        <thead>
+          <tr><th></th><th>Critical period</th><th>Sensitive period</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>The window</td><td>Defined beginning &amp; end — narrow, rigid</td><td>Fuzzy beginning &amp; end — broader, looser</td></tr>
+          <tr><td>If experience is missed</td><td>Capacity may <em>never</em> develop normally</td><td>Skill can still develop later, but with possible lasting impairment</td></tr>
+          <tr><td>Example</td><td>First-language exposure; losing ability to hear non-native sound contrasts (English baby loses Mandarin tones)</td><td>Early childhood as the easier window for language &amp; many other domains</td></tr>
+          <tr><td>Animal analogy</td><td>Goslings imprinting in hours</td><td>Humans' extended early childhood</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The neuroscience</h3>
+    <ul class="keys">
+      <li>In the first years, as many as <b>a million new neural connections form per second</b>; basic brain architecture takes shape early.</li>
+      <li>Unused connections are <b>"pruned,"</b> making circuits more efficient — a neurological basis for why timing of experience matters.</li>
+      <li>Brains <b>keep changing into adulthood</b>, but later experience tends to <b>strengthen/weaken existing connections</b> rather than build millions of new ones — more integrated, efficient networks.</li>
+      <li>Because of <b>lifelong plasticity</b>, many developmentalists now question hard "critical periods" — and even doubt some "sensitive periods." You can learn an additional language at <em>any</em> age, given the right conditions.</li>
+      <li>People differ not just in genes and environments but in <b>susceptibility</b> to those environmental and experiential effects.</li>
+    </ul>
+
+    <div class="bigidea">
+      <strong>Evidence &amp; ethics.</strong> Much of what we know comes from <strong>extreme cases of childhood deprivation</strong> (Robson, 2002). The resilience of deprived children given later care suggests early childhood is better called a <strong>"sensitive"</strong> than a <strong>"critical"</strong> period for language &amp; social development. Throughout, keep an <strong>active, healthy skepticism</strong> toward claims that overgeneralize about complex, diverse humans.
+    </div>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>Piaget</summary>
+      <div class="def">Theorist who proposed that development consists of successive, qualitatively different stages through which individuals pass.
+        <span class="eg">Stage theory: each stage is a distinct kind of thinking, not just "more" of the previous one.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>development</summary>
+      <div class="def">The process of change that occurs during an organism's life to produce a more complex organism.
+        <span class="eg">And remember — it's lifelong; "adult" doesn't mean "finished."</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>nature</summary>
+      <div class="def">The contribution of heredity — the genes and bodies we're born with — to who we become. The extreme "nature" position holds that most of our personhood is shaped by heredity.
+        <span class="eg">One end of the long-standing nature/nurture debate.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>nurture</summary>
+      <div class="def">The contribution of environment and experience to development. The extreme "nurture" position is the <em>tabula rasa</em>: we are born blank slates filled in by stimuli and experience.
+        <span class="eg">The opposite pole from "nature" — though science now says it's both.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>tabula rasa</summary>
+      <div class="def">"Blank slate" — the view that a person is born without built-in content and is wholly filled in by experience and the stimuli they encounter in the world.
+        <span class="eg">The extreme nurture stance.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>epigenetics</summary>
+      <div class="def">The study of changes in organisms caused by environmentally induced modification of gene <em>expression</em>, rather than alteration of the genetic code itself.
+        <span class="eg">The environment turns genes "on" and "off" — the score stays the same, the performance changes.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>sensitive period</summary>
+      <div class="def">A period during which the presence or absence of certain forms of experience have particularly large consequences for development.
+        <span class="eg">Fuzzy edges: skills can still develop afterward, but missing the window can leave lasting impairment.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>critical period</summary>
+      <div class="def">A period of time in which a specific event or stimulus must be encountered for normal development to occur.
+        <span class="eg">Narrow and rigid — like goslings imprinting, or first-language exposure in humans.</span>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Not either/or.</strong> Development is genes <em>and</em> experience, continuously intertwined — and it lasts a lifetime.</li>
+      <li><strong>"Development" is culturally loaded.</strong> Most evidence comes from Western traditions; take a critical stance on whose view defines it.</li>
+      <li><strong>Beliefs hide assumptions.</strong> Educators' nature/nurture opinions carry assumptions (e.g. "intelligence is fixed") that shape practice.</li>
+      <li><strong>Epigenetics is the mechanism.</strong> Environment switches genes on/off without changing the code; effects can be lasting and sometimes heritable.</li>
+      <li><strong>Timing matters.</strong> Critical periods are narrow and rigid; sensitive periods are broad and fuzzy. The brain stays plastic — you can learn a second language at any age.</li>
+      <li><strong>Stay skeptical.</strong> Resist overgeneralized claims; people differ in genes, environments, <em>and</em> their susceptibility to experience.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 1 · Nature &amp; Nurture · study notes</footer>
+
+</div>
+</body>
+</html>

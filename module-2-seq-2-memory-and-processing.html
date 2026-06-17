@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 2 · Sequence 2 — Memory &amp; Active Processing · Study Notes</title>
+<style>
+  :root{
+    --ink:#161531;
+    --ink-soft:#403d6b;
+    --paper:#f4f5fb;
+    --indigo:#3b4cc0;
+    --indigo-bright:#5566de;
+    --teal:#1f8f9d;
+    --amber:#d98a1f;
+    --rose:#d8557f;
+    --line:#d4d6ef;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(28,30,90,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    /* faint connected-node texture: memory as a network */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(59,76,192,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(31,143,157,.08) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#1b2270,#3b4cc0 70%,#5566de);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#ccd2ff;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#dfe3fc;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--indigo);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(31,143,157,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--indigo-bright);
+    background:linear-gradient(90deg,rgba(85,102,222,.08),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--indigo)}
+
+  /* information-processing flow motif */
+  .openbox{display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .ob-node{background:#fff;border:2px solid var(--indigo);color:var(--indigo);
+    padding:10px 16px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center}
+  .ob-mind{background:#fff;border:2px dashed var(--teal);color:var(--teal);
+    padding:12px 18px;border-radius:12px;position:relative}
+  .ob-mind small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px}
+  .ob-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* contrast / comparison table */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--ink-soft)}
+  table.vs thead th:nth-child(3){color:var(--indigo)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:26%}
+  table.vs tr td:nth-child(3){background:rgba(59,76,192,.05)}
+
+  /* figure caption */
+  .schemafig{margin:6px 0 2px}
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* two-pane grids (declarative/procedural; load panes) */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .aa .pane.assim h4{color:var(--teal)}
+  .aa .pane.accom h4{color:var(--rose)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.fit{background:rgba(31,143,157,.14);color:var(--teal)}
+  .pill.reshape{background:rgba(216,85,127,.14);color:var(--rose)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* three load cards */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--amber);display:block;font-size:.95rem;margin-bottom:2px}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+  .it.intrinsic{border-left-color:var(--rose)} .it.intrinsic b{color:var(--rose)}
+  .it.extraneous{border-left-color:var(--ink-soft)} .it.extraneous b{color:var(--ink-soft)}
+  .it.germane{border-left-color:var(--teal)} .it.germane b{color:var(--teal)}
+
+  /* numbered strategy steps */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--indigo);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal);background:rgba(31,143,157,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* glossary */
+  .gloss details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--indigo);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between}
+  .gloss summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#1b2270,#2f3aa0);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#ccd2ff;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#9fb0ff}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  a.skip{position:absolute;left:-999px}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details{break-inside:avoid}
+    .gloss .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.step,.it,.aa .pane,.gloss details{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 2 · Sequence 2</p>
+    <h1>Memory &amp; Active Processing</h1>
+    <p class="sub">Working memory is a bottleneck. Learning means managing what passes through it — and what we actively do with it.</p>
+    <div class="tags">
+      <span class="tag">working &amp; long-term memory</span>
+      <span class="tag">cognitive load</span>
+      <span class="tag">memory strategies</span>
+      <span class="tag">active processing</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">Every performance — a sport, a test, a job interview, making breakfast — taxes our memory. But we can only handle <strong>so much information at once</strong>, especially under stress. As educators we ask: in <em>this</em> situation, are we being mindful of learners' memory capacities, and what can we do to optimize memory?</p>
+
+    <div class="bigidea">
+      Think of human memory like a computer's <strong>bandwidth</strong> and <strong>storage</strong>. <strong>Bandwidth</strong> = how much we can process at one time (this is <strong>working memory</strong>, and it is very limited). <strong>Storage</strong> = how much we can keep over time (this is <strong>long-term memory</strong>, and it is vast). Good teaching protects the narrow bandwidth so more can reach the deep storage.
+    </div>
+
+    <div class="card">
+      <div class="openbox">
+        <div class="ob-node">SENSORY<br>register</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-mind">WORKING MEMORY<small>process · transform · make meaning</small></div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">LONG-TERM<br>memory</div>
+      </div>
+      <p class="figcap">Attention gates the first arrow; active processing &amp; encoding drive the second; retrieval pulls back the other way.</p>
+    </div>
+  </section>
+
+  <!-- ===== 2.2.1 TYPES OF MEMORY & KNOWLEDGE ===== -->
+  <section>
+    <h2><span class="num">02</span> Types of memory &amp; knowledge <span style="font-size:.7rem;font-family:'SF Mono',monospace;color:var(--ink-soft)">· 2.2.1</span></h2>
+    <p>Human memory has three key components, and the knowledge stored in long-term memory comes in two flavors.</p>
+
+    <div class="card schemafig">
+      <svg viewBox="0 0 760 250" role="img" aria-label="Information-processing model: sensory register feeds working memory which exchanges with long-term memory" style="width:100%;height:auto">
+        <defs>
+          <marker id="arrow" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#3b4cc0"></path>
+          </marker>
+          <marker id="arrowT" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#1f8f9d"></path>
+          </marker>
+        </defs>
+        <!-- boxes -->
+        <g font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+          <rect x="24" y="92" width="150" height="74" rx="12" fill="#fff" stroke="#3b4cc0" stroke-width="2.5"></rect>
+          <text x="99" y="124" font-size="14" font-weight="700" fill="#1b2270">Sensory</text>
+          <text x="99" y="142" font-size="14" font-weight="700" fill="#1b2270">register</text>
+
+          <rect x="300" y="78" width="170" height="102" rx="12" fill="#eef0fc" stroke="#3b4cc0" stroke-width="3"></rect>
+          <text x="385" y="116" font-size="15" font-weight="700" fill="#1b2270">Working</text>
+          <text x="385" y="136" font-size="15" font-weight="700" fill="#1b2270">memory</text>
+          <text x="385" y="158" font-size="10" fill="#403d6b">limited · ~7±2 chunks</text>
+
+          <rect x="592" y="92" width="150" height="74" rx="12" fill="#e4f3f5" stroke="#1f8f9d" stroke-width="2.5"></rect>
+          <text x="667" y="118" font-size="14" font-weight="700" fill="#0e6470">Long-term</text>
+          <text x="667" y="136" font-size="14" font-weight="700" fill="#0e6470">memory</text>
+          <text x="667" y="154" font-size="10" fill="#0e6470">vast storage</text>
+        </g>
+        <!-- arrows -->
+        <line x1="176" y1="129" x2="296" y2="129" stroke="#3b4cc0" stroke-width="2.5" marker-end="url(#arrow)"></line>
+        <text x="236" y="118" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10.5" fill="#3b4cc0">attention</text>
+
+        <line x1="474" y1="118" x2="588" y2="118" stroke="#3b4cc0" stroke-width="2.5" marker-end="url(#arrow)"></line>
+        <text x="531" y="108" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10.5" fill="#3b4cc0">encoding</text>
+
+        <line x1="588" y1="146" x2="474" y2="146" stroke="#1f8f9d" stroke-width="2.5" marker-end="url(#arrowT)"></line>
+        <text x="531" y="166" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10.5" fill="#1f8f9d">retrieval</text>
+
+        <text x="99" y="74" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#403d6b">stimuli in</text>
+        <text x="385" y="206" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10.5" fill="#403d6b">where meaning is made</text>
+      </svg>
+      <p class="figcap">The information-processing model. Only what you <em>attend to</em> enters working memory; only what you <em>process</em> reaches long-term storage.</p>
+    </div>
+
+    <h3>Two kinds of knowledge in long-term memory</h3>
+    <div class="aa">
+      <div class="pane assim">
+        <h4>Declarative <span class="pill fit">knowing what</span></h4>
+        <p>Facts, information, and events — expressed through <strong>recognition and recall</strong>. The conscious "what."</p>
+        <p class="ex"><b>e.g.</b> Recalling traffic laws for a written driver's-license exam; naming math principles.</p>
+      </div>
+      <div class="pane accom">
+        <h4>Procedural <span class="pill reshape">knowing how</span></h4>
+        <p>How to <strong>perform a task</strong> — actions, skills, processes. With practice it becomes fluent and runs <em>without</em> taxing working memory.</p>
+        <p class="ex"><b>e.g.</b> An expert chef cooking quickly while chatting; a driver shifting feet between pedals automatically.</p>
+      </div>
+    </div>
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-top:12px">↳ Most real tasks mix both. Experts <strong>proceduralize</strong> routines to free up working memory (Ramsay vs. amateur cook). Catch faulty procedures <strong>early</strong> — bad habits are hard to relearn later. Education also teaches learners to <em>integrate</em> declarative and procedural knowledge.</p>
+
+    <div class="bigidea" style="margin-top:18px">
+      <strong>Worked examples.</strong> To build procedural knowledge, studying a few <strong>worked examples</strong> — and explaining why each step is right or wrong — beats grinding through many problems. It forces "minds-on" thinking, reduces extraneous detail, and (per HGSE's Jon Star &amp; Rittle-Johnson) <strong>comparing</strong> two solved approaches deepens both procedural skill and conceptual understanding.
+    </div>
+  </section>
+
+  <!-- ===== 2.2.2 COGNITIVE LOAD ===== -->
+  <section>
+    <h2><span class="num">03</span> Cognitive load <span style="font-size:.7rem;font-family:'SF Mono',monospace;color:var(--ink-soft)">· 2.2.2</span></h2>
+    <p><strong>Cognitive load</strong> is the total amount of information processed in working memory at any one time — and it is <strong>limited</strong>. (It's actually fortunate it's limited: people with "highly superior autobiographical memory" / HSAM can't forget the trivial, which interferes with focusing on the present.) Total load is theorized to have <strong>three types</strong>, and they trade off — a lot of one leaves less room for the other two.</p>
+
+    <div class="it-grid">
+      <div class="it intrinsic"><b>Intrinsic</b><span>Processing the task <em>inherently</em> requires. Fixed by the task's difficulty — <strong>can't be changed</strong>. Spelling "chaperone" &gt; spelling "mom."</span></div>
+      <div class="it extraneous"><b>Extraneous</b><span>Processing spent on <em>unnecessary</em> components. <strong>Should be reduced</strong> by good design — e.g. wordy math problems vs. clean equations.</span></div>
+      <div class="it germane"><b>Germane</b><span>Processing that builds <em>learning and understanding</em>; key for storing in long-term memory. <strong>Should be maximized</strong>.</span></div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <p style="margin:0;font-size:.95rem"><strong>The teacher's move:</strong> intrinsic load is set by the task. So if a task is demanding, <strong>cut extraneous load</strong> (remove clutter and distractions) to free mental resources for <strong>germane load</strong> — understanding the problem and how it connects to others. Provide <strong>scaffolds</strong> that break tasks into well-sequenced chunks and link new info to prior learning.</p>
+    </div>
+
+    <div class="bigidea" style="margin-top:16px">
+      <strong>Choking under pressure.</strong> Beilock's soccer-dribbling study: making expert players attend to step-by-step details of an already-proceduralized skill made them <em>slower and more error-prone</em>. Anxiety and worry consume working memory, so even champions can "choke" — performance suffers when working memory is occupied by something other than the task.
+    </div>
+  </section>
+
+  <!-- ===== 2.2.3 STRATEGIES ===== -->
+  <section>
+    <h2><span class="num">04</span> Strategies for improving memory <span style="font-size:.7rem;font-family:'SF Mono',monospace;color:var(--ink-soft)">· 2.2.3</span></h2>
+    <p>Working memory holds only ~7–10 items at once. These five strategies stretch and strengthen what we can process and retain.</p>
+    <div class="lesson">
+      <div class="step">
+        <div class="body">
+          <p class="idea">Group connected pieces of information so they're stored or processed as single units.</p>
+          <p class="mech"><b>Chunking</b> Turns 12 letters (EPAHPLGSEHDE) into 4 meaningful chunks (EPA·HPL·GSE·HDE). Often implicit, it leans on <em>long-term</em> memory (e.g. sorting names into athletes / presidents / singers) to offload the limited working memory.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">Spread study out over time instead of cramming it into one block.</p>
+          <p class="mech"><b>Spacing</b> The <em>spacing effect</em>: one hour a day for a week (Zara) beats seven hours one Saturday (Jacques). Distributed practice forces repeated review, new associations, and elaboration each time.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">Alternate between topics rather than studying one in a long block.</p>
+          <p class="mech"><b>Interleaving</b> Mixing problems (ABAB… or random) forces learners to spot each problem's deeper structure and <em>choose</em> a strategy, boosting cognitive flexibility. Baseball hitters who practiced randomly-ordered pitches outperformed blocked-practice hitters in gamelike conditions. Interleaving also builds in spacing and retrieval.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">Practice retrieving information instead of just rereading it.</p>
+          <p class="mech"><b>Testing effect</b> Roediger &amp; Karpicke: rereading wins after 5 minutes, but recalling wins after 2 days and a week. Each act of retrieval makes the next easier and strengthens cue→answer links. Pair with <strong>feedback</strong> — otherwise learners cement wrong answers. Strongest for simpler declarative facts.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">Teach or coach someone else what you're trying to learn.</p>
+          <p class="mech"><b>Protégé effect</b> Teaching drives active retrieval (the testing effect again), forces you to reorganize knowledge, and engages metacognition. Merely <em>expecting</em> to teach can boost learning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2.2.4 ACTIVE PROCESSING ===== -->
+  <section>
+    <h2><span class="num">05</span> Active processing <span style="font-size:.7rem;font-family:'SF Mono',monospace;color:var(--ink-soft)">· 2.2.4</span></h2>
+    <p>The Ball-Passing (selective-attention) task shows that <strong>only what you attend to enters working memory</strong> from the sensory register — and <strong>attention is an active process</strong>, never passive. But attention is only the first step.</p>
+
+    <div class="bigidea">
+      <strong>Active processing</strong> = manipulating knowledge in working memory: <strong>linking</strong> it to what you already know, <strong>revising</strong> it, <strong>relating</strong> it to other knowledge, or <strong>applying</strong> it. Simply adding information to working memory won't change how learners reason — processing turns information into usable knowledge. This, too, cannot happen passively.
+    </div>
+
+    <div class="card">
+      <p style="margin:0 0 6px"><strong>Design heightens the odds.</strong> Learners decide whether to process actively, but learning environments can be designed to make it more likely. Re-representing a problem in a new format, explaining it to someone else, or relating it to earlier learning all force active re-working. This is what educators mean by <strong>"active learning."</strong></p>
+      <p class="ex" style="font-size:.86rem;color:var(--ink-soft);margin-top:10px;border-top:1px dashed var(--line);padding-top:8px"><b>Notes &amp; flashcards:</b> handwriting notes (selecting, paraphrasing) beats verbatim typing for deep processing; routine highlighting doesn't reliably help. Flashcards work <em>if</em> they promote processing — making your own, elaborating answers, delaying feedback — rather than rote recall.</p>
+    </div>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>working memory</summary>
+      <div class="def">Part of the memory system that facilitates planning, comprehension, reasoning, and problem-solving by allowing the short-term retention and <em>manipulation</em> of a limited amount of information at any one time.
+        <span class="eg">The "bandwidth" of the mind — narrow, ~7±2 chunks, where meaning is made.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>declarative knowledge</summary>
+      <div class="def">Learning of facts, information, and events, often expressed in terms of recognition and recall — "knowing what."
+        <span class="eg">Reciting traffic laws for a written test.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>procedural knowledge</summary>
+      <div class="def">Learning related to how to perform a task — "knowing how." With practice it proceduralizes and runs without taxing working memory.
+        <span class="eg">An expert chef cooking fluently while talking.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>worked example</summary>
+      <div class="def">A step-by-step demonstration of how to complete a task or solve a problem; studying and explaining these builds procedural knowledge more efficiently than repetitive practice.
+        <span class="eg">Comparing two solved algebra problems and explaining why each step works.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>cognitive load</summary>
+      <div class="def">The total amount of information that can be processed in our working memory at any given time. It is limited; its three types trade off against one another.</div>
+    </details>
+
+    <details>
+      <summary>intrinsic cognitive load</summary>
+      <div class="def">The information-processing capacity necessary for performing a task. It is inherent to the nature of the task and cannot be changed.
+        <span class="eg">Spelling "chaperone" carries more intrinsic load than "mom."</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>extraneous cognitive load</summary>
+      <div class="def">The information-processing capacity dedicated to unnecessary components of a task. It can and should be reduced through thoughtful design.
+        <span class="eg">A wordy math word-problem adds extraneous load over a clean equation.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>germane cognitive load</summary>
+      <div class="def">The information-processing capacity essential for learning and understanding to result from performing a task. Important for storing in long-term memory; should be maximized.</div>
+    </details>
+
+    <details>
+      <summary>chunking</summary>
+      <div class="def">Grouping together connected pieces of information during learning so they can be stored or processed as single concepts, leaning on long-term memory to relieve working memory.
+        <span class="eg">EPA · HPL · GSE · HDE — four chunks instead of twelve letters.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>spacing</summary>
+      <div class="def">Segmenting information to be learned, reducing the demands on working memory at any one time and promoting retention. The <em>spacing effect</em>: distributed study beats massed study.</div>
+    </details>
+
+    <details>
+      <summary>interleaving</summary>
+      <div class="def">A process of mixing the order of subjects or topics to improve learning. Forces learners to discriminate deep structure and select strategies, and promotes cognitive flexibility.</div>
+    </details>
+
+    <details>
+      <summary>testing effect</summary>
+      <div class="def">The facilitation of learning by performing repeated tests or acts of retrieval of what has been learned. Each act of retrieval makes future retrieval easier — best paired with feedback.</div>
+    </details>
+
+    <details>
+      <summary>protégé effect</summary>
+      <div class="def">The idea that explaining or teaching a skill, task, or subject to another can deepen the teacher's own retention and conceptual understanding.</div>
+    </details>
+
+    <details>
+      <summary>active processing</summary>
+      <div class="def">The act of manipulating knowledge in working memory: modifying it, revising it, linking it to previous knowledge, or applying it. It cannot happen passively.</div>
+    </details>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Working memory is the bottleneck.</strong> It's tiny (~7±2 chunks); long-term memory is vast. Teach to protect the bottleneck.</li>
+      <li><strong>Attention gates learning.</strong> Only what you actively attend to enters working memory — and attention is never passive.</li>
+      <li><strong>Manage the three loads.</strong> Intrinsic is fixed; cut extraneous, maximize germane. A lot of one leaves less for the others.</li>
+      <li><strong>Declarative vs. procedural.</strong> "Knowing what" vs. "knowing how"; proceduralizing frees working memory, but pressure can make experts choke.</li>
+      <li><strong>Strong study strategies:</strong> chunking, spacing, interleaving, retrieval practice (with feedback), and teaching others.</li>
+      <li><strong>Active processing turns info into knowledge.</strong> Link, revise, relate, apply — that's what "active learning" designs for.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 2 · Memory &amp; Active Processing · study notes · © Harvard content paraphrased for personal study</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 1 · Sequence 3 — Routes &amp; Threats · Study Notes</title>
+<style>
+  :root{
+    --ink:#2a1714;
+    --ink-soft:#6b4a44;
+    --paper:#fbf5f3;
+    --crimson:#c0413b;
+    --crimson-bright:#d85b52;
+    --crimson-dark:#7c211c;
+    --teal:#2f8a7e;
+    --amber:#cf8a2e;
+    --rose:#c0413b;
+    --line:#ecd9d4;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(124,33,28,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(192,65,59,.09) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(47,138,126,.07) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#5a1713,#c0413b 70%,#d85b52);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#ffd9d4;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#fbe4e0;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--crimson);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(47,138,126,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--crimson-bright);
+    background:linear-gradient(90deg,rgba(192,65,59,.08),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--crimson)}
+
+  /* continuum / flow motif */
+  .openbox{display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .ob-node{background:#fff;border:2px solid var(--crimson);color:var(--crimson);
+    padding:10px 16px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center}
+  .ob-mind{background:#fff;border:2px dashed var(--teal);color:var(--teal);
+    padding:12px 18px;border-radius:12px;position:relative}
+  .ob-mind small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px}
+  .ob-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* tables */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--ink-soft)}
+  table.vs thead th:nth-child(3){color:var(--crimson)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:22%}
+  table.vs tr td:nth-child(3){background:rgba(192,65,59,.05)}
+
+  .schemafig{margin:6px 0 2px}
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* two-pane */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .aa .pane.assim h4{color:var(--teal)}
+  .aa .pane.accom h4{color:var(--rose)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.fit{background:rgba(47,138,126,.14);color:var(--teal)}
+  .pill.reshape{background:rgba(192,65,59,.14);color:var(--rose)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* factor cards */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--amber);display:block;font-size:.95rem;margin-bottom:2px}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+  .it.risk{border-left-color:var(--crimson)}
+  .it.risk b{color:var(--crimson)}
+  .it.prot{border-left-color:var(--teal)}
+  .it.prot b{color:var(--teal)}
+
+  /* stepped list */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--crimson);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal);background:rgba(47,138,126,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* glossary */
+  .gloss details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--crimson);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between}
+  .gloss summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#5a1713,#9c2e28);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#ffd9d4;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#ffb0a8}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  a.skip{position:absolute;left:-999px}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  @media print{
+    body{background:#fff}
+    .gloss details{break-inside:avoid}
+    .gloss .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.step,.it,.aa .pane,.gloss details{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 1 · Sequence 3</p>
+    <h1>Routes &amp; Threats to Healthy Development</h1>
+    <p class="sub">Stress can build a learner up or wear them down. The difference isn't the stressor — it's whether <em>supportive relationships and settings</em> buffer it.</p>
+    <div class="tags">
+      <span class="tag">positive · tolerable · toxic stress</span>
+      <span class="tag">buffering</span>
+      <span class="tag">risk &amp; protective factors</span>
+      <span class="tag">settings</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">Development is shaped by the <strong>negative as well as the positive</strong> features of a learner's environment. The central question of this sequence: how do threats in the environment affect development and the capacity to learn — and what protects against them?</p>
+
+    <div class="bigidea">
+      <strong>Manageable stress is good; unmanageable, unbuffered stress is harmful.</strong> What turns a stressor into a threat is not the event itself but the <strong>response</strong> the body has — and whether a <strong>supportive relationship or setting</strong> is there to buffer it. Risk lives in <strong>settings and circumstances, not in people.</strong>
+    </div>
+
+    <div class="card">
+      <div class="openbox">
+        <div class="ob-node">STRESSOR<br>event · adversity</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-mind">⊹ BUFFERING ⊹<small>supportive relationships &amp; settings</small></div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">GROWTH<br>or harm</div>
+      </div>
+      <p class="figcap">The same stressor can promote growth or impede it — buffering decides which.</p>
+    </div>
+  </section>
+
+  <!-- ===== 1.3.1 STRESS ===== -->
+  <section>
+    <h2><span class="num">02</span> Stress, Challenge &amp; Threats <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--ink-soft);font-weight:400">1.3.1</span></h2>
+    <p>Many believe <strong>good stress is crucial</strong> to healthy development — recitals, sports, tests, interviews, new jobs and big projects are all challenges we take on for growth. In the opening clip, Dr. Brazelton introduced an infant to a mild stressor (a rattle) and helped it retreat to "habituated sleep," suggesting tolerable stress helps babies <em>self-organize</em>.</p>
+    <p>But <strong>prolonged, severe, or repeated stress activation in the absence of social support is harmful.</strong> Young children showing a sustained stress response — from neighborhood or war-related violence, abusive parenting, or insecurity about housing and food — show poorer learning, attention, and self-control, with <strong>epigenetic effects</strong> on brain development.</p>
+
+    <div class="bigidea">
+      <strong>"Toxic stress" is a response, not a stressor.</strong> Framing it as the body's <em>reaction</em> (rather than an environmental factor) matters: it avoids wrongly implying caregivers "put" toxic stress on a child. Many causes — like systemic injustice — are outside a caregiver's control.
+    </div>
+
+    <h3>The stress continuum (Center on the Developing Child, 2015)</h3>
+    <div class="card schemafig">
+      <svg viewBox="0 0 760 250" role="img" aria-label="Stress continuum from positive to tolerable to toxic" style="width:100%;height:auto">
+        <defs>
+          <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#2f8a7e"></stop>
+            <stop offset="50%" stop-color="#cf8a2e"></stop>
+            <stop offset="100%" stop-color="#c0413b"></stop>
+          </linearGradient>
+        </defs>
+        <rect x="60" y="30" width="640" height="14" rx="7" fill="url(#grad)"></rect>
+        <polygon points="700,23 730,37 700,51" fill="#c0413b"></polygon>
+        <!-- positive -->
+        <g font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+          <circle cx="140" cy="37" r="9" fill="#fff" stroke="#2f8a7e" stroke-width="3"></circle>
+          <text x="140" y="78" font-size="15" font-weight="700" fill="#2f8a7e">POSITIVE</text>
+          <text x="140" y="100" font-size="11" fill="#6b4a44">brief, mild</text>
+          <text x="140" y="116" font-size="11" fill="#6b4a44">heart rate ↑</text>
+          <text x="140" y="132" font-size="11" fill="#6b4a44">essential &amp; normal</text>
+          <!-- tolerable -->
+          <circle cx="380" cy="37" r="9" fill="#fff" stroke="#cf8a2e" stroke-width="3"></circle>
+          <text x="380" y="78" font-size="15" font-weight="700" fill="#cf8a2e">TOLERABLE</text>
+          <text x="380" y="100" font-size="11" fill="#6b4a44">severe but</text>
+          <text x="380" y="116" font-size="11" fill="#6b4a44">time-limited &amp;</text>
+          <text x="380" y="132" font-size="11" fill="#6b4a44">buffered → recovery</text>
+          <!-- toxic -->
+          <circle cx="620" cy="37" r="9" fill="#fff" stroke="#c0413b" stroke-width="3"></circle>
+          <text x="620" y="78" font-size="15" font-weight="700" fill="#c0413b">TOXIC</text>
+          <text x="620" y="100" font-size="11" fill="#6b4a44">strong, frequent,</text>
+          <text x="620" y="116" font-size="11" fill="#6b4a44">prolonged &amp;</text>
+          <text x="620" y="132" font-size="11" fill="#6b4a44">unbuffered → harm</text>
+        </g>
+        <line x1="380" y1="150" x2="380" y2="195" stroke="#cf8a2e" stroke-width="1.5" stroke-dasharray="4 4"></line>
+        <line x1="620" y1="150" x2="620" y2="195" stroke="#c0413b" stroke-width="1.5" stroke-dasharray="4 4"></line>
+        <text x="500" y="180" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#2a1714">the buffer (supportive relationships)</text>
+        <text x="500" y="198" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#6b4a44">is what separates tolerable from toxic</text>
+      </svg>
+      <p class="figcap">It's the <strong>presence or absence of buffering</strong> — not the severity alone — that shifts a tolerable response into a toxic one.</p>
+    </div>
+
+    <p style="font-size:.92rem;color:var(--ink-soft)">↳ Acute stress triggers the <strong>"fight or flight" response</strong> — hormones boost strength and speed for survival. The effect is meant to be transient; it's the <strong>repeated, prolonged activation</strong> during sensitive periods that does lasting damage. Even everyday stressors (inconsistent attention, dismissive caregiving) can accumulate harm if unmitigated. <strong>Systemic racism</strong> is a pervasive example: chronic discrimination produces "wear-and-tear" on Black children's learning and development, and is faced involuntarily and daily.</p>
+  </section>
+
+  <!-- ===== 1.3.2 BUFFERING ===== -->
+  <section>
+    <h2><span class="num">03</span> Buffering Learners Against Threats <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--ink-soft);font-weight:400">1.3.2</span></h2>
+    <p>Learners face an array of stressors, from minor and healthy to severe and harmful. The key questions: <em>what mechanisms buffer them, and who is responsible for providing those mechanisms?</em></p>
+
+    <div class="bigidea">
+      <strong>Relationships are the buffer.</strong> Caring, attentive, trustworthy relationships — especially with caregivers — matter enormously across the entire lifespan. Development is the interaction of our <strong>"starting points" of sensitivity</strong> with the supportive contexts and experiences we have.
+    </div>
+
+    <div class="aa">
+      <div class="pane assim">
+        <h4>Caregivers <span class="pill fit">interactions</span></h4>
+        <p>Certain forms of <strong>adult–child interaction foster healthy brain development</strong>. Fundamentals of brain development show responsive caregiving directly buffers stress for the youngest learners.</p>
+        <p class="ex"><b>Lifespan:</b> the protective power of relationships shows up in early childhood, adolescence, <em>and</em> adulthood.</p>
+      </div>
+      <div class="pane accom">
+        <h4>Education leaders <span class="pill reshape">systems</span></h4>
+        <p>Prof. Nonie Lesaux: leaders must build <strong>systems, policies, and activities</strong> that foster supportive relationships <em>among educators</em> — so educators can in turn support learners.</p>
+        <p class="ex"><b>Cascade:</b> supported educators → supportive teaching → buffered learners.</p>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px">↳ Responsibility for buffering is <strong>shared and structural</strong>, not only individual — educators at <em>all</em> levels can take responsibility for creating supportive environments.</p>
+  </section>
+
+  <!-- ===== 1.3.3 RISK ===== -->
+  <section>
+    <h2><span class="num">04</span> People Aren't Risky — Settings Are <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--ink-soft);font-weight:400">1.3.3</span></h2>
+    <p>When people call individuals or families "high-risk," <em>where</em> are they locating the risk? This unit reframes it.</p>
+
+    <div class="bigidea">
+      Individuals are <strong>not "at-risk" or "risky"</strong> — rather, children and adults <strong>face risks</strong>. With preventive and protective factors to buffer those risks, they can become <strong>resilient</strong>. Risks are <strong>external to people.</strong>
+    </div>
+
+    <p><strong>Deficit-based framing</strong> — labeling marginalized people or communities "at risk" — implicitly locates pathology <em>within</em> those individuals or groups, instead of with the real sources of risk: <strong>poverty, structural exclusion, and disempowerment</strong> that exist for some groups and not others. There is no single source of a learner's challenges; they are <strong>complex and systemic</strong>.</p>
+
+    <h3>Risk vs. protective factors (operate at 3 levels)</h3>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:0">Factors sit at the <strong>individual, family, and community</strong> level (O'Connell et al., 2009, as cited in Youth.gov).</p>
+    <div class="it-grid">
+      <div class="it risk"><b>Risk factors ↓</b><span>Conditions that <em>increase</em> the likelihood of harm — e.g. poverty, violence exposure, structural exclusion, family instability. They live in circumstances, not character.</span></div>
+      <div class="it prot"><b>Protective factors ↑</b><span>Conditions that <em>buffer</em> against risk — e.g. caring relationships, stable routines, community support — building resilience in the face of risk.</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 1.3.4 SETTINGS ===== -->
+  <section>
+    <h2><span class="num">05</span> The Idea of Settings in Development <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--ink-soft);font-weight:400">1.3.4</span></h2>
+    <p>A <strong>setting</strong> is the larger environment — of relationships, physical well-being, and routines — that provides the context in which development takes place, and can <strong>promote or impede</strong> it.</p>
+
+    <div class="bigidea">
+      Winnicott's metaphor of the <strong>"holding environment"</strong> (originally a supportive therapeutic environment) captures the setting-level conditions that support optimal development: enough safety and buffering to take on growth-promoting risks.
+    </div>
+
+    <h3>Support + Challenge → "desirable difficulties"</h3>
+    <p>Faculty co-lead Matt Miller's heuristic: pair <strong>support</strong> and <strong>challenge</strong> to create <em>desirable difficulties</em>. A holding environment provides the safety/buffering (<strong>support</strong>) needed to take on activities and experiences (<strong>challenge</strong>) that promote rather than impede development — letting learners gain self-determination and efficacy. (This is another way of describing <em>positive</em> stress rather than toxic stress.)</p>
+
+    <div class="lesson">
+      <div class="step">
+        <div class="body">
+          <p class="idea">Provide enough safety, trust, and buffering that the learner feels held.</p>
+          <p class="mech"><b>Support</b> The relational floor — the "holding environment" that makes risk-taking survivable.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">Offer novel situations and tasks pitched at the right level — neither too easy nor too hard.</p>
+          <p class="mech"><b>Challenge</b> An optimal "desirable difficulty" that promotes deep processing and growth.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">Repeated across the lifespan, the learner draws on supportive factors — especially healthy relationships — to grow.</p>
+          <p class="mech"><b>Result</b> Greater self-determination and efficacy in a changing environment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>resilience</summary>
+      <div class="def">An adaptive response to serious hardship.
+        <span class="eg">Built with the help of preventive and protective factors — it isn't a fixed trait.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>toxic stress</summary>
+      <div class="def">Sustained unmanageable stress — perhaps because of neighborhood or war-related violence, abusive parenting, or on-going insecurity about housing and food.
+        <span class="eg">Note: the course stresses "toxic stress" is best understood as a <em>response</em>, not the stressor itself.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>positive stress response</summary>
+      <div class="def">A normal and essential part of healthy development, characterized by brief increases in heart rate and mild elevations in hormone levels.</div>
+    </details>
+
+    <details>
+      <summary>tolerable stress response</summary>
+      <div class="def">A stress response that activates the body's alert systems to a greater degree as a result of more severe, longer-lasting difficulties — such as the loss of a loved one, a natural disaster, or a frightening injury. If the activation is time-limited and buffered by relationships with adults who help the child adapt, the brain and other organs recover from what might otherwise be damaging effects.
+        <span class="eg">Buffering is what keeps it "tolerable."</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>toxic stress response</summary>
+      <div class="def">Can occur when a child experiences strong, frequent, and/or prolonged adversity — such as physical or emotional abuse, chronic neglect, caregiver substance abuse or mental illness, exposure to violence, and/or accumulated family economic hardship — <em>without</em> adequate adult support. This prolonged activation of the stress-response systems can disrupt the development of brain architecture and other organ systems, and increase the risk for stress-related disease and cognitive impairment well into adulthood.</div>
+    </details>
+
+    <details>
+      <summary>deficit-based framing</summary>
+      <div class="def">Description (such as "at-risk") that places the implicit location of a problem within the individual or social group, rather than with the source of the problem — such as poverty, structural exclusion, and disempowerment that exist for some groups and not others.</div>
+    </details>
+
+    <details>
+      <summary>holding environment</summary>
+      <div class="def">A supportive therapeutic environment or, more generally, a supportive developmental context (term coined by psychoanalyst Donald Winnicott).</div>
+    </details>
+
+    <details>
+      <summary>support and challenge</summary>
+      <div class="def">A quick, general heuristic for educators describing a healthy, relationally-supported process of taking new risks in order to learn.</div>
+    </details>
+
+    <details>
+      <summary>desirable difficulty</summary>
+      <div class="def">A challenge for our learning that is neither too easy nor too hard — an optimal level of challenge that promotes deep processing and thinking.</div>
+    </details>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Stress is a continuum:</strong> positive (brief, essential) → tolerable (severe but buffered) → toxic (prolonged, unbuffered, harmful).</li>
+      <li><strong>"Toxic stress" is a response, not a stressor</strong> — framing it this way avoids wrongly blaming caregivers for forces outside their control.</li>
+      <li><strong>Relationships are the buffer.</strong> Caring, trustworthy relationships separate tolerable stress from toxic stress, across the whole lifespan.</li>
+      <li><strong>Buffering is structural:</strong> education leaders must build systems that support educators, so educators can support learners.</li>
+      <li><strong>People aren't risky — settings are.</strong> Risk lives in poverty, exclusion, and circumstances; "deficit-based framing" wrongly locates it in people.</li>
+      <li><strong>Pair support + challenge.</strong> A "holding environment" provides the safety to take on "desirable difficulties" that promote growth.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 1 · Routes &amp; Threats · study notes · © Harvard content paraphrased for personal study</footer>
+
+</div>
+</body>
+</html>
