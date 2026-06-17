@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Unit 2.1.2 — Cognitivism · Study Notes</title>
+<style>
+  :root{
+    --ink:#1c1733;
+    --ink-soft:#4a4170;
+    --paper:#f6f4fb;
+    --violet:#5b3bb5;
+    --violet-bright:#7c52e0;
+    --teal:#1f9d8f;
+    --amber:#e0962b;
+    --rose:#d8557f;
+    --line:#d9d2ef;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(40,22,90,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    /* faint connected-node texture: the mind is NOT a black box */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(124,82,224,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(31,157,143,.08) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#2a1b5c,#5b3bb5 70%,#7c52e0);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#d9ccff;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#e7defc;font-size:1.05rem;max-width:50ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--violet);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(31,157,143,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--violet-bright);
+    background:linear-gradient(90deg,rgba(124,82,224,.08),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--violet)}
+
+  /* black-box-opened motif */
+  .openbox{display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .ob-node{background:#fff;border:2px solid var(--violet);color:var(--violet);
+    padding:10px 16px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center}
+  .ob-mind{background:#fff;border:2px dashed var(--teal);color:var(--teal);
+    padding:12px 18px;border-radius:12px;position:relative}
+  .ob-mind small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px}
+  .ob-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* contrast table behaviorism vs cognitivism */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--ink-soft)}
+  table.vs thead th:nth-child(3){color:var(--violet)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:26%}
+  table.vs tr td:nth-child(3){background:rgba(124,82,224,.05)}
+
+  /* schema node graph */
+  .schemafig{margin:6px 0 2px}
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* assimilation vs accommodation */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .aa .pane.assim h4{color:var(--teal)}
+  .aa .pane.accom h4{color:var(--rose)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.fit{background:rgba(31,157,143,.14);color:var(--teal)}
+  .pill.reshape{background:rgba(216,85,127,.14);color:var(--rose)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* intuitive theories cards */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--amber);display:block;font-size:.95rem;margin-bottom:2px}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+
+  /* Nyan lesson decode */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--violet);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal);background:rgba(31,157,143,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* glossary */
+  .gloss details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--violet);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between}
+  .gloss summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#2a1b5c,#4a2f9e);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#d9ccff;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#b79cff}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  a.skip{position:absolute;left:-999px}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details{break-inside:avoid}
+    .gloss .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.step,.it,.aa .pane,.gloss details{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 2 · Theories of Learning</p>
+    <h1>Unit 2.1.2 — Cognitivism</h1>
+    <p class="sub">Open the box. Learning is what happens <em>inside</em> the mind — reorganizing the structures we already carry.</p>
+    <div class="tags">
+      <span class="tag">schemas</span>
+      <span class="tag">assimilation · accommodation</span>
+      <span class="tag">intuitive theories</span>
+      <span class="tag">active learner</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">Cognitivism arose in the mid-20th century partly as a <strong>reaction against behaviorism</strong>. It keeps the idea that the environment (instruction, demonstration) shapes learning — but flatly rejects the "black box."</p>
+
+    <div class="bigidea">
+      To a cognitivist, the mind is <strong>absolutely not a black box</strong>. What matters is exactly what behaviorism ignored: the <strong>concepts inside the learner's head</strong>, and the practices (a good analogy, the right example) that get the learner to <strong>reorganize or change</strong> those concepts. Learning = <strong>changing mental representations and structures.</strong>
+    </div>
+
+    <div class="card">
+      <div class="openbox">
+        <div class="ob-node">STIMULUS<br>input · instruction</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-mind">⊹ ACTIVE MIND ⊹<small>plans · relates · reorganizes schemas</small></div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">BEHAVIOR<br>understanding</div>
+      </div>
+      <p class="figcap">Behaviorism studied only the two ends. Cognitivism studies the middle.</p>
+    </div>
+  </section>
+
+  <!-- ===== CONTRAST ===== -->
+  <section>
+    <h2><span class="num">02</span> Behaviorism vs. Cognitivism</h2>
+    <p>Same starting point — environment matters. Everything after that diverges.</p>
+    <div class="card" style="padding:6px 10px">
+      <table class="vs">
+        <thead>
+          <tr><th></th><th>Behaviorism</th><th>Cognitivism</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>The mind</td><td>A "black box" — irrelevant</td><td>The main event — open it up</td></tr>
+          <tr><td>What's learned</td><td>Stimulus → response associations</td><td>Changed mental representations &amp; schemas</td></tr>
+          <tr><td>The learner</td><td>Reactive — responds to stimuli</td><td>Active — plans, sets goals, rehearses, stores</td></tr>
+          <tr><td>What drives it</td><td>Reward &amp; punishment (conditioning)</td><td>Relating new info to prior knowledge</td></tr>
+          <tr><td>Role of beliefs</td><td>Not considered</td><td>Thoughts, beliefs, attitudes, values all matter</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== SCHEMAS ===== -->
+  <section>
+    <h2><span class="num">03</span> Schemas — knowledge as a network</h2>
+    <p>Existing knowledge lives in <strong>schemas</strong>: organized systems of information, ideas, meanings, conditions, and — crucially — <em>the relationships among them</em>. Learning means <strong>changing or elaborating</strong> a schema, not just adding an isolated fact. Instructional support and feedback help the learner make the right connections.</p>
+
+    <div class="card schemafig">
+      <svg viewBox="0 0 760 270" role="img" aria-label="A schema drawn as connected concept nodes, with a new node being linked in" style="width:100%;height:auto">
+        <defs>
+          <marker id="dot" markerWidth="6" markerHeight="6" refX="3" refY="3">
+            <circle cx="3" cy="3" r="2.4" fill="#5b3bb5"></circle>
+          </marker>
+        </defs>
+        <!-- existing edges -->
+        <g stroke="#bcaef0" stroke-width="2">
+          <line x1="170" y1="80" x2="300" y2="60"></line>
+          <line x1="170" y1="80" x2="250" y2="170"></line>
+          <line x1="300" y1="60" x2="430" y2="110"></line>
+          <line x1="250" y1="170" x2="430" y2="110"></line>
+          <line x1="430" y1="110" x2="380" y2="210"></line>
+          <line x1="250" y1="170" x2="380" y2="210"></line>
+        </g>
+        <!-- new connection (dashed) -->
+        <line x1="430" y1="110" x2="600" y2="150" stroke="#1f9d8f" stroke-width="3" stroke-dasharray="7 6" marker-end="url(#dot)"></line>
+        <!-- existing nodes -->
+        <g font-family="ui-monospace,Menlo,monospace" font-size="13" text-anchor="middle">
+          <g>
+            <circle cx="170" cy="80" r="34" fill="#fff" stroke="#5b3bb5" stroke-width="2.5"></circle>
+            <text x="170" y="84" fill="#2a1b5c">justice</text>
+          </g>
+          <g>
+            <circle cx="300" cy="60" r="30" fill="#fff" stroke="#5b3bb5" stroke-width="2.5"></circle>
+            <text x="300" y="64" fill="#2a1b5c">rights</text>
+          </g>
+          <g>
+            <circle cx="250" cy="170" r="34" fill="#fff" stroke="#5b3bb5" stroke-width="2.5"></circle>
+            <text x="250" y="166" fill="#2a1b5c">prison</text>
+            <text x="250" y="182" fill="#2a1b5c">&amp; power</text>
+          </g>
+          <g>
+            <circle cx="430" cy="110" r="38" fill="#efe9fc" stroke="#5b3bb5" stroke-width="2.5"></circle>
+            <text x="430" y="106" fill="#2a1b5c">internment</text>
+            <text x="430" y="122" fill="#2a1b5c">1942–45</text>
+          </g>
+          <g>
+            <circle cx="380" cy="210" r="30" fill="#fff" stroke="#5b3bb5" stroke-width="2.5"></circle>
+            <text x="380" y="214" fill="#2a1b5c">racism</text>
+          </g>
+          <!-- new node -->
+          <g>
+            <circle cx="618" cy="150" r="40" fill="#e4f5f2" stroke="#1f9d8f" stroke-width="3"></circle>
+            <text x="618" y="146" fill="#0f6f64">tribal land</text>
+            <text x="618" y="162" fill="#0f6f64">theft</text>
+          </g>
+        </g>
+        <text x="618" y="218" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#1f9d8f">NEW — linked in</text>
+      </svg>
+      <p class="figcap">A schema is a web of related concepts. New learning = wiring a new node into the existing web.</p>
+    </div>
+  </section>
+
+  <!-- ===== ASSIMILATION / ACCOMMODATION ===== -->
+  <section>
+    <h2><span class="num">04</span> Two ways a schema changes</h2>
+    <p>When new experience arrives, the mind does one of two things (Piaget's terms, from the schema video):</p>
+    <div class="aa">
+      <div class="pane assim">
+        <h4>Assimilation <span class="pill fit">fits in</span></h4>
+        <p>New information <strong>slots into an existing schema</strong> without changing it. The framework already accounts for it.</p>
+        <p class="ex"><b>e.g.</b> A student who understands the internment as unjust easily files a new wartime example under the same "injustice" schema.</p>
+      </div>
+      <div class="pane accom">
+        <h4>Accommodation <span class="pill reshape">reshapes</span></h4>
+        <p>New information <strong>doesn't fit</strong>, so the schema itself must be <strong>revised or rebuilt</strong> to make sense of it.</p>
+        <p class="ex"><b>e.g.</b> Realizing "national security" was used to justify a racist injustice forces a learner to rebuild what that phrase means to them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTUITIVE THEORIES ===== -->
+  <section>
+    <h2><span class="num">05</span> Intuitive theories</h2>
+    <p>Beyond schemas, learners hold <strong>intuitive theories</strong> — abstract, causal frameworks they use to <em>predict, explain, reason about, and intervene on</em> the world, much like scientists build theories of nature.</p>
+
+    <div class="bigidea">
+      The surprising finding: knowledge does <strong>not</strong> simply go concrete → abstract. Even very young children form <strong>abstract causal theories first</strong> — sometimes <em>before</em> the concrete facts.
+    </div>
+
+    <div class="it-grid">
+      <div class="it"><b>Goals before customs</b><span>Infants expect agents to pursue goals via the easiest, most direct path — before they learn specific customs like handshakes or bowing.</span></div>
+      <div class="it"><b>Rules before exceptions</b><span>Toddlers grasp abstract syntax (verb conjugation, word order) before memorizing irregulars — hence "I goed" instead of "I went."</span></div>
+      <div class="it"><b>Kids ask "why?"</b><span>Frank Keil (<em>Wonder</em>): young children constantly ask explanatory "why" questions and can reason about causal mechanisms.</span></div>
+      <div class="it"><b>Don't underestimate them</b><span>Curricula that delay causal explanation to grades 6–8 underestimate children and miss the chance to support natural inquiry.</span></div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px">↳ Teaching takeaway: give learners <strong>abstract, explanatory frameworks early</strong>, and encourage causal questioning — it both <em>motivates</em> and <em>supports</em> learning.</p>
+  </section>
+
+  <!-- ===== NYAN DECODE ===== -->
+  <section>
+    <h2><span class="num">06</span> Nyan's lesson, decoded</h2>
+    <p>His revised plan drops reinforcement and instead works on students' <em>mental structures</em>. Each idea maps to a cognitivist mechanism:</p>
+    <div class="lesson">
+      <div class="step">
+        <div class="body">
+          <p class="idea">Lead a discussion where students surface their existing ideas and beliefs about when imprisoning people is just or unjust.</p>
+          <p class="mech"><b>Activate prior schemas</b> Surfaces what's already in the learner's head so new content can connect to it — learning starts from existing concepts and beliefs.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">Later, ask whether their understanding of the internment applies to the U.S. creation of Native American "reservations" and theft of tribal lands.</p>
+          <p class="mech"><b>Accommodation</b> Forces students to test a schema against a new case — stretching, elaborating, or rebuilding it (and transferring across contexts).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">Have students create concept maps and diagrams to identify and visualize connections among concepts.</p>
+          <p class="mech"><b>Externalize the schema</b> Concept maps make the web of relationships visible — the very structure cognitivism says learning reorganizes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">07</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>schemas</summary>
+      <div class="def">Organized systems of information, ideas, meanings, conditions, and the relationships among them — the mental structures that hold existing knowledge. Learning happens by changing or elaborating them.
+        <span class="eg">Think: a web of connected concept-nodes, not a list of facts.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>cognitivism</summary>
+      <div class="def">A theory of learning, emerging mid-20th century in response to behaviorism, that focuses on how information is received, organized, stored, and retrieved by the mind. The learner is <em>active</em>, and the mind is <em>not</em> a black box.
+        <span class="eg">Behaviorism asks "what response?" — cognitivism asks "what changed in the mind?"</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>intuitive theory</summary>
+      <div class="def">An abstract, causal framework a person uses to predict, explain, reason about, and intervene on the world — much like a scientific theory. Even very young children form these, sometimes before concrete knowledge.
+        <span class="eg">"I goed" — the child applies an abstract rule before learning the irregular exception.</span>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Open the box.</strong> Cognitivism studies what's inside the mind — the thing behaviorism deliberately ignored.</li>
+      <li><strong>Learning = changing mental structures,</strong> not building stimulus-response habits.</li>
+      <li><strong>Schemas</strong> are webs of related concepts; you learn by wiring new nodes in (assimilation) or rebuilding the web (accommodation).</li>
+      <li><strong>The learner is active</strong> — planning, goal-setting, rehearsing, relating new info to prior knowledge.</li>
+      <li><strong>Intuitive theories come early.</strong> Kids reason causally and abstractly young — don't underestimate them.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Unit 2.1.2 · Cognitivism — study notes · © Harvard content paraphrased for personal study</footer>
+
+</div>
+</body>
+</html>
