@@ -141,6 +141,20 @@
   .gloss .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
   .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
 
+  /* practice & discussion */
+  .qtype{font-family:"SF Mono",ui-monospace,monospace;font-size:.6rem;letter-spacing:.08em;
+    text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-right:10px;
+    background:rgba(31,157,143,.14);color:var(--teal);font-weight:700}
+  .qtype.app{background:rgba(201,138,30,.16);color:var(--amber)}
+  .gloss summary .qtext{flex:1}
+  .prompts{list-style:none;margin:12px 0 0;padding-left:0;counter-reset:dq}
+  .prompts li{position:relative;background:#fff;border:1px solid var(--line);
+    border-left:4px solid var(--rose);border-radius:12px;padding:14px 18px 14px 52px;
+    margin-top:10px;box-shadow:var(--shadow);color:var(--ink-soft);font-size:.97rem}
+  .prompts li::before{counter-increment:dq;content:"Q" counter(dq);position:absolute;
+    left:16px;top:14px;font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    font-weight:700;color:var(--rose);letter-spacing:.04em}
+
   /* recap */
   .recap{background:linear-gradient(135deg,#0c4a30,#157a4f);color:#fff;
     border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
@@ -413,6 +427,57 @@
         <span class="eg">Narrow and rigid — like goslings imprinting, or first-language exposure in humans.</span>
       </div>
     </details>
+  </section>
+
+  <!-- ===== PRACTICE & DISCUSSION ===== -->
+  <section class="gloss">
+    <h2><span class="num">07</span> Practice &amp; Discussion</h2>
+
+    <h3>Test yourself</h3>
+    <p style="color:var(--ink-soft)">Think through your answer before you reveal it.</p>
+
+    <details>
+      <summary><span class="qtext"><span class="qtype">Recall</span>What does <em>epigenetics</em> study, and what does it <strong>not</strong> change?</span></summary>
+      <div class="def">Epigenetics is the study of how the environment induces changes in gene <em>expression</em> — switching genes "on" and "off" — without altering the underlying genetic code itself.
+        <span class="eg">Triggers include social experiences, diet, chemical exposure, and medication. Most epigenetic marks are erased, but some may be passed to subsequent generations.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtext"><span class="qtype">Recall</span>What is the difference between a <em>critical</em> period and a <em>sensitive</em> period?</span></summary>
+      <div class="def">A <strong>critical period</strong> has a defined, narrow, rigid beginning and end: the specific stimulus must be encountered then or the capacity may never develop normally. A <strong>sensitive period</strong> has fuzzy, broader edges: it's the easier window to develop a skill, but the skill can still develop later — though missing it may leave lasting impairment.
+        <span class="eg">Critical: a goslings imprinting in hours, or first-language exposure. Sensitive: humans' extended early childhood for language and many other domains.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtext"><span class="qtype app">Apply</span>A teacher believes "children of educated parents do well because they inherited their parents' intelligence." What hidden assumption is this, and how does the science complicate it?</span></summary>
+      <div class="def">The hidden assumption is that <strong>intelligence is primarily determined by heredity</strong> (a "nature" stance). The science complicates it: development is genes <em>and</em> experience, continuously intertwined. Through epigenetics, the environment — including the enriched, stimulating home an educated parent may provide — shapes which genes are expressed. So the outcome can't be cleanly attributed to inheritance alone.
+        <span class="eg">The skill being practiced here is taking a critical stance toward the assumptions embedded in your own beliefs about learners.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtext"><span class="qtype app">Apply</span>A colleague says: "Preschoolers can reach native-like fluency in a new language, but adults never can." How should you evaluate this claim?</span></summary>
+      <div class="def">Treat it with healthy skepticism — it overgeneralizes. Younger learners are <em>more likely</em> to achieve native-like proficiency, but that outcome isn't guaranteed; it depends on conditions and support. Because of the brain's <strong>lifelong plasticity</strong>, learners can acquire an additional language at <em>any</em> age under the right circumstances. Early childhood is a <strong>sensitive</strong>, not strictly critical, period for second-language learning.
+        <span class="eg">Note the exception: exposure to a <em>first</em> language in the first years does appear genuinely critical for normal development.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtext"><span class="qtype app">Apply</span>Two students grew up in similarly stressful early environments, yet one shows far more academic difficulty than the other. What does the sequence suggest is going on?</span></summary>
+      <div class="def">People differ not only in their genes and in the environments they encounter, but also in their <strong>susceptibility</strong> to the effects of those environmental and experiential factors. Identical exposures don't produce identical outcomes. This is also why you should resist overgeneralized claims about "what stress does to children" and avoid deficit assumptions — children show real resilience when later given care and support.
+        <span class="eg">Much of what we know about deprivation comes from extreme cases (Robson, 2002); that resilience is part of why early childhood is framed as "sensitive" rather than "critical."</span>
+      </div>
+    </details>
+
+    <h3>Discussion prompts</h3>
+    <p style="color:var(--ink-soft)">Open-ended — bring these to the discussion board and connect them to your own context.</p>
+    <ul class="prompts">
+      <li>The unit argues that "development" is a culturally and historically loaded idea, shaped largely by European and North American traditions. Where do your own working definitions of "learning" and "development" come from — and whose perspectives might be under- or misrepresented in how your context defines a "developing" or "successful" learner?</li>
+      <li>Reconsider the five educator beliefs and their hidden assumptions (e.g. "intelligence is relatively fixed," "teacher expectations outweigh pedagogical skill"). Which assumption do you most often encounter — in colleagues, policy, or yourself — and how does reframing development as genes <em>and</em> experience change how you would respond to it in practice?</li>
+      <li>Given the brain's lifelong plasticity and the shift from "critical" toward "sensitive" periods, how should the <em>timing</em> of experience inform your practice — without sliding into overgeneralized or deterministic claims about which learners can or can't grow?</li>
+    </ul>
   </section>
 
   <!-- ===== RECAP ===== -->
