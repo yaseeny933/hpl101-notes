@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 3 · Sequence 2 — Culture, Environment &amp; Resources · Study Notes</title>
+<style>
+  :root{
+    --ink:#2a2310;
+    --ink-soft:#5c5230;
+    --paper:#fbf8ef;
+    --gold:#b0851f;
+    --gold-bright:#d6a531;
+    --gold-deep:#7d5e11;
+    --teal:#2f7d6b;
+    --rose:#c25a4a;
+    --slate:#5a6478;
+    --line:#e7ddc2;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(90,70,10,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    /* faint woven texture: culture as a "web of meaning" */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(176,133,31,.09) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(47,125,107,.07) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#5b430c,#9a7218 60%,#c79b2e);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#f4e6bf;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#f6ecd2;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--gold-deep);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(47,125,107,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--gold-bright);
+    background:linear-gradient(90deg,rgba(214,165,49,.12),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--gold-deep)}
+
+  /* culture tree motif */
+  .tree{display:flex;flex-direction:column;gap:10px;margin:8px 0 2px}
+  .tree-layer{display:flex;align-items:center;gap:14px;
+    background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+  .tree-layer .lvl{flex:0 0 130px;font-family:"SF Mono",ui-monospace,monospace;
+    font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+  .tree-layer.surface{border-left:5px solid var(--gold-bright)}
+  .tree-layer.surface .lvl{color:var(--gold-bright)}
+  .tree-layer.shallow{border-left:5px solid var(--teal)}
+  .tree-layer.shallow .lvl{color:var(--teal)}
+  .tree-layer.deep{border-left:5px solid var(--gold-deep)}
+  .tree-layer.deep .lvl{color:var(--gold-deep)}
+  .tree-layer .txt{font-size:.92rem}
+  .tree-layer .txt b{display:block;color:var(--ink)}
+  .tree-layer .txt span{color:var(--ink-soft);font-size:.88rem}
+
+  /* generic key-value note rows */
+  .kv{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .kv .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;box-shadow:var(--shadow)}
+  .kv .pane h4{margin:0 0 6px;font-size:1rem;color:var(--gold-deep)}
+  .kv .pane p{font-size:.92rem;margin:6px 0 0;color:var(--ink-soft)}
+
+  /* contrast table */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--rose)}
+  table.vs thead th:nth-child(3){color:var(--teal)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:24%}
+  table.vs tr td:nth-child(3){background:rgba(47,125,107,.06)}
+
+  /* figure caption */
+  .fig{margin:6px 0 2px}
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* quote / case excerpt */
+  blockquote{margin:14px 0;padding:14px 18px;border-left:5px solid var(--gold-bright);
+    background:rgba(214,165,49,.08);border-radius:0 12px 12px 0;
+    font-style:italic;color:var(--ink-soft)}
+  blockquote cite{display:block;margin-top:8px;font-style:normal;font-size:.82rem;
+    font-family:"SF Mono",ui-monospace,monospace;color:var(--slate)}
+
+  .casecard{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:16px 20px;box-shadow:var(--shadow);margin-top:14px;font-size:.92rem}
+  .casecard .line{margin:4px 0}
+  .casecard .who{font-weight:700;color:var(--gold-deep)}
+
+  /* warn / caution callout */
+  .caution{border-left:6px solid var(--rose);
+    background:linear-gradient(90deg,rgba(194,90,74,.10),#fff 60%);
+    border-radius:12px;padding:16px 20px;margin-top:14px;font-size:.95rem}
+  .caution strong{color:var(--rose)}
+
+  /* numbered take list */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--gold);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal);background:rgba(47,125,107,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* glossary + practice reveals */
+  .gloss details,.practice details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary,.practice summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--gold-deep);
+    font-size:1.02rem;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .gloss summary::-webkit-details-marker,.practice summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .practice summary::after{content:"answer ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .practice details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary,.practice details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def,.practice .ans{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+  .practice .q{font-weight:400;color:var(--ink);font-style:italic;text-align:left}
+  .qtype{font-family:"SF Mono",monospace;font-size:.6rem;letter-spacing:.08em;
+    text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-right:8px;vertical-align:middle}
+  .qtype.recall{background:rgba(176,133,31,.16);color:var(--gold-deep)}
+  .qtype.apply{background:rgba(47,125,107,.16);color:var(--teal)}
+
+  .discuss{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold-bright);
+    border-radius:12px;padding:16px 20px;box-shadow:var(--shadow);margin-top:14px}
+  .discuss ol{margin:6px 0 0;padding-left:20px}
+  .discuss li{margin:8px 0;color:var(--ink-soft)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#5b430c,#8a6614);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#f4e6bf;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#f0d384}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  @media (max-width:680px){
+    .kv{grid-template-columns:1fr}
+    .tree-layer{flex-direction:column;align-items:flex-start;gap:6px}
+    .tree-layer .lvl{flex-basis:auto}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary + practice answers, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details,.practice details{break-inside:avoid}
+    .gloss .def,.practice .ans{display:block !important}
+    details:not([open]) .def,details:not([open]) .ans{display:block}
+    .card,.step,.kv .pane,.gloss details,.practice details,.casecard,.tree-layer{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 3 · Sequence 2</p>
+    <h1>Culture, Environment &amp; Resources</h1>
+    <p class="sub">Learner variability isn't just inside the head. Culture, money, and the way schools define "smart" shape who gets supported — and who gets labeled lacking.</p>
+    <div class="tags">
+      <span class="tag">culture as a "web of meaning"</span>
+      <span class="tag">socioeconomic status</span>
+      <span class="tag">social construction of smartness</span>
+      <span class="tag">assets, not deficits</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">Sequence 1 looked at how learning unfolds <em>inside</em> the individual. This sequence zooms out to the <strong>contexts</strong> that surround learners — and how those contexts are rarely neutral.</p>
+
+    <div class="bigidea">
+      Three forces — <strong>culture</strong>, <strong>socioeconomic resources</strong>, and the <strong>social construction of "smartness"</strong> — shape learners' starting points, the supports they receive, and the labels attached to them. The danger is the <strong>deficit lens</strong>: reading difference as deficiency. The corrective is an <strong>asset lens</strong> that recognizes every learner's <strong>funds of knowledge</strong> and asks schools to adapt to children rather than the reverse.
+    </div>
+
+    <div class="card fig">
+      <svg viewBox="0 0 760 280" role="img" aria-label="Two lenses on the same learner: a deficit lens versus an asset / funds-of-knowledge lens" style="width:100%;height:auto">
+        <defs>
+          <marker id="arrowR" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto">
+            <path d="M0,0 L7,3.2 L0,6.4 Z" fill="#5c5230"></path>
+          </marker>
+        </defs>
+        <!-- learner in center -->
+        <circle cx="380" cy="140" r="46" fill="#fff" stroke="#b0851f" stroke-width="3"></circle>
+        <text x="380" y="135" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#7d5e11">same</text>
+        <text x="380" y="152" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#7d5e11">learner</text>
+        <!-- left: deficit lens -->
+        <line x1="200" y1="140" x2="320" y2="140" stroke="#5c5230" stroke-width="2" marker-end="url(#arrowR)"></line>
+        <rect x="30" y="78" width="172" height="124" rx="14" fill="#fbeeec" stroke="#c25a4a" stroke-width="2.5"></rect>
+        <text x="116" y="104" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#c25a4a">DEFICIT LENS</text>
+        <text x="116" y="128" text-anchor="middle" font-family="Georgia,serif" font-size="12.5" fill="#7a3a30">"at-risk," "behind,"</text>
+        <text x="116" y="147" text-anchor="middle" font-family="Georgia,serif" font-size="12.5" fill="#7a3a30">"lacking," "deviant"</text>
+        <text x="116" y="173" text-anchor="middle" font-family="Georgia,serif" font-size="11.5" fill="#a85245">risk lives in the child</text>
+        <text x="116" y="189" text-anchor="middle" font-family="Georgia,serif" font-size="11.5" fill="#a85245">→ child must change</text>
+        <!-- right: asset lens -->
+        <line x1="440" y1="140" x2="560" y2="140" stroke="#5c5230" stroke-width="2" marker-end="url(#arrowR)"></line>
+        <rect x="558" y="78" width="172" height="124" rx="14" fill="#e8f3f0" stroke="#2f7d6b" stroke-width="2.5"></rect>
+        <text x="644" y="104" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#2f7d6b">ASSET LENS</text>
+        <text x="644" y="128" text-anchor="middle" font-family="Georgia,serif" font-size="12.5" fill="#1f5b4d">funds of knowledge,</text>
+        <text x="644" y="147" text-anchor="middle" font-family="Georgia,serif" font-size="12.5" fill="#1f5b4d">cultural wealth</text>
+        <text x="644" y="173" text-anchor="middle" font-family="Georgia,serif" font-size="11.5" fill="#2f7d6b">risk lives in the mismatch</text>
+        <text x="644" y="189" text-anchor="middle" font-family="Georgia,serif" font-size="11.5" fill="#2f7d6b">→ school must adapt</text>
+        <text x="380" y="232" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#5c5230">Same child. The lens you choose decides what you see — and who has to change.</text>
+      </svg>
+      <p class="figcap">The central move of this sequence: shift from deficit framing to an asset / funds-of-knowledge framing.</p>
+    </div>
+  </section>
+
+  <!-- ===== 3.2.1 ===== -->
+  <section>
+    <h2><span class="num">02</span> What's culture got to do with learning? <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--slate);font-weight:400">3.2.1</span></h2>
+    <p>Culture is the <strong>lens through which a group makes sense of the world</strong> — anthropologist Clifford Geertz called it the <strong>"web of meaning."</strong> Much of it is invisible; you usually only notice it when it's violated or when you must adapt to an unfamiliar set of expectations.</p>
+
+    <h3>Zaretta Hammond's "Culture Tree" — three levels</h3>
+    <div class="tree">
+      <div class="tree-layer surface">
+        <span class="lvl">Surface</span>
+        <span class="txt"><b>Observable, concrete elements</b><span>Food, dress, music, holidays — the visible "leaves."</span></span>
+      </div>
+      <div class="tree-layer shallow">
+        <span class="lvl">Shallow</span>
+        <span class="txt"><b>Unspoken rules &amp; norms of everyday interaction</b><span>Personal space, eye contact, nonverbal communication — how we <em>enact</em> deep-culture values.</span></span>
+      </div>
+      <div class="tree-layer deep">
+        <span class="lvl">Deep</span>
+        <span class="txt"><b>Tacit knowledge &amp; unconscious worldview ("the roots")</b><span>Assumptions that guide ethics and the mental models we use to process new information — including beliefs about <em>who is responsible for teaching and learning</em>.</span></span>
+      </div>
+    </div>
+
+    <div class="bigidea">
+      <strong>Deep culture shapes who "owns" learning.</strong> Many U.S. caregivers believe they must be a child's <em>first teacher</em>, preparing the child to succeed independently in school. Many Mexican caregivers, by contrast, see family and school as part of a larger community that collaborates to educate children — their role is to ensure the child is loved and well-behaved, while "school skills" belong to teachers (Bush &amp; Peterson, 2013; Espinosa, 1995). Neither is right or wrong; they're different priorities.
+    </div>
+
+    <p>Emeritus HGSE professor <strong>Robert LeVine</strong>: all families, across cultures, want similar long-term outcomes — health, happiness, educational success, economic viability, warm family ties. They differ in <em>how they prioritize</em> these (e.g., family ties vs. achievement; autonomy vs. obedience; curiosity vs. tradition).</p>
+
+    <div class="caution">
+      <strong>When the mismatch turns harmful:</strong> when educators' deep-culture beliefs clash with those of learners and families, it can detract from — and even harm — learning. A classroom unwittingly designed to favor children who already know the alphabet and can count to 100 disadvantages a child who instead learned to help run a household and care for younger siblings. Teachers may then form negative judgments about those learners and their families. Documented among Mexican-American families and U.S. schools, this mismatch can fuel damaging stereotypes (Valencia &amp; Black, 2002). <strong>Caveat:</strong> there is enormous variability <em>within</em> any group — research patterns do not apply to every family.
+    </div>
+  </section>
+
+  <!-- ===== 3.2.2 ===== -->
+  <section>
+    <h2><span class="num">03</span> Socioeconomic differences <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--slate);font-weight:400">3.2.2</span></h2>
+    <p>Core question: <em>How do the resources available to a child — financial, interpersonal, social — affect their ability to learn?</em> In the U.S., access to <strong>money</strong> strongly shapes access to educationally relevant experiences, and income gaps are <strong>high and increasing</strong>.</p>
+
+    <div class="kv">
+      <div class="pane">
+        <h4>Sean Reardon — the income achievement gap</h4>
+        <p>HGSE grad / Stanford professor. Historical analysis of family incomes and child-focused spending since the 1950s shows a widening gap in resources between rich and poor families — with educational consequences.</p>
+      </div>
+      <div class="pane">
+        <h4>Resources → opportunities to learn</h4>
+        <p>Museum visits, theater and arts, travel, tutoring, coaching, high-quality preschool. At the <em>same age</em>, children with more resources often show higher performance — an echo of the <strong>Matthew Effect</strong> ("the rich get richer").</p>
+      </div>
+    </div>
+
+    <p style="margin-top:14px">The "performance vs. access to resources" graph (all children age 5) reframes the usual age-on-the-x-axis chart: among same-age children, <strong>greater resources tend to track with greater task performance</strong> — e.g., larger early vocabularies for children in high-quality preschool.</p>
+
+    <div class="caution">
+      <strong>Read the research critically.</strong> The "<strong>30 million word gap</strong>" — a hypothesized gap in language exposure between children in highly-educated, financially-stable, two-parent homes versus single-parent, financially-constrained, lower-education homes — is <em>one of the most debated findings in social science</em>. Critics (e.g., Kamenetz, 2018) argue it embeds cultural assumptions about which kinds of talk "count." The course presents it as a case for examining hidden <strong>cultural assumptions in educational research</strong>, not as settled fact.
+    </div>
+  </section>
+
+  <!-- ===== 3.2.3 ===== -->
+  <section>
+    <h2><span class="num">04</span> The social construction of "smartness" <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--slate);font-weight:400">3.2.3</span></h2>
+    <p><strong>"Smartness" is socially situated and socially constructed.</strong> What counts as smart depends on what's <em>valued</em> (shallow-culture practices), and what's valued is implicitly tied to the <em>dominant deep culture</em> of schools and society.</p>
+
+    <h3>Seth &amp; Dennis, revisited</h3>
+    <p>Seth — placed in an advanced reading group in first grade — keeps being exposed to rich texts and is happily called on to read. Dennis disengages early, struggles when asked to read aloud. By third grade these interactions <strong>entrench who gets labeled "smart"</strong> in the minds of both boys, their classmates, <em>and</em> the teacher. A small early sorting compounds into divergent trajectories.</p>
+
+    <h3>Case study — Beth Rubin (2007): constructing competence in high school</h3>
+    <p>A ninth-grade social studies classroom in a large public high school serving mostly low-income students of color. Researchers documented norms that signaled <em>what kind of learning was expected</em>:</p>
+
+    <div class="casecard">
+      <p class="line"><span class="who">Mr. Bartlett:</span> "Does anyone know the difference between communism and capitalism?" … then abruptly cuts off a rich discussion of government to administer a planned test.</p>
+      <p class="line"><span class="who">Kareem:</span> "Why they got to say 'European luxury?' Why not 'Black luxury?'" — a sharp, content-related question. Instead of using it as a point of connection, the teacher removes Kareem from the room "for creating a disturbance."</p>
+      <p class="line"><span class="who">Substitute:</span> "Look like you are doing something and I won't bother you." Students are literally told to <em>pretend</em> to learn.</p>
+    </div>
+
+    <p>Rubin's point: a steady diet of <strong>low-level tasks, demands for compliance, and humiliation</strong> signals to students what kind of learning is possible and expected of <em>them</em>. A review by the Education Commission of the States found teachers' <strong>negative expectations account for ~5–10% of the variance</strong> in student achievement (Workman, 2012).</p>
+
+    <h3>Where the bias hides — it's not always obvious</h3>
+    <div class="kv">
+      <div class="pane">
+        <h4>Too little</h4>
+        <p>Teachers who underestimate students overlook their rich contributions to class.</p>
+      </div>
+      <div class="pane">
+        <h4>Too much (also a problem)</h4>
+        <p>Over-scaffolding only some students caps how far they can stretch — limiting work at the top of their ZPD. Empty praise ("good effort!") without truthful, targeted feedback doesn't promote a growth mindset.</p>
+      </div>
+    </div>
+
+    <h3>The legacy of intelligence testing</h3>
+    <p>For much of the 19th–20th centuries, many psychologists believed in a fixed, innate <strong>"general intelligence" (g)</strong>, measured as an <strong>IQ</strong> (e.g., the Stanford-Binet, devised by Lewis Terman). Some test designers believed intelligence varied by race and ethnicity — a <em>deep-culture</em> belief baked into the tests, which then "confirmed" itself when Northern/Western European Protestant test-takers scored highest. These results were cited to support <strong>eugenics</strong> and immigration restriction. Stephen Jay Gould (1982) showed the bias concretely: the Army Beta asked recent immigrants to spot missing tennis courts, phonographs, and light bulbs. Historian <strong>Ibram X. Kendi</strong> argues the very notion of an "achievement gap" was <em>built into</em> the design of these tests and reverberates today.</p>
+  </section>
+
+  <!-- ===== 3.2.4 ===== -->
+  <section>
+    <h2><span class="num">05</span> Moving beyond deviance, risk &amp; deficit <span style="font-family:'SF Mono',monospace;font-size:.7rem;color:var(--slate);font-weight:400">3.2.4</span></h2>
+    <p>Documenting group differences (Reardon, the word gap) risks an unwanted reading: that some groups are <strong>"deficient."</strong> This unit challenges that interpretation directly.</p>
+
+    <div class="bigidea">
+      Education professor <strong>Luis Moll</strong> reframes the discourse with <strong>"funds of knowledge"</strong> — "the historically accumulated and culturally developed bodies of knowledge and skills essential for household or individual functioning and well-being" (Moll, Amanti, Neff &amp; Gonzalez, 1992). Every learner brings these from home and community. The focus shifts from <strong>deficiencies → assets</strong>.
+    </div>
+
+    <h3>Difference is not deficiency</h3>
+    <p>Learners vary by ethnicity, culture, class, and experience — and <strong>most of these differences carry no inherent disadvantage for learning</strong>. Saying "flapjack" instead of "pancake," or using regional grammar, only becomes a "problem" when framed as a departure from a dominant norm. Correcting the child who says "flapjack" can undermine their confidence and identity as a competent speaker.</p>
+
+    <h3>Relocate the "risk"</h3>
+    <p>As in Module 1: labeling a learner <strong>"at-risk"</strong> implies the risk lives <em>inside</em> the child — rather than emerging from a <strong>confrontation between the child and a setting built for others' needs</strong>. Enforce a single normative standard and some learners <em>inevitably</em> fall short (don't speak standard English, lack story-book exposure, don't fit gendered expectations).</p>
+
+    <table class="vs" style="margin-top:8px">
+      <thead><tr><th></th><th>Deficit mindset</th><th>Asset mindset</th></tr></thead>
+      <tbody>
+        <tr><td>Who must change</td><td>The child must catch up</td><td>The school must adapt to the child</td></tr>
+        <tr><td>What difference means</td><td>A lack to be remediated</td><td>A resource &amp; foundation for learning</td></tr>
+        <tr><td>Where risk lives</td><td>Inside the learner ("at-risk")</td><td>In the mismatch between learner &amp; setting</td></tr>
+        <tr><td>The goal</td><td>"College-ready students"</td><td>Also "student-ready colleges" (McNair et al., 2016)</td></tr>
+      </tbody>
+    </table>
+
+    <blockquote>
+      If we shift to a mindset in which schools are expected to adapt to children, then learners' funds of knowledge become a resource and a foundation for further learning.
+      <cite>— Unit 3.2.4</cite>
+    </blockquote>
+
+    <p>Higher ed is shifting too: students from nondominant identities bring <strong>"cultural wealth"</strong> as resources for learning and resilience (Yosso, 2005; Longmire-Avital, 2019). For many educators, seeing what learners know as <strong>assets rather than deficits</strong> requires a genuine <em>conceptual change</em> — disrupting the prior view that some learners are simply "lacking." (Carla Shalaby's <em>Troublemakers</em> reframes "problem" children as signs that school cultures over-constrain what children can be.)</p>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>culture</summary>
+      <div class="def">The "web of meaning" (Geertz) — the multidimensional array of rules, beliefs, relationships, and commitments that guide our behavior and infuse our lives with significance.
+        <span class="eg">Often invisible until it's violated or you must adapt to a different set of expectations.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>surface culture</summary>
+      <div class="def">The observable and concrete elements of a culture, such as food, dress, and holidays. The visible "leaves" of Hammond's culture tree.</div>
+    </details>
+
+    <details>
+      <summary>shallow culture</summary>
+      <div class="def">The unspoken rules and norms that govern everyday interactions and ways of being with others (e.g., norms around personal space and nonverbal communication). These are the ways we <em>enact</em> deep-culture beliefs and values.</div>
+    </details>
+
+    <details>
+      <summary>deep culture</summary>
+      <div class="def">The tacit knowledge and unconscious assumptions that govern our worldview, guiding ethical decision-making and — importantly for this course — shaping the mental models with which we process new information. The "roots" of the culture tree.</div>
+    </details>
+
+    <details>
+      <summary>socioeconomic status (SES)</summary>
+      <div class="def">A measure of a family's access to resources — particularly financial, but also interpersonal and social. In the U.S., SES strongly shapes children's access to educationally relevant experiences.
+        <span class="eg">Reardon's work links rising income inequality to a widening income achievement gap.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>income achievement gap</summary>
+      <div class="def">Disparities in educational performance associated with family income. Reardon documents that this gap has widened as differences in family incomes and child-focused spending have grown since the 1950s.</div>
+    </details>
+
+    <details>
+      <summary>Matthew Effect</summary>
+      <div class="def">The pattern by which early advantages compound over time ("the rich get richer") — e.g., children with larger early vocabularies gain advantages that confer still further learning advantages.</div>
+    </details>
+
+    <details>
+      <summary>30 million word gap</summary>
+      <div class="def">A hypothesized gap in differential access to language experienced by American children in highly-educated, financially-stable, two-parent families versus children in single-parent, financially-constrained families with low parental education. A widely <em>debated and critiqued</em> finding used in this course to examine hidden cultural assumptions in research.</div>
+    </details>
+
+    <details>
+      <summary>social construction (of "smartness")</summary>
+      <div class="def">The idea that "smartness" is not a fixed inner trait but is socially situated and produced through what a community values and how it labels learners. What counts as smart depends on shallow-culture practices tied to the dominant deep culture.</div>
+    </details>
+
+    <details>
+      <summary>teacher expectations</summary>
+      <div class="def">Educators' beliefs about what students can do, which can shape student performance. A review found teachers' negative expectations account for roughly 5–10% of the variance in student achievement (Workman, 2012).</div>
+    </details>
+
+    <details>
+      <summary>general intelligence (g) / IQ</summary>
+      <div class="def">The historical belief in a fixed, innate level of intelligence ("g"), reported as an intelligence quotient (IQ) and measured by tests like the Stanford-Binet. Long used to place learners in grades or classes; its design embedded — and then appeared to "confirm" — racialized deep-culture beliefs.</div>
+    </details>
+
+    <details>
+      <summary>eugenics</summary>
+      <div class="def">Policies aiming to limit reproduction to "superior" groups. Some 20th-century intelligence-test results were cited to support eugenics and to restrict immigration — a disturbing legacy of test misuse.</div>
+    </details>
+
+    <details>
+      <summary>deficit thinking / deficit lens</summary>
+      <div class="def">A framing that interprets learners' differences as deficiencies, locating the "problem" inside the child (e.g., "at-risk," "behind," "lacking," "deviant") rather than in the setting. The course argues against this interpretation.</div>
+    </details>
+
+    <details>
+      <summary>"at-risk"</summary>
+      <div class="def">A label implying a learner carries risk <em>within</em> themselves, rather than recognizing the risk as emerging from a confrontation between the learner and a setting adapted to others' needs and expectations.</div>
+    </details>
+
+    <details>
+      <summary>funds of knowledge</summary>
+      <div class="def">"The historically accumulated and culturally developed bodies of knowledge and skills essential for household or individual functioning and well-being" (Moll, Amanti, Neff &amp; Gonzalez, 1992). An asset-based concept: every learner brings resources from home and community.</div>
+    </details>
+
+    <details>
+      <summary>asset-based view</summary>
+      <div class="def">A stance that treats learners' differences as resources and foundations for learning rather than deficits to remediate. Adopting it often requires a conceptual change for educators.</div>
+    </details>
+
+    <details>
+      <summary>cultural wealth</summary>
+      <div class="def">The resources for learning and resilience that students from nondominant cultural identities bring to educational settings (Yosso, 2005; Longmire-Avital, 2019).</div>
+    </details>
+
+    <details>
+      <summary>student-ready colleges</summary>
+      <div class="def">McNair et al.'s (2016) reframing: rather than only producing "college-ready students," institutions should become "student-ready" — adapting to the learners they serve.</div>
+    </details>
+  </section>
+
+  <!-- ===== PRACTICE & DISCUSSION ===== -->
+  <section class="practice">
+    <h2><span class="num">07</span> Practice &amp; discussion</h2>
+    <p style="color:var(--ink-soft)">Answer each in your head (or on paper) before revealing. Mix of recall and applied scenarios.</p>
+
+    <details>
+      <summary><span><span class="qtype recall">recall</span><span class="q">Name Hammond's three levels of culture and give one example of each.</span></span></summary>
+      <div class="ans"><strong>Surface</strong> — observable/concrete (food, dress, holidays). <strong>Shallow</strong> — unspoken interaction norms (personal space, eye contact, nonverbal cues). <strong>Deep</strong> — tacit worldview and unconscious assumptions (e.g., beliefs about who is responsible for teaching and learning). Surface = leaves, shallow = enactment of values, deep = roots.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype apply">apply</span><span class="q">A kindergarten teacher is frustrated that a student can't yet name letters but notices the child confidently helps younger classmates and manages classroom routines. Diagnose this through the deficit-vs-asset lens.</span></span></summary>
+      <div class="ans">Through a <strong>deficit lens</strong>, the child is "behind" — the gap is inside the child to be fixed. Through an <strong>asset / funds-of-knowledge lens</strong>, the caregiving and responsibility skills are real, culturally-developed assets (possibly prioritized by the family's deep culture). The mismatch — a classroom built to reward children who already know letters — is the actual "risk," not the child. The corrective is for the school to adapt and build on what the child brings, not for the child alone to change.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype recall">recall</span><span class="q">What does the "performance vs. access to resources" graph (children all age 5) show, and which earlier concept does it echo?</span></span></summary>
+      <div class="ans">Among children of the <em>same age</em>, those with greater access to resources often show higher task performance (e.g., larger vocabularies from high-quality preschool). It echoes the <strong>Matthew Effect</strong> — early advantages compound, so "the rich get richer."</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype apply">apply</span><span class="q">In Rubin's classroom, Kareem asks "Why not 'Black luxury?'" and is removed from the room. Explain how this single moment illustrates the social construction of smartness.</span></span></summary>
+      <div class="ans">Kareem's question is genuinely critical and content-related — exactly the higher-order engagement schools claim to value. But the classroom's enacted norms (compliance, low-level tasks, control) signal that <em>this</em> kind of thinking doesn't count as "smart" here; instead it's treated as a disturbance. The interaction tells Kareem and his peers what learning is possible and expected of them. "Smartness" is thus constructed through what the setting values and rewards — tied to the dominant deep culture — not measured as a fixed inner trait.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype apply">apply</span><span class="q">A colleague cites the "30 million word gap" to argue that low-income families simply talk to their kids less, so the kids start school deficient. How would this sequence push back?</span></span></summary>
+      <div class="ans">Several moves: (1) The finding is <strong>heavily debated and critiqued</strong> — not settled (Kamenetz, 2018). (2) It can smuggle in <strong>cultural assumptions</strong> about which kinds of talk "count," privileging dominant-culture norms. (3) Reframing as <strong>deficit</strong> ("deficient") is exactly the interpretation Moll challenges — all families bring <strong>funds of knowledge</strong>. (4) Even where resource gaps are real, locating the "risk" inside the child mislabels a <strong>mismatch</strong> between learners and settings as a flaw in the learners.</div>
+    </details>
+
+    <h3 style="margin-top:24px">Open-ended discussion prompts</h3>
+    <div class="discuss">
+      <ol>
+        <li>Think of a "deep-culture" belief about teaching and learning you hold (e.g., who should be a child's first teacher, autonomy vs. obedience). Where did it come from, and how might it create a mismatch with families whose priorities differ?</li>
+        <li>Intelligence testing was shaped by — and then appeared to "confirm" — racialized deep-culture beliefs (Gould, Kendi). What assessments in your own context might be quietly encoding cultural assumptions about what counts as "smart"? How would you find out?</li>
+        <li>What would it concretely look like to build a "student-ready" classroom or program — one that adapts to learners' funds of knowledge — rather than only trying to make learners "ready" for an unchanged institution?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Culture is a "web of meaning"</strong> with three levels — surface, shallow, and deep. Deep-culture beliefs (like who owns teaching) are invisible but powerful, and mismatches with school norms can harm learning.</li>
+      <li><strong>All families want similar outcomes</strong> (LeVine); they differ in how they <em>prioritize</em> them. There's huge variability <em>within</em> any group — never read research patterns as rules about individuals.</li>
+      <li><strong>Resources (SES) shape opportunity.</strong> At the same age, more resources often track with higher performance (Matthew Effect) — but read findings like the "30 million word gap" <em>critically</em> for hidden cultural assumptions.</li>
+      <li><strong>"Smartness" is socially constructed.</strong> What counts as smart reflects what the dominant culture values; teacher expectations and a legacy of biased intelligence testing actively shape who gets labeled — and supported.</li>
+      <li><strong>Difference ≠ deficiency.</strong> Relocate the "risk" from inside the child to the mismatch between learner and setting.</li>
+      <li><strong>Lead with assets.</strong> Every learner has <em>funds of knowledge</em> and cultural wealth — the goal is schools that adapt to children, not children who must conform to schools.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 3 · Culture, Environment &amp; Resources · study notes</footer>
+
+</div>
+</body>
+</html>

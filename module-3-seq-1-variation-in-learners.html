@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 3 Seq 1 — Variation in Developing Learners · Study Notes</title>
+<style>
+  :root{
+    --ink:#2a1c13;
+    --ink-soft:#6b5444;
+    --paper:#fbf6f2;
+    --terra:#c2683c;
+    --terra-deep:#9c4a26;
+    --terra-bright:#d97c4a;
+    --teal:#3f8f86;
+    --amber:#cf942b;
+    --rose:#c25a6b;
+    --line:#ecdcd1;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(120,60,25,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(194,104,60,.09) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(63,143,134,.07) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#7a3719,#c2683c 70%,#d97c4a);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#ffe2cf;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#fdeadf;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--terra);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(63,143,134,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--terra-bright);
+    background:linear-gradient(90deg,rgba(217,124,74,.10),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--terra-deep)}
+
+  /* scenario flow motif */
+  .openbox{display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .ob-node{background:#fff;border:2px solid var(--terra);color:var(--terra-deep);
+    padding:10px 16px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center}
+  .ob-mind{background:#fff;border:2px dashed var(--teal);color:var(--teal);
+    padding:12px 18px;border-radius:12px;position:relative}
+  .ob-mind small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px}
+  .ob-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* contrast / comparison table */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--ink-soft)}
+  table.vs thead th:nth-child(3){color:var(--terra)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:26%}
+  table.vs tr td:nth-child(3){background:rgba(194,104,60,.05)}
+
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+  .schemafig{margin:6px 0 2px}
+
+  /* two-pane compare */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .aa .pane.assim h4{color:var(--teal)}
+  .aa .pane.accom h4{color:var(--rose)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.fit{background:rgba(63,143,134,.14);color:var(--teal)}
+  .pill.reshape{background:rgba(194,90,107,.14);color:var(--rose)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* small concept cards */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--amber);display:block;font-size:.95rem;margin-bottom:2px}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+
+  /* stepped reasoning blocks */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--terra);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal);background:rgba(63,143,134,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* glossary + practice reveals */
+  .gloss details,.practice details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary,.practice summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--terra-deep);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .gloss summary::-webkit-details-marker,.practice summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .practice summary::after{content:"answer ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .practice details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary,.practice details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def,.practice .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+  .practice summary .q{font-weight:700;color:var(--ink);flex:1}
+  .practice summary .qnum{font-family:"SF Mono",monospace;font-size:.72rem;color:var(--terra);
+    background:rgba(194,104,60,.10);padding:2px 8px;border-radius:6px;font-weight:700}
+  .practice .def b{color:var(--teal)}
+  .discuss{background:#fff;border:1px solid var(--line);border-left:4px solid var(--rose);
+    border-radius:12px;padding:16px 20px;margin-top:14px;box-shadow:var(--shadow)}
+  .discuss h3{margin-top:0;color:var(--rose)}
+  .discuss ol{margin:8px 0 0;padding-left:20px}
+  .discuss li{margin:8px 0;color:var(--ink-soft)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#7a3719,#a8512c);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#ffe2cf;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#ffc6a3}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary + practice answers, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details,.practice details{break-inside:avoid}
+    .gloss .def,.practice .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.step,.it,.aa .pane,.gloss details,.practice details,.discuss{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 3 · Sequence 1</p>
+    <h1>Variation in Developing Learners</h1>
+    <p class="sub">Learners differ in <em>where</em> they start and <em>how fast</em> they grow. Variation isn't the exception — in most domains it's exactly what we should expect.</p>
+    <div class="tags">
+      <span class="tag">starting points</span>
+      <span class="tag">rate of growth</span>
+      <span class="tag">neurodiversity</span>
+      <span class="tag">mindset &amp; support</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">To understand learning we have to notice <strong>when it begins</strong>, <strong>how it progresses</strong>, and how both vary across learners. Developmental theories predict <em>when</em> capabilities tend to emerge — but they don't tell us much about any one individual.</p>
+
+    <div class="bigidea">
+      Developing learners naturally vary in their <strong>starting points</strong> and their <strong>rates of growth</strong>, both within and across domains. This variation is driven by a mix of <strong>biology, experience, and the level &amp; quality of task support</strong>. The educator's job is to understand these sources of variation so every learner gets an enriching environment — not to design for an "average" that describes no one.
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0">Meet Seth &amp; Dennis (the running scenario)</h3>
+      <p style="margin-top:6px">In first grade, <strong>Seth</strong> has a vocabulary of ~5,000 words and reads chapter books; <strong>Dennis</strong> knows ~1,000 words and reads picture books. Same grade, very different starting points. We return to them throughout the sequence to ask: does this gap justify different reading groups? Will they ever converge? What support would help?</p>
+      <div class="openbox" style="margin-top:14px">
+        <div class="ob-node">STARTING POINT<br>biology + early experience</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-mind">RATE OF GROWTH<br><small>shaped by support, expectations, mindset</small></div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">OUTCOME<br>widens or closes the gap</div>
+      </div>
+      <p class="figcap">A starting-point difference is only the beginning — what happens next depends on support.</p>
+    </div>
+
+    <div class="card" style="padding:6px 10px">
+      <table class="vs">
+        <thead>
+          <tr><th>The "two axes" of variation</th><th>What it asks</th><th>Key terms</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Starting point</td><td>When does a learner first acquire a skill?</td><td>experience-expectant vs. experience-dependent</td></tr>
+          <tr><td>Rate of growth</td><td>How fast do they grow within a domain?</td><td>Matthew Effect vs. Catch-up Effect</td></tr>
+          <tr><td>Profile shape</td><td>Are they equally strong across tasks?</td><td>jaggedness principle</td></tr>
+          <tr><td>Trajectory</td><td>Typical or atypical development?</td><td>neurodiversity</td></tr>
+          <tr><td>What we can change</td><td>How do we move the rate of growth?</td><td>task support · ZPD · mindset</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 3.1.1 STARTING POINTS ===== -->
+  <section>
+    <h2><span class="num">02</span> 3.1.1 · Starting Points</h2>
+    <p>A <strong>starting point</strong> is the time at which a learner first acquires some new knowledge or skill. Even for universal skills like language, starting points vary <em>widely</em>: one study of 2-year-olds estimated vocabularies ranging from <strong>50 to 550 words</strong>.</p>
+
+    <h3>Experience-expectant vs. experience-dependent</h3>
+    <div class="aa">
+      <div class="pane assim">
+        <h4>Experience-expectant <span class="pill fit">expected</span></h4>
+        <p>Skills that emerge early because of experiences <strong>nearly all humans share</strong> — seeing faces, hearing voices, interacting with caregivers. The brain is "set up from the start" to respond to these reliable inputs during sensitive periods.</p>
+        <p class="ex"><b>e.g.</b> Acquiring a native spoken language; vision; forming attachment. <em>Intervention</em> = ensure access to ordinary experiences (e.g., screen infants for vision/hearing).</p>
+      </div>
+      <div class="pane accom">
+        <h4>Experience-dependent <span class="pill reshape">depends</span></h4>
+        <p>Skills whose emergence depends on the learner <strong>accessing specific experiences</strong>. Tied to lifelong neural plasticity. Most of formal education targets this kind of learning.</p>
+        <p class="ex"><b>e.g.</b> Reading print, algebra word problems, test-anxiety regulation. <em>Intervention</em> = explicit strategies, scaffolding, and access to materials (e.g., books).</p>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px">↳ Why distinguish them? <strong>To focus intervention.</strong> A young brain <em>expects</em> to hear language; it does <em>not</em> expect to decode arbitrary symbols on paper — that depends on instruction. (Note: blind children may show delayed language but ultimately master it equivalent to sighted peers — Pérez-Pereira, 2006.)</p>
+
+    <div class="card schemafig">
+      <svg viewBox="0 0 760 300" role="img" aria-label="Words produced by percentile from 16 to 30 months, showing five curves that fan apart over time" style="width:100%;height:auto">
+        <defs>
+          <marker id="dotT" markerWidth="6" markerHeight="6" refX="3" refY="3">
+            <circle cx="3" cy="3" r="2.4" fill="#9c4a26"></circle>
+          </marker>
+        </defs>
+        <!-- axes -->
+        <line x1="70" y1="250" x2="720" y2="250" stroke="#caa68f" stroke-width="2"></line>
+        <line x1="70" y1="30" x2="70" y2="250" stroke="#caa68f" stroke-width="2"></line>
+        <text x="395" y="288" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#6b5444">age (months) →  16 ········· 30</text>
+        <text x="22" y="140" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#6b5444" transform="rotate(-90 22 140)">words produced →</text>
+        <!-- the fan: all start close on the left, spread on the right -->
+        <g fill="none" stroke-width="3">
+          <path d="M70,232 C300,220 520,150 720,55" stroke="#9c4a26"></path>
+          <path d="M70,236 C300,228 520,185 720,110" stroke="#c2683c"></path>
+          <path d="M70,240 C300,236 520,212 720,160" stroke="#d97c4a"></path>
+          <path d="M70,243 C300,240 520,228 720,200" stroke="#cf942b"></path>
+          <path d="M70,246 C300,244 520,240 720,228" stroke="#e0b87a"></path>
+        </g>
+        <!-- percentile labels -->
+        <g font-family="ui-monospace,monospace" font-size="12" fill="#2a1c13">
+          <text x="726" y="58">90th</text>
+          <text x="726" y="113">75th</text>
+          <text x="726" y="163">50th</text>
+          <text x="726" y="203">25th</text>
+          <text x="726" y="231">10th</text>
+        </g>
+        <!-- starting-point bracket -->
+        <line x1="70" y1="232" x2="70" y2="246" stroke="#9c4a26" stroke-width="3" marker-end="url(#dotT)" marker-start="url(#dotT)"></line>
+        <text x="92" y="244" font-family="ui-monospace,monospace" font-size="11" fill="#9c4a26">starting points already differ</text>
+      </svg>
+      <p class="figcap">Words produced by percentile, 16–30 months (after Fenson et al., 1994). Lines start close, then fan apart.</p>
+    </div>
+
+    <div class="it-grid">
+      <div class="it"><b>The jaggedness principle</b><span>Any individual's profile is "jagged" — above the mean on some tasks, below on others that seem similar. We can't use one-dimensional thinking for abilities built from many weakly-related dimensions (Todd Rose, <em>The End of Average</em>).</span></div>
+      <div class="it"><b>Design for the edges, not the average</b><span>Faced with varied incoming writers, the best move isn't matching the "average" or adding remedial tracks (deficit identity) — it's redesigning for a wider range of engagement and assessment.</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 3.1.2 RATE OF GROWTH ===== -->
+  <section>
+    <h2><span class="num">03</span> 3.1.2 · Rate of Growth</h2>
+    <p><strong>Rate of growth</strong> = how fast a developing learner grows within a particular domain. There is enormous variation here, which raises a warning: trends and averages can be misinterpreted to define "normal," <em>masking the natural range of human variation</em>.</p>
+
+    <div class="aa">
+      <div class="pane accom">
+        <h4>Matthew Effect <span class="pill reshape">rich get richer</span></h4>
+        <p>Early advantage leads to later success: those who start ahead both <strong>benefit more from instruction</strong> and <strong>get more access</strong> to challenging instruction. Small starting-point gaps compound into large ones.</p>
+        <p class="ex"><b>e.g.</b> Seth reads more → wider vocabulary → harder books → more knowledge → advanced classes. Dennis decides reading "isn't fun," reads only when required, and falls further behind. (Based on Stanovich, 2009: vocabulary ↔ reading ↔ frequency of reading all reinforce each other.)</p>
+      </div>
+      <div class="pane assim">
+        <h4>Catch-up Effect <span class="pill fit">converge</span></h4>
+        <p>Regardless of starting point, learners reach the <strong>same level</strong> — they "catch up." Typical of experience-<em>expectant</em> skills that emerge without instruction.</p>
+        <p class="ex"><b>e.g.</b> Walking. Two 9-month-olds may look very different (one needs help to stand, one walks with assistance), but by 15 months both walk unaided; by age 5 ambulatory children walk about equally well. The later starter simply grew faster.</p>
+      </div>
+    </div>
+
+    <div class="card schemafig">
+      <svg viewBox="0 0 760 230" role="img" aria-label="Two contrasting growth patterns: Matthew Effect curves diverge, Catch-up Effect curves converge" style="width:100%;height:auto">
+        <!-- left panel: Matthew -->
+        <text x="180" y="24" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#9c4a26" font-weight="700">MATTHEW — diverge</text>
+        <line x1="50" y1="190" x2="330" y2="190" stroke="#caa68f" stroke-width="2"></line>
+        <line x1="50" y1="40" x2="50" y2="190" stroke="#caa68f" stroke-width="2"></line>
+        <path d="M50,150 C150,120 250,80 320,45" fill="none" stroke="#9c4a26" stroke-width="3"></path>
+        <path d="M50,168 C150,165 250,158 320,150" fill="none" stroke="#d97c4a" stroke-width="3"></path>
+        <circle cx="50" cy="150" r="4" fill="#9c4a26"></circle>
+        <circle cx="50" cy="168" r="4" fill="#d97c4a"></circle>
+        <text x="326" y="46" font-family="ui-monospace,monospace" font-size="10" fill="#9c4a26">ahead</text>
+        <text x="326" y="152" font-family="ui-monospace,monospace" font-size="10" fill="#d97c4a">behind</text>
+
+        <!-- right panel: Catch-up -->
+        <text x="575" y="24" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#3f8f86" font-weight="700">CATCH-UP — converge</text>
+        <line x1="440" y1="190" x2="720" y2="190" stroke="#caa68f" stroke-width="2"></line>
+        <line x1="440" y1="40" x2="440" y2="190" stroke="#caa68f" stroke-width="2"></line>
+        <path d="M440,90 C540,70 640,62 710,58" fill="none" stroke="#3f8f86" stroke-width="3"></path>
+        <path d="M440,175 C540,150 640,90 710,60" fill="none" stroke="#cf942b" stroke-width="3"></path>
+        <circle cx="440" cy="90" r="4" fill="#3f8f86"></circle>
+        <circle cx="440" cy="175" r="4" fill="#cf942b"></circle>
+        <circle cx="710" cy="59" r="5" fill="none" stroke="#3f8f86" stroke-width="2.5"></circle>
+        <text x="600" y="120" font-family="ui-monospace,monospace" font-size="10" fill="#cf942b">later starter grows faster</text>
+      </svg>
+      <p class="figcap">Same starting-point gap, two fates — depending on whether the domain is experience-dependent (reading) or experience-expectant (walking).</p>
+    </div>
+
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:6px">↳ Reading is experience-<em>dependent</em>, so instructional decisions (how we group learners, how responsive we are) can <strong>exacerbate</strong> initial differences. <strong>Personalization</strong> — support tailored to an individual to mitigate starting-point differences and/or boost rate of growth — is the lever. Watch out: expectations affect supports. One study found parents talk <em>more</em> to 13-month-olds who walk than those who crawl (Paterson et al., 2016) — a delay in one domain can shrink the input in another.</p>
+  </section>
+
+  <!-- ===== 3.1.3 ATYPICAL DEVELOPMENT ===== -->
+  <section>
+    <h2><span class="num">04</span> 3.1.3 · Is There Such a Thing as Atypical Development?</h2>
+    <p><strong>Atypical development</strong> = developing differently from what is expected of others the same age — at <em>either</em> end of the range. Developmental trajectories tell us when capabilities <em>tend</em> to emerge for most; they say little about any individual.</p>
+
+    <div class="card">
+      <h3 style="margin-top:0">The Polgár sisters — atypical at the high end</h3>
+      <p style="margin-top:6px">In the 1970s László Polgár began intensive, early chess instruction with his three daughters (teaching them himself, hiring expert tutors, and insisting they compete against men). The result: <strong>Susan</strong> became a Grandmaster, <strong>Sofia</strong> an International Master, and <strong>Judit</strong> a Grandmaster at age 15 — younger than Bobby Fischer. A demonstration of how rich, early, focused instruction can produce <em>atypical development</em> (Feldman, 1993).</p>
+      <p style="margin-top:6px;font-size:.92rem;color:var(--ink-soft)">↳ This is <strong>also a Matthew Effect</strong>: high early skill earned them games against stronger players, accelerating their growth — just as Seth's early vocabulary earned him harder books.</p>
+    </div>
+
+    <div class="bigidea">
+      <strong>Neurodiversity</strong> is the term for the natural variation we observe in human development and learning. Crucially, it includes those with developmental and learning disabilities <em>and</em> those deemed prodigies — and it means never losing sight of any learner's <strong>strengths</strong> alongside their limitations.
+    </div>
+
+    <div class="it-grid">
+      <div class="it"><b>Dyslexia</b><span>A specific disorder of acquiring reading skills, linked to reduced grey matter in left-hemisphere regions — differences detectable <em>before</em> school starts. Early identification opens the door to early intervention (Raschle, Chang &amp; Gaab, 2011).</span></div>
+      <div class="it"><b>Autism spectrum (ASD)</b><span>Associated with limited/delayed theory of mind (social perspective-taking). Structured, integrated play groups — scaffolding children with and without autism to play together — increase social play (Bass &amp; Mulick, 2007; Wolfberg et al., 2015).</span></div>
+    </div>
+
+    <p style="margin-top:14px">Two cautions the unit insists on: (1) Access to early intervention is <strong>not equally distributed</strong> — it's time- and resource-intensive, and inequities in race/ethnicity, income, and language proficiency make it harder to reach. (2) Diagnostic categories are often <em>necessary</em> to secure support, but there's a risk of <strong>treating learners as if they are their disabilities</strong>. Remembering that all learners have jagged profiles guards against essentializing a disability and lowering expectations unjustifiably.</p>
+  </section>
+
+  <!-- ===== 3.1.4 TASK SUPPORT & MINDSET ===== -->
+  <section>
+    <h2><span class="num">05</span> 3.1.4 · Task Support &amp; Mindset</h2>
+    <p>So far, variation has felt largely given. This unit covers the <strong>two levers we can pull</strong>: the support around the task, and the mindset inside the learner.</p>
+
+    <h3>How task support affects growth</h3>
+    <div class="lesson">
+      <div class="step">
+        <div class="body">
+          <p class="idea">Appropriate support extends the range of what a learner can do — working in the learner's Zone of Proximal Development (ZPD).</p>
+          <p class="mech"><b>ZPD</b> With high support a learner reaches a high level of performance, which becomes the starting point for the next skill. With low support, the same learner performs lower.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">For atypical learners especially, support must be calibrated — too low overwhelms, too high oversimplifies.</p>
+          <p class="mech"><b>Calibration</b> Learning improves when educators understand a learner's current abilities and strike the balance. Integrated play groups give autistic youth just enough social scaffolding.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">It's not just <em>how much</em> support, but its <em>quality and type</em>.</p>
+          <p class="mech"><b>Quality &gt; quantity</b> Math-anxious parents/teachers can transmit anxiety; more parental math input can sometimes <em>lower</em> achievement. Quantity vs. quality recurs everywhere (words heard vs. quality of interaction; drill vs. deliberate practice).</p>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px">↳ Timing matters: high-quality pre-K (coached teachers, evidence-based curricula) raises proficiency in literacy, math, executive function, and emotion recognition (Weiland et al., 2013), with long-term academic benefits (McCoy et al., 2017) — partly by increasing children's ability to <em>benefit from later schooling.</em></p>
+
+    <h3>Growth mindset vs. fixed mindset (Carol Dweck)</h3>
+    <div class="aa">
+      <div class="pane assim">
+        <h4>Growth mindset <span class="pill fit">malleable</span></h4>
+        <p>The belief that level of intelligence <strong>can be altered by effort and experience</strong>. Associated with better persistence through academic challenges and faster improvement.</p>
+        <p class="ex"><b>Fueled by</b> praise for <em>effort</em>: "Great job working hard on this!" Encourages spending more time on the task.</p>
+      </div>
+      <div class="pane accom">
+        <h4>Fixed mindset <span class="pill reshape">innate</span></h4>
+        <p>The belief that intelligence is <strong>innate and cannot be changed</strong>. Can discourage practice ("Why bother? I'll never be good at this"), slowing improvement.</p>
+        <p class="ex"><b>Fueled by</b> praise for <em>ability</em>: "You're so smart / gifted at science!" Aparna learns to see her intelligence as fixed.</p>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px">↳ Mindset is <strong>not a fixed trait</strong> — most of us blend both, varying by domain and moment. The useful question isn't "are you growth or fixed?" but "<em>when, where, and with whom</em> do I act as if I am — and why?" And per Dweck (2015), don't just praise effort and stop: <strong>tell the truth</strong> about a learner's achievement, then support their progress.</p>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>starting point</summary>
+      <div class="def">The time at which a learner first acquires some new knowledge or skill.
+        <span class="eg">Seth and Dennis enter first grade at very different vocabulary starting points (~5,000 vs. ~1,000 words).</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>experience-expectant</summary>
+      <div class="def">The descriptor for skills that emerge early in life as a result of common experiences nearly all humans have — e.g., seeing others communicate, interacting with communicative adults, forming attachment with reliable caregivers.
+        <span class="eg">Acquiring a native spoken language; vision.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>experience-dependent</summary>
+      <div class="def">The descriptor for skills whose emergence and elaboration depend on the nature of a learner's experience — e.g., later language and literacy skills and some social-emotional skills (regulating test anxiety, sustaining belief in the value of effort despite obstacles).
+        <span class="eg">Reading printed material; solving algebra word problems.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>jaggedness principle</summary>
+      <div class="def">The principle that we cannot apply simplified, one-dimensional thinking to characterize something that consists of multiple dimensions only weakly related to one another.
+        <span class="eg">A student strong at spatial geometry but weak at working memory — math ability isn't a single number.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>rate of growth</summary>
+      <div class="def">The rate at which a developing learner grows within a particular domain.
+        <span class="eg">A late-walking 9-month-old can grow faster to catch up by 15 months.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>Matthew Effect</summary>
+      <div class="def">A phenomenon in which early advantage or success leads to later success in learning — "the rich get richer." Those who start ahead benefit more from instruction and gain more access to challenging instruction.
+        <span class="eg">Seth's early reading skill earns him harder books and faster growth; Dennis falls further behind.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>catch-up effect</summary>
+      <div class="def">A phenomenon in which learners attain similar levels of performance in a domain despite early differences in starting points in that domain.
+        <span class="eg">Walking — by around age 5 ambulatory children walk about equally well regardless of when they started.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>personalization</summary>
+      <div class="def">Support tailored to an individual's needs, intended to mitigate differences in starting points and/or promote a person's rate of growth.
+        <span class="eg">Giving the two 9-month-olds different kinds of help so both reach independent walking.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>neurodiversity</summary>
+      <div class="def">A term describing the natural variation we observe in human development and learning — including those with developmental and learning disabilities and those deemed prodigies — emphasizing strengths as well as limitations.
+        <span class="eg">Dyslexia, ADHD, and autism alongside chess prodigies all fall within natural variation.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>atypical development</summary>
+      <div class="def">Developing differently from what is expected of other people the same age — at either the high or low end of the typical range.
+        <span class="eg">The Polgár sisters' chess prodigy development (Feldman, 1993).</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>growth mindset</summary>
+      <div class="def">The belief that level of intelligence is altered based on effort and experience (Carol Dweck).
+        <span class="eg">Fostered by praising effort: "You worked hard on this."</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>fixed mindset</summary>
+      <div class="def">The belief that intelligence is innate and cannot be changed (Carol Dweck).
+        <span class="eg">Reinforced by praising ability: "You're so smart / gifted."</span>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== PRACTICE & DISCUSSION ===== -->
+  <section class="practice">
+    <h2><span class="num">07</span> Practice &amp; discussion</h2>
+    <p style="color:var(--ink-soft)">Answer in your head first, then reveal. Mix of recall and application.</p>
+
+    <details>
+      <summary><span class="qnum">Q1</span><span class="q">Which is an example of an experience-expectant skill: eating with a utensil, verbal communication in a native language, or playing a sport?</span></summary>
+      <div class="def"><b>Verbal communication in a native language.</b> It emerges early because of experiences nearly all humans share. Eating with a utensil and playing a sport are experience-<em>dependent</em> — they emerge based on the particular nature of a learner's experiences.</div>
+    </details>
+
+    <details>
+      <summary><span class="qnum">Q2</span><span class="q">A learner loves spatial tasks but struggles with working memory: she aces geometry but forgets to write down homework and earns a B-. Which principle does this illustrate?</span></summary>
+      <div class="def"><b>The jaggedness principle.</b> Math performance is built from multiple, only weakly-related dimensions, so a single grade flattens a jagged profile. (Compare: a one-mile run time or a vocabulary-comprehension score is one-dimensional and would <em>not</em> illustrate jaggedness.)</div>
+    </details>
+
+    <details>
+      <summary><span class="qnum">Q3</span><span class="q">Mrs. Bingham lets students choose, after a shortened math block, to keep doing math or read silently. What's the most likely outcome?</span></summary>
+      <div class="def"><b>The math-choosing group steadily gains math skills and ends up outperforming the readers in math</b> — a Matthew Effect inside one classroom. Students who already like (and are better at) math choose more math and pull further ahead, while math-avoiders learn less.</div>
+    </details>
+
+    <details>
+      <summary><span class="qnum">Q4</span><span class="q">Incoming first-years show widely varied writing ability. Which response best leverages the jaggedness principle: match the curriculum to the "average," add remedial seminars, or redesign for a wider range of engagement and assessment?</span></summary>
+      <div class="def"><b>Redesign the seminars to offer more options for engagement and a wider range of means for performance assessment.</b> Designing for the "average" leaves some unsupported and others unchallenged; remedial tracks miss the full range and risk a deficit-oriented identity.</div>
+    </details>
+
+    <details>
+      <summary><span class="qnum">Q5</span><span class="q">A professor tells Gerardo: "I can tell you worked hard on a challenging topic; there's a lot to improve, but keep putting in effort and you'll gain deep understanding." Which reaction does growth-mindset theory predict?</span></summary>
+      <div class="def"><b>He starts thinking about what he can do to keep making progress.</b> The feedback praises <em>effort</em> and tackling a challenge (not innate "intelligence") and tells the truth about where to improve — exactly the combination Dweck says builds a growth mindset.</div>
+    </details>
+
+    <div class="discuss">
+      <h3>Open-ended discussion prompts</h3>
+      <ol>
+        <li>Does the initial vocabulary gap justify placing Seth and Dennis in different reading groups? If you grouped them, what would you do to keep the Matthew Effect from widening the gap?</li>
+        <li>How can educators' words and actions <em>support</em> or <em>constrain</em> a learner's atypical development — at either end of the range — without essentializing a diagnosis?</li>
+        <li>"Quality over quantity" of support recurs across domains. Pick a domain you teach or know well: what would <em>high-quality</em> (not just high-quantity) support actually look like in practice?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Variation is the norm.</strong> In most domains learners differ widely in starting points and rates of growth — expect it, design for it.</li>
+      <li><strong>Two flavors of starting point.</strong> Experience-<em>expectant</em> skills need ordinary shared experiences; experience-<em>dependent</em> skills need specific access and instruction.</li>
+      <li><strong>Matthew vs. Catch-up.</strong> In experience-dependent domains early gaps compound (rich get richer); in experience-expectant ones learners converge. Personalization can bend the curve.</li>
+      <li><strong>Profiles are jagged, and atypical cuts both ways.</strong> Neurodiversity includes disabilities and prodigies alike — never lose sight of strengths or lower expectations unjustifiably.</li>
+      <li><strong>Support is a lever — and so is mindset.</strong> Calibrate support to the ZPD (quality &gt; quantity); praise effort and tell the truth to grow a growth mindset.</li>
+      <li><strong>Don't design for the average.</strong> The "average" learner describes no one — equity means giving every learner an enriching environment.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 3 · Variation in Developing Learners · study notes</footer>
+
+</div>
+</body>
+</html>

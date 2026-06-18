@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 3 · Sequence 3 — Groups for Learning · Study Notes</title>
+<style>
+  :root{
+    --ink:#152318;
+    --ink-soft:#41594a;
+    --paper:#f1f7f2;
+    --green:#2f7d4f;
+    --green-bright:#3fa066;
+    --green-deep:#194a30;
+    --teal:#1f9d8f;
+    --amber:#c98a25;
+    --rose:#cf5b6a;
+    --line:#cfe3d6;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(20,60,35,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    /* faint connected-node texture: groups = linked individuals */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(47,125,79,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(31,157,143,.08) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#123320,#2f7d4f 70%,#3fa066);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#cdeed6;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#e0f3e6;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--green);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(31,157,143,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--green-bright);
+    background:linear-gradient(90deg,rgba(63,160,102,.10),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--green)}
+
+  /* flow motif */
+  .openbox{display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .ob-node{background:#fff;border:2px solid var(--green);color:var(--green);
+    padding:10px 16px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center}
+  .ob-mind{background:#fff;border:2px dashed var(--teal);color:var(--teal);
+    padding:12px 18px;border-radius:12px;position:relative;text-align:center;font-weight:700}
+  .ob-mind small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px;font-weight:400}
+  .ob-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* contrast table */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--ink-soft)}
+  table.vs thead th:nth-child(3){color:var(--green)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:24%}
+  table.vs tr td:nth-child(3){background:rgba(47,125,79,.05)}
+
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* two-pane compare */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .aa .pane.assim h4{color:var(--teal)}
+  .aa .pane.accom h4{color:var(--green)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.fit{background:rgba(31,157,143,.14);color:var(--teal)}
+  .pill.reshape{background:rgba(47,125,79,.14);color:var(--green)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+  .aa .ex b{color:var(--ink)}
+
+  /* feature / criteria cards */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--amber);display:block;font-size:.95rem;margin-bottom:2px}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+
+  /* feature list (heterogeneous five) */
+  .feat{counter-reset:feat;margin-top:10px}
+  .featrow{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:14px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .featrow::before{counter-increment:feat;content:counter(feat);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--green);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .featrow .body{flex:1}
+  .featrow .name{font-style:italic;color:var(--ink);font-size:1.02rem}
+  .featrow .desc{margin-top:6px;font-size:.88rem;color:var(--ink-soft)}
+
+  /* RTI tier pyramid */
+  .tiers{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px}
+  .tier{border-radius:10px;padding:12px 16px;text-align:center;box-shadow:var(--shadow);
+    border:1px solid var(--line);background:#fff}
+  .tier b{display:block;font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--green)}
+  .tier span{font-size:.86rem;color:var(--ink-soft)}
+  .t1{width:90%;background:rgba(47,125,79,.06)}
+  .t2{width:62%;background:rgba(47,125,79,.12)}
+  .t3{width:38%;background:rgba(47,125,79,.20)}
+
+  /* glossary + practice reveals */
+  .gloss details,.practice details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary,.practice summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--green);
+    font-size:1.02rem;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .gloss summary::-webkit-details-marker,.practice summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .practice summary::after{content:"answer ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .practice details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary,.practice details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def,.practice .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+  .practice summary .q{font-weight:700;color:var(--ink)}
+  .practice .qtype{font-family:"SF Mono",monospace;font-size:.6rem;letter-spacing:.08em;
+    text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-right:8px;
+    background:rgba(31,157,143,.14);color:var(--teal)}
+  .practice .qtype.app{background:rgba(201,138,37,.16);color:var(--amber)}
+
+  .discuss{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);
+    border-radius:12px;padding:16px 20px;margin-top:14px;box-shadow:var(--shadow)}
+  .discuss ol{margin:8px 0 0;padding-left:20px}
+  .discuss li{margin:8px 0;color:var(--ink-soft)}
+  .discuss li::marker{color:var(--teal);font-family:"SF Mono",monospace}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#123320,#194a30);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#cdeed6;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#8fd6a6}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .featrow::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary + practice answers, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details,.practice details{break-inside:avoid}
+    .gloss .def,.practice .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.featrow,.it,.aa .pane,.gloss details,.practice details,.tier,.discuss{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 3 · Sequence 3</p>
+    <h1>Groups for Learning</h1>
+    <p class="sub">Done well, a group is more than the sum of its parts — learners can vastly exceed what they'd achieve "solo." But the benefits are never automatic.</p>
+    <div class="tags">
+      <span class="tag">homogeneous vs. heterogeneous</span>
+      <span class="tag">tracking</span>
+      <span class="tag">groupworthy tasks</span>
+      <span class="tag">project-based learning</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">Schools and workplaces often treat people the same when they could be <strong>responsive to differences</strong>. Grouping is one way to respond — whether to differences in prior preparation, interests, or to combine complementary strengths.</p>
+
+    <div class="bigidea">
+      Under the right conditions, <strong>collaborative group learning is a key ingredient for individual learning</strong>. Research (largely U.S.) links group work to gains in comprehension, retention, and problem-solving, plus motivation, persistence, and skills like perspective-taking and leadership. This builds on the <strong>Vygotskian</strong> view (Module 1) that puts social interaction at the center of learning. <strong>But these gains are not automatic</strong> — they depend on the right tasks, full participation, and rich feedback.
+    </div>
+
+    <div class="card">
+      <div class="openbox">
+        <div class="ob-node">DIFFERENCES<br>prep · interests · strengths</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-mind">WELL-DESIGNED GROUP<br><small>right task · all participate · just-in-time feedback</small></div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">INDIVIDUAL<br>learning gains</div>
+      </div>
+      <p class="figcap">The group is the means; individual learning is the goal. Bad design breaks the chain.</p>
+    </div>
+
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-top:12px">↳ Related idea: <strong>personalization</strong> — tailoring instruction so activities fall in a learner's ZPD and learners have agency (flexible pacing, varied pathways, links to interest, often tech-enabled). The open question for this sequence: where does group work end and personalized work begin?</p>
+  </section>
+
+  <!-- ===== 3.3.1 PROMISE ===== -->
+  <section>
+    <h2><span class="num">02</span> 3.3.1 · The promise of group learning</h2>
+    <p>Some people don't relish group work. That preference may have been <em>shaped</em> (behaviorist: reinforced) by schooling that rewarded independent work — note-taking, solo tests. For a successful independent worker, group process (organizing, deciding, explaining) can <em>look</em> less efficient. Yet that "extra energy" is often where the learning happens.</p>
+
+    <h3>How grouping gets organized — four key terms</h3>
+    <div class="card" style="padding:6px 10px">
+      <table class="vs">
+        <thead>
+          <tr><th>Term</th><th>What it is</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Homogeneous</td><td>Group people by ways they are <em>similar</em> (relevant to the task)</td><td>Short-term, for a specific purpose</td></tr>
+          <tr><td>Heterogeneous</td><td>Group people by ways they <em>differ</em>, to combine strengths</td><td>Members as resources for each other</td></tr>
+          <tr><td>Flexible grouping</td><td>A <em>temporary</em> homogeneous group formed to give extra support</td><td>A form of homogeneous grouping — <strong>not</strong> heterogeneous</td></tr>
+          <tr><td>Tracking</td><td>Homogeneous grouping that becomes <em>permanent</em> (fixed-ability)</td><td>A form of homogeneous grouping; carries real risks</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bigidea">
+      <strong>Benefits are conditional.</strong> Group learning pays off only when tasks suit collaboration, <strong>all members actively participate</strong>, and learners get <strong>rich, just-in-time feedback</strong> plus support for navigating group dynamics and managing shared work.
+    </div>
+  </section>
+
+  <!-- ===== 3.3.2 HOMOGENEOUS ===== -->
+  <section>
+    <h2><span class="num">03</span> 3.3.2 · Homogeneous groups</h2>
+    <p><strong>Homogeneous grouping</strong> = using dimensions on which people are <em>similar</em> as the basis for grouping. Examples: leveled first-grade reading groups (recall Seth &amp; Dennis), clarinets pulled from the orchestra for a hard passage, a science class choosing project groups by shared interest. Each is short-term and purpose-specific. Placing learners this way makes the implicit claim that shared, instructionally relevant characteristics make for better learning.</p>
+
+    <h3>Advantages &amp; disadvantages shift by age</h3>
+    <div class="aa">
+      <div class="pane assim">
+        <h4>Advantages <span class="pill fit">upside</span></h4>
+        <p><b>Young children:</b> fun, connection around shared interests; positive reinforcement &amp; self-efficacy from progressing alongside peers.</p>
+        <p><b>Adolescents:</b> strongly motivated by peer norms — like-ability peers can boost engagement.</p>
+        <p><b>Adults:</b> useful when focused on a shared, relevant problem.</p>
+      </div>
+      <div class="pane accom">
+        <h4>Disadvantages <span class="pill reshape">downside</span></h4>
+        <p><b>Young children:</b> can hinder autonomy/self-direction; same-pace work ignores "jagged" skill profiles; blocks learning from more skilled peers.</p>
+        <p><b>Adolescents:</b> limits exposure to alternative views; risk the most competent member takes control.</p>
+        <p><b>Adults:</b> limits self-direction; assumes the chosen dimension of similarity is the most important one.</p>
+      </div>
+    </div>
+
+    <h3>Tracking — when homogeneous grouping hardens into identity</h3>
+    <p><strong>Tracking</strong> is homogeneous grouping made effectively permanent. When learners are sorted by achievement or perceived ability and stay in those tracks, groupings start to act like <em>identities</em> — "advanced," "regular," "remedial." Jeannie Oakes (1986): <em>"The net effect of tracking is to exaggerate the initial differences among students rather than to provide the means to better accommodate them."</em> Tracks ignore every learner's <strong>jagged profile</strong> and often arise as unintended consequences of scheduling and teacher expectations, attaching deficit-oriented identities to some students.</p>
+
+    <div class="bigidea">
+      <strong>What's the evidence?</strong> An estimated <strong>37%</strong> of the score gap between high- and low-income U.S. learners is attributed to differences in <em>curriculum</em> ("opportunities to learn"). Researchers therefore reframe an "achievement gap" as an <strong>opportunity gap</strong> created through schooling — echoing the <strong>Matthew Effect</strong>, where early advantages compound.
+    </div>
+
+    <h3>A better model: Response to Intervention (RTI)</h3>
+    <p><strong>RTI</strong> is a planned, <em>temporary</em> homogeneous-grouping model: identify students struggling in a specific area and move them through successive tiers of support only as needed.</p>
+    <div class="tiers">
+      <div class="tier t1"><b>Tier 1</b><span>Excellent whole-class instruction. If many fall behind, instruction itself is the problem.</span></div>
+      <div class="tier t2"><b>Tier 2</b><span>Extra instruction / targeted intervention for some students.</span></div>
+      <div class="tier t3"><b>Tier 3</b><span>Evaluation + individualized one-on-one instruction (or referral to special education).</span></div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px">↳ At its best, RTI is <strong>flexible, temporary, and adapted</strong> to student needs. It goes wrong if it covertly <em>tracks</em> students, over-identifies disability, or just reteaches in smaller groups instead of attending to motivation, mindset, and the task itself.</p>
+  </section>
+
+  <!-- ===== 3.3.3 HETEROGENEOUS ===== -->
+  <section>
+    <h2><span class="num">04</span> 3.3.3 · Heterogeneous groups</h2>
+    <p><strong>Heterogeneous grouping</strong> = combining people to <em>maximize their differences</em>. Unlike homogeneous grouping, it isn't about tailoring a separate experience to each group — it's about helping members use their <strong>collectively different perspectives, skills, and strengths</strong> as resources for one another. One person's growth area meets another's mastery, and vice versa. At its best, the whole exceeds the sum of its parts. (Rock, 2021: diverse teams outperform homogeneous ones professionally.)</p>
+
+    <h3>Five features of high-functioning heterogeneous groups</h3>
+    <p style="font-size:.92rem;color:var(--ink-soft)">From Schwartz, Tsang &amp; Blair (2016), summarizing the literature on effective group learning:</p>
+    <div class="feat">
+      <div class="featrow"><div class="body">
+        <div class="name">Joint attention</div>
+        <div class="desc">Everyone directs attention to the same thing — otherwise people work in parallel, not together. Tip: give a <em>shared visual anchor</em> (a diagram, a whiteboard, a shared doc).</div>
+      </div></div>
+      <div class="featrow"><div class="body">
+        <div class="name">Listening</div>
+        <div class="desc">Sensing and attending to what others communicate. Groups struggle when people talk more than they listen or quickly dismiss ideas.</div>
+      </div></div>
+      <div class="featrow"><div class="body">
+        <div class="name">Sharing</div>
+        <div class="desc">Be clear about the common <em>goal</em> and welcome each other's <em>ideas</em>. Both forms keep the group on track and everyone included.</div>
+      </div></div>
+      <div class="featrow"><div class="body">
+        <div class="name">Coordinating</div>
+        <div class="desc">Manage the work — take turns or assign roles (facilitator, presenter). Establishing <em>norms</em> at the outset helps.</div>
+      </div></div>
+      <div class="featrow"><div class="body">
+        <div class="name">Perspective-taking</div>
+        <div class="desc">Go beyond sharing/listening to genuinely understand others' viewpoints — so members can build on each other, see alternatives, and clarify their own views.</div>
+      </div></div>
+    </div>
+
+    <div class="bigidea">
+      Heterogeneous grouping is <strong>not a straightforward path</strong> to great learning. It's costly to plan, demands the teacher act as <em>facilitator</em> rather than instructor, is hard to assess, and invites <strong>interpersonal conflict</strong> when interests or work styles differ. Like any strategy: thoughtful design, implementation, and redesign-after-evaluation are essential.
+    </div>
+  </section>
+
+  <!-- ===== 3.3.4 GROUPWORTHY ===== -->
+  <section>
+    <h2><span class="num">05</span> 3.3.4 · What is worthy of group work?</h2>
+    <p>Forming a good group isn't enough — you also need a task <em>worth</em> doing together. Some tasks are <strong>routine and well-defined</strong> with clear steps and right answers (e.g., learning proper embouchure and fingering on the suona). Those make poor group work; an individual could do them. <strong>Open-ended, uncertain tasks</strong> — like designing a schoolyard garden bed (What to plant? How much sun? What slope? Fencing?) — flourish on exploration and benefit from diverse expertise. Those are <em>groupworthy</em>.</p>
+
+    <h3>Lotan's five criteria for a groupworthy task</h3>
+    <div class="it-grid">
+      <div class="it"><b>Open-ended</b><span>No single clear procedure or right answer — room to explore.</span></div>
+      <div class="it"><b>Multiple ways to show competence</b><span>Different strengths can all contribute and shine.</span></div>
+      <div class="it"><b>Speaks to a big idea</b><span>Connects to an essential or real-world question.</span></div>
+      <div class="it"><b>Creates interdependence</b><span>Members genuinely need each other to succeed.</span></div>
+      <div class="it"><b>Clear criteria for evaluation</b><span>Everyone knows what good work looks like.</span></div>
+    </div>
+
+    <h3>Project-based vs. problem-based learning</h3>
+    <div class="aa">
+      <div class="pane accom">
+        <h4>Project-based learning <span class="pill reshape">builds a product</span></h4>
+        <p>Students work in groups over an <strong>extended period</strong> to answer a complex question or explore a real-world problem, demonstrating learning by <strong>producing something together</strong> — a product, document, or presentation.</p>
+        <p class="ex"><b>Hallmark:</b> a final collective creation that can connect to community or the wider world.</p>
+      </div>
+      <div class="pane assim">
+        <h4>Problem-based learning <span class="pill fit">solves a problem</span></h4>
+        <p>Students work in groups to solve an open-ended problem in a <strong>shorter timeframe</strong> and <strong>without a final group "product."</strong></p>
+        <p class="ex"><b>Hallmark:</b> the focus is the inquiry/solution, not a deliverable.</p>
+      </div>
+    </div>
+
+    <div class="bigidea">
+      <strong>Group vs. personalized — a false dichotomy.</strong> Few meaningful learning experiences are purely one or the other; they're a <em>dynamic mélange</em>. Hybrid settings often have learners study content individually, then bring it to a group (forum or classroom) to posit ideas, revise assumptions, and ask questions — group inquiry that deepens <em>individual</em> understanding. The educator's job: judge <strong>how and when each is most efficacious</strong> for a given setting.
+    </div>
+  </section>
+
+  <!-- ===== SVG: GROUPWORTHY / GROUPING TRADE-OFFS ===== -->
+  <section>
+    <h2><span class="num">06</span> The trade-off, visualized</h2>
+    <p>Homogeneous and heterogeneous grouping aren't "good vs. bad" — each buys something and risks something. Choose by purpose, and keep it flexible.</p>
+
+    <div class="card">
+      <svg viewBox="0 0 760 320" role="img" aria-label="A diagram contrasting homogeneous and heterogeneous grouping trade-offs" style="width:100%;height:auto">
+        <defs>
+          <marker id="arr" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#41594a"></path>
+          </marker>
+        </defs>
+        <!-- HOMOGENEOUS side -->
+        <rect x="30" y="30" width="330" height="260" rx="16" fill="#e9f4ec" stroke="#2f7d4f" stroke-width="2"></rect>
+        <text x="195" y="60" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="14" font-weight="700" fill="#194a30">HOMOGENEOUS</text>
+        <text x="195" y="80" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#41594a">group by what's SIMILAR</text>
+        <!-- similar nodes -->
+        <g>
+          <circle cx="110" cy="135" r="22" fill="#2f7d4f"></circle>
+          <circle cx="165" cy="135" r="22" fill="#2f7d4f"></circle>
+          <circle cx="220" cy="135" r="22" fill="#2f7d4f"></circle>
+          <circle cx="275" cy="135" r="22" fill="#2f7d4f"></circle>
+        </g>
+        <text x="195" y="185" text-anchor="middle" font-family="serif" font-size="12.5" fill="#194a30" font-weight="700">+ targeted support, shared pace</text>
+        <text x="195" y="208" text-anchor="middle" font-family="serif" font-size="12" fill="#cf5b6a" font-weight="700">– can harden into TRACKING</text>
+        <text x="195" y="240" text-anchor="middle" font-family="serif" font-size="11" fill="#41594a">Keep it flexible &amp; temporary</text>
+        <text x="195" y="258" text-anchor="middle" font-family="serif" font-size="11" fill="#41594a">(e.g. RTI tiers)</text>
+
+        <!-- HETEROGENEOUS side -->
+        <rect x="400" y="30" width="330" height="260" rx="16" fill="#e4f3f1" stroke="#1f9d8f" stroke-width="2"></rect>
+        <text x="565" y="60" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="14" font-weight="700" fill="#0f6f64">HETEROGENEOUS</text>
+        <text x="565" y="80" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#41594a">group by what's DIFFERENT</text>
+        <!-- diverse nodes, connected -->
+        <g stroke="#1f9d8f" stroke-width="2">
+          <line x1="490" y1="135" x2="545" y2="135"></line>
+          <line x1="545" y1="135" x2="600" y2="135"></line>
+          <line x1="600" y1="135" x2="640" y2="135"></line>
+          <line x1="490" y1="135" x2="600" y2="135"></line>
+        </g>
+        <circle cx="490" cy="135" r="20" fill="#1f9d8f"></circle>
+        <rect x="528" y="116" width="38" height="38" rx="9" fill="#c98a25"></rect>
+        <polygon points="600,113 622,153 578,153" fill="#cf5b6a"></polygon>
+        <circle cx="650" cy="135" r="16" fill="#2f7d4f"></circle>
+        <text x="565" y="185" text-anchor="middle" font-family="serif" font-size="12.5" fill="#0f6f64" font-weight="700">+ complementary strengths, perspective</text>
+        <text x="565" y="208" text-anchor="middle" font-family="serif" font-size="12" fill="#cf5b6a" font-weight="700">– costly to plan, conflict risk</text>
+        <text x="565" y="240" text-anchor="middle" font-family="serif" font-size="11" fill="#41594a">Needs the 5 features +</text>
+        <text x="565" y="258" text-anchor="middle" font-family="serif" font-size="11" fill="#41594a">a GROUPWORTHY task</text>
+      </svg>
+      <p class="figcap">Same learners; opposite logic. Identical-color nodes = similar (homogeneous); varied shapes wired together = different-but-connected (heterogeneous).</p>
+    </div>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">07</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>homogeneous grouping</summary>
+      <div class="def">Using dimensions on which people are <em>similar</em> as a basis to group them for a learning purpose.
+        <span class="eg">Leveled reading groups; clarinets pulled from the orchestra for a hard passage.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>heterogeneous grouping</summary>
+      <div class="def">Using dimensions on which people are <em>different</em> as a basis to group them — combining varied perspectives, skills, and strengths so members serve as resources for one another.
+        <span class="eg">At its best, the whole is greater than the sum of its parts.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>flexible grouping</summary>
+      <div class="def">A form of grouping in which individuals are <em>temporarily</em> placed in homogeneous groups to provide them with additional support.
+        <span class="eg">Note: it is a form of <strong>homogeneous</strong> grouping — not heterogeneous.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>tracking</summary>
+      <div class="def">Homogeneous grouping that, effectively, gets made permanent; also known as <em>fixed-ability grouping</em>.
+        <span class="eg">Oakes: it tends to exaggerate initial differences rather than accommodate them.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>Response to Intervention (RTI)</summary>
+      <div class="def">A three-tiered approach to identify and support students in schools who are struggling in a specific area.
+        <span class="eg">Tier 1 = excellent whole-class instruction; Tier 2 = targeted support; Tier 3 = individualized one-on-one.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>project-based learning</summary>
+      <div class="def">When students work in groups over an extended period to answer a complex question or explore a real-world problem — demonstrating learning by producing something together.
+        <span class="eg">The defining feature is a final collective <strong>product</strong>.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>problem-based learning</summary>
+      <div class="def">When students work in groups to solve an open-ended problem in a shorter timeframe and <em>without</em> a final group "product."
+        <span class="eg">Contrast with project-based learning, which does end in a product.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>groupworthy task (Lotan)</summary>
+      <div class="def">A task well-suited to group learning. Lotan's five criteria: (1) open-ended, (2) offers multiple ways to show competence, (3) speaks to a big idea / essential question, (4) creates and supports interdependence, (5) has clear criteria for evaluation.
+        <span class="eg">Routine, single-answer tasks are <em>not</em> groupworthy — an individual could do them.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>personalization</summary>
+      <div class="def">Tailoring instruction so activities fall within a learner's ZPD and learners have agency to shape their experience — via flexible pacing, varied pathways, or links to personal interest; often technology-enabled.
+        <span class="eg">Group work and personalization are often a blend, not an either/or.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>Matthew Effect</summary>
+      <div class="def">The pattern in which those who start with advantages tend to learn faster and achieve at higher levels, so early gaps widen over time.
+        <span class="eg">Used to argue for an "opportunity gap" rather than merely an "achievement gap."</span>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== PRACTICE & DISCUSSION ===== -->
+  <section class="practice">
+    <h2><span class="num">08</span> Practice &amp; discussion</h2>
+    <p style="color:var(--ink-soft)">Answer in your head (or out loud) before revealing. Mix of recall and application.</p>
+
+    <details>
+      <summary><span><span class="qtype">recall</span><span class="q">Is "flexible grouping" a form of heterogeneous grouping?</span></span></summary>
+      <div class="def"><strong>No — false.</strong> Flexible grouping is a form of <em>homogeneous</em> grouping: individuals are temporarily placed in homogeneous groups to receive additional support. The "flexible" part refers to its temporary, as-needed nature, not to mixing differences.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype">recall</span><span class="q">What distinguishes tracking from ordinary homogeneous grouping?</span></span></summary>
+      <div class="def"><strong>Permanence.</strong> Tracking is homogeneous grouping that effectively becomes permanent (fixed-ability grouping). Groups stop being temporary tools and start functioning like identities ("advanced," "regular," "remedial"), which — per Oakes — tends to exaggerate initial differences rather than accommodate them.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype app">apply</span><span class="q">A teacher wants to form temporary homogeneous reading groups in first grade. Which is a valid basis: a group working on long vs. short vowels, a group that likes animal books, or a group of emerging English readers building vocabulary?</span></span></summary>
+      <div class="def"><strong>All of the above</strong> are plausible — <em>as long as they are flexible</em>, i.e., in place only as long as needed. Homogeneous grouping can be based on a skill focus, a shared interest, or a developmental need; the key safeguard is that the grouping stays temporary so it doesn't harden into a track.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype app">apply</span><span class="q">Your group keeps building circuits side-by-side, each on their own, and decisions stall because nobody listens. Using Schwartz et al.'s five features, what's missing?</span></span></summary>
+      <div class="def">At least two features are missing. Working "side by side, not collaboratively" is a failure of <strong>joint attention</strong> — fix it with a shared visual anchor (a common diagram or doc). The stalling-because-no-one-listens is a failure of <strong>listening</strong> (and possibly <strong>coordinating</strong> roles). You'd also want clear <strong>sharing</strong> of the common goal so the group doesn't follow wayward paths.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype app">apply</span><span class="q">For a Gilded Age unit, which is the most groupworthy project: (a) build an exhibit comparing Gilded Age conditions to 2005–2020, (b) research one famous individual, (c) analyze Twain's satire in an essay, or (d) trace what happened to the era's great fortunes?</span></span></summary>
+      <div class="def"><strong>Option (a)</strong> is arguably the most groupworthy (though a skilled teacher could adapt any of them). It gives the group considerable <em>autonomy</em> over precise content and speaks to a <em>big idea</em> by linking the past to present-day conditions that are more accessible and engaging to students — hitting Lotan's open-endedness, big-idea, and interdependence criteria most fully.</div>
+    </details>
+
+    <div class="discuss">
+      <h3 style="margin-top:0;color:var(--teal)">Open-ended discussion prompts</h3>
+      <ol>
+        <li>Think of a time you were tracked or ability-grouped in your own schooling. Did the grouping feel temporary and supportive, or did it start to attach an identity? What would have made it more flexible?</li>
+        <li>Heterogeneous groups can produce conflict when interests and work styles differ. When is that friction <em>productive</em> for learning, and when does it just become costly? How would you, as a facilitator, tell the difference in the moment?</li>
+        <li>"Group vs. personalized" may be a false dichotomy. Design a single hybrid lesson where individual study and group inquiry each do the work they're best at — and justify <em>why</em> each part is where it is.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Groups serve individual learning.</strong> Done well they beat solo work — but the gains are <em>conditional</em> on the right task, full participation, and rich feedback.</li>
+      <li><strong>Homogeneous = group by similarity</strong> (short-term, purposeful). Useful, but its advantages and risks shift by age, and it must stay flexible.</li>
+      <li><strong>Tracking is the trap.</strong> Permanent homogeneous grouping exaggerates differences and attaches deficit identities — reframe it as an <em>opportunity gap</em>. RTI shows the flexible, temporary alternative.</li>
+      <li><strong>Heterogeneous = group by difference,</strong> so members are resources for each other. High-functioning groups show joint attention, listening, sharing, coordinating, and perspective-taking.</li>
+      <li><strong>The task matters as much as the grouping.</strong> Groupworthy tasks (Lotan) are open-ended, multi-competence, big-idea, interdependent, and clearly evaluated — the heart of project-based learning.</li>
+      <li><strong>Group vs. personalized is a blend,</strong> not a binary. The educator's craft is choosing how and when each serves the learner.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 3 · Groups for Learning · study notes</footer>
+
+</div>
+</body>
+</html>

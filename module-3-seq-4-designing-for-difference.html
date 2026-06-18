@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 3 · Sequence 4 — Designing for Difference · Study Notes</title>
+<style>
+  :root{
+    --ink:#241a2b;
+    --ink-soft:#594a64;
+    --paper:#f8f4fa;
+    --plum:#7a4a86;
+    --plum-bright:#9a63a8;
+    --plum-deep:#4d2a57;
+    --teal:#1f8f86;
+    --amber:#d98a2b;
+    --rose:#c7567f;
+    --line:#e3d6e9;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(77,42,87,.12);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(122,74,134,.09) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(31,143,134,.07) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#3a1d44,#7a4a86 70%,#9a63a8);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#ecd9f2;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#f1e3f5;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--plum);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(31,143,134,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--plum-bright);
+    background:linear-gradient(90deg,rgba(154,99,168,.10),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--plum)}
+
+  /* flow motif: accommodate vs design-from-start */
+  .openbox{display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .ob-node{background:#fff;border:2px solid var(--plum);color:var(--plum);
+    padding:10px 16px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center}
+  .ob-mind{background:#fff;border:2px dashed var(--teal);color:var(--teal);
+    padding:12px 18px;border-radius:12px;position:relative}
+  .ob-mind small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px}
+  .ob-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* contrast table */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--ink-soft)}
+  table.vs thead th:nth-child(3){color:var(--plum)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:26%}
+  table.vs tr td:nth-child(3){background:rgba(122,74,134,.05)}
+
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+  .udlfig{margin:6px 0 2px}
+
+  /* principles grid */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--plum-bright);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--plum);display:block;font-size:.95rem;margin-bottom:2px}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+
+  /* three-principle panes */
+  .aa{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .aa .pane.eng h4{color:var(--amber)}
+  .aa .pane.rep h4{color:var(--plum)}
+  .aa .pane.act h4{color:var(--teal)}
+  .pill{font-family:"SF Mono",monospace;font-size:.58rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.why{background:rgba(122,74,134,.14);color:var(--plum)}
+  .pill.what{background:rgba(217,138,43,.16);color:var(--amber)}
+  .pill.how{background:rgba(31,143,134,.16);color:var(--teal)}
+  .aa .pane p{font-size:.9rem;margin:8px 0 0}
+  .aa .ex{font-size:.82rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* numbered steps */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--plum);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal);background:rgba(31,143,134,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* glossary + practice reveals */
+  .gloss details,.practice details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary,.practice summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--plum);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .gloss summary::-webkit-details-marker,.practice summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .practice summary::after{content:"answer ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .practice details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary,.practice details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def,.practice .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg,.practice .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+  .practice summary .q{font-weight:400;color:var(--ink);font-size:.97rem}
+  .qtag{font-family:"SF Mono",monospace;font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;
+    padding:2px 8px;border-radius:999px;margin-right:8px;vertical-align:middle}
+  .qtag.recall{background:rgba(31,143,134,.14);color:var(--teal)}
+  .qtag.apply{background:rgba(217,138,43,.16);color:var(--amber)}
+
+  .discuss{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);
+    border-radius:12px;padding:16px 20px;box-shadow:var(--shadow);margin-top:16px}
+  .discuss h3{margin:0 0 6px;color:var(--teal)}
+  .discuss ol{margin:8px 0 0;padding-left:20px}
+  .discuss li{margin:8px 0;color:var(--ink-soft)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#3a1d44,#5d3568);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#ecd9f2;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#d3a9de}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary + practice answers */
+  @media print{
+    body{background:#fff}
+    .gloss details,.practice details{break-inside:avoid}
+    .gloss .def,.practice .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.step,.it,.aa .pane,.gloss details,.practice details,.discuss{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 3 · Sequence 4</p>
+    <h1>Designing for Difference</h1>
+    <p class="sub">Learner variability is the <em>norm</em>, not the exception. So design for it from the very start — don't retrofit accommodations onto a one-size lesson.</p>
+    <div class="tags">
+      <span class="tag">inclusion</span>
+      <span class="tag">Universal Design for Learning</span>
+      <span class="tag">engagement · representation · expression</span>
+      <span class="tag">arts-based learning</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">This sequence traces a single arc: from <strong>excluding</strong> learners with disabilities, to <strong>including</strong> them with accommodations, to <strong>designing learning from the start</strong> so it works for everyone. The arts turn out to be a uniquely powerful tool for that last step.</p>
+
+    <div class="bigidea">
+      The key shift is from <strong>reactive</strong> to <strong>proactive</strong>. Old model: build one standard lesson, then bolt on accommodations for the learners it fails. New model (<strong>UDL</strong>): assume variation up front and build in <strong>multiple options</strong> so the design is "universally accessible" — <strong>necessary for some, good for all.</strong>
+    </div>
+
+    <div class="card">
+      <div class="openbox">
+        <div class="ob-node">EXCLUSION<br>kept out of class</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">INCLUSION<br>+ accommodations</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-mind">⊹ UNIVERSAL DESIGN ⊹<small>designed for variability from the start</small></div>
+      </div>
+      <p class="figcap">The arc of this sequence: retrofitting access was a milestone — but designing for difference up front is the goal.</p>
+    </div>
+  </section>
+
+  <!-- ===== 3.4.1 ===== -->
+  <section>
+    <h2><span class="num">02</span> 3.4.1 · Meeting the needs of all learners</h2>
+    <p>For much of U.S. history, students with disabilities were <strong>excluded</strong> from general classrooms. The push for <strong>inclusion</strong> grew out of the <strong>Disability Rights Movement</strong>, in which people with disabilities advocated for their rights and self-determination.</p>
+
+    <h3>Inclusion, and the law behind it</h3>
+    <p><strong>Inclusion</strong> = a commitment to educating every learner, as far as possible, in the school or classroom they'd attend if they had no disability. It is essentially <em>equity-focused heterogeneous grouping</em> that honors learning differences.</p>
+    <div class="it-grid">
+      <div class="it"><b>IDEA (U.S., 1990)</b><span>Students must be educated in the "least restrictive environment" — starting in the same general classroom as same-age peers, with modifications and accommodations to ensure equitable opportunity to learn.</span></div>
+      <div class="it"><b>CRPD (U.N., 2006)</b><span>Convention on the Rights of Persons with Disabilities — ratified by 186 countries; recognizes the right to inclusive education at all levels, with reasonable accommodation.</span></div>
+      <div class="it"><b>Global echoes</b><span>British Columbia (2006) and South Africa (2001) passed parallel policies — "all children and youth can learn" and need support, so systems must adapt to learners.</span></div>
+      <div class="it"><b>Henderson School</b><span>Boston's Dr. William W. Henderson Inclusion School (full-inclusion model) is exemplary — creating multiple pathways for students to succeed.</span></div>
+    </div>
+
+    <h3>The limits of "inclusion" — and the better paradigm</h3>
+    <p>Inclusion was monumental for its time, but advocates saw its limits: simply <strong>modifying a setting while leaving the design unchanged</strong> is not enough. (An ASL interpreter alone, for instance, may not give a deaf student equitable access to language.) The stronger, <strong>strengths-based</strong> paradigm is to <strong>assume and center learner variation and neurodiversity from the onset</strong> — taking full advantage of the strengths every learner brings.</p>
+    <div class="bigidea">
+      Terminology matters. <strong>Neurodivergent</strong> is an empowering <em>first-person</em> descriptor of an individual; <strong>neurodiverse</strong> describes the variation that exists across a whole population or group.
+    </div>
+  </section>
+
+  <!-- ===== 3.4.2 ===== -->
+  <section>
+    <h2><span class="num">03</span> 3.4.2 · The principles of Universal Design for Learning</h2>
+    <p><strong>Universal Design for Learning (UDL)</strong> is a framework from <strong>CAST</strong> (Center for Applied Special Technology) that gives principles and guidelines for designing curricula and environments that are <strong>universally accessible to all learners</strong>, at any age and in any discipline. Its premise: <strong>learner variability is the norm,</strong> so design for everyone from the start.</p>
+
+    <div class="card udlfig">
+      <svg viewBox="0 0 780 320" role="img" aria-label="The three UDL principles: multiple means of engagement, representation, and action and expression, each leading to a goal" style="width:100%;height:auto">
+        <defs>
+          <marker id="arr" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto">
+            <path d="M0,0 L9,4.5 L0,9 Z" fill="#594a64"></path>
+          </marker>
+        </defs>
+        <!-- title bar -->
+        <rect x="40" y="14" width="700" height="40" rx="10" fill="#7a4a86"></rect>
+        <text x="390" y="40" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="15" fill="#fff" letter-spacing="1">UNIVERSAL DESIGN FOR LEARNING · provide multiple means of…</text>
+
+        <!-- three columns -->
+        <!-- Engagement -->
+        <rect x="40" y="78" width="220" height="150" rx="14" fill="#fff" stroke="#d98a2b" stroke-width="2.5"></rect>
+        <text x="150" y="106" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#d98a2b" letter-spacing="1">THE "WHY" OF LEARNING</text>
+        <text x="150" y="134" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="bold" fill="#241a2b">Engagement</text>
+        <text x="150" y="162" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#594a64">options to spark interest,</text>
+        <text x="150" y="180" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#594a64">sustain effort, and</text>
+        <text x="150" y="198" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#594a64">self-regulate emotion</text>
+
+        <!-- Representation -->
+        <rect x="280" y="78" width="220" height="150" rx="14" fill="#fff" stroke="#7a4a86" stroke-width="2.5"></rect>
+        <text x="390" y="106" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#7a4a86" letter-spacing="1">THE "WHAT" OF LEARNING</text>
+        <text x="390" y="134" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="bold" fill="#241a2b">Representation</text>
+        <text x="390" y="162" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#594a64">options to perceive and</text>
+        <text x="390" y="180" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#594a64">comprehend information</text>
+        <text x="390" y="198" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#594a64">presented to them</text>
+
+        <!-- Action & Expression -->
+        <rect x="520" y="78" width="220" height="150" rx="14" fill="#fff" stroke="#1f8f86" stroke-width="2.5"></rect>
+        <text x="630" y="106" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#1f8f86" letter-spacing="1">THE "HOW" OF LEARNING</text>
+        <text x="630" y="134" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="#241a2b">Action &amp; Expression</text>
+        <text x="630" y="162" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#594a64">options to navigate and</text>
+        <text x="630" y="180" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#594a64">to express what they</text>
+        <text x="630" y="198" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#594a64">know</text>
+
+        <!-- arrows down to goals -->
+        <line x1="150" y1="228" x2="150" y2="258" stroke="#594a64" stroke-width="2" marker-end="url(#arr)"></line>
+        <line x1="390" y1="228" x2="390" y2="258" stroke="#594a64" stroke-width="2" marker-end="url(#arr)"></line>
+        <line x1="630" y1="228" x2="630" y2="258" stroke="#594a64" stroke-width="2" marker-end="url(#arr)"></line>
+
+        <!-- goals row -->
+        <rect x="40" y="264" width="220" height="42" rx="10" fill="#fdf3e6"></rect>
+        <text x="150" y="290" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#b06e1c">GOAL · self-regulation</text>
+        <rect x="280" y="264" width="220" height="42" rx="10" fill="#f3eaf6"></rect>
+        <text x="390" y="290" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#5d3568">GOAL · comprehension</text>
+        <rect x="520" y="264" width="220" height="42" rx="10" fill="#e6f4f2"></rect>
+        <text x="630" y="290" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#13675f">GOAL · executive function</text>
+      </svg>
+      <p class="figcap">The three UDL principles, each with the goal it serves. The bottom row is the <em>ultimate aim</em> of each column — expert, self-directed learners.</p>
+    </div>
+
+    <div class="aa">
+      <div class="pane eng">
+        <h4>Engagement <span class="pill what">the why</span></h4>
+        <p>Provide options that <strong>spark interest</strong>, help learners <strong>stay focused and determined</strong> on challenges, and <strong>regulate emotions</strong> and expectations.</p>
+        <p class="ex"><b>e.g.</b> Let students choose a book tied to their own interests; offer work-alone or work-in-pairs.</p>
+      </div>
+      <div class="pane rep">
+        <h4>Representation <span class="pill why">the what</span></h4>
+        <p>Provide options to <strong>perceive and comprehend</strong> information — i.e., present content in multiple formats.</p>
+        <p class="ex"><b>e.g.</b> Captions + transcripts on videos; reading <em>and</em> film versions of a novel.</p>
+      </div>
+      <div class="pane act">
+        <h4>Action &amp; Expression <span class="pill how">the how</span></h4>
+        <p>Provide options to <strong>navigate the environment and express what they know</strong> in different ways.</p>
+        <p class="ex"><b>e.g.</b> Demonstrate learning via essay, comic book, storyboard, or oral presentation.</p>
+      </div>
+    </div>
+
+    <div class="bigidea" style="margin-top:18px">
+      <strong>Necessary for some, good for all.</strong> Nasha's captioned videos help deaf students and second-language students — and <em>also</em> the student watching on a noisy subway or rocking an infant to sleep. Proactive options avoid the <strong>stigma</strong> of singling people out for special help.
+    </div>
+
+    <h3>What's the evidence? — Learning styles are a myth</h3>
+    <p>UDL is <em>not</em> about "learning styles." There's <strong>little evidence</strong> that people have a single fixed style (visual, auditory, etc.), and research does <strong>not</strong> support tailoring instruction to one preferred style. As Willingham argues, it's <strong>different tasks</strong>, not different people, that suit different media — every learner has a varied <em>"toolbox of ways to think."</em></p>
+  </section>
+
+  <!-- ===== 3.4.3 ===== -->
+  <section>
+    <h2><span class="num">04</span> 3.4.3 · UDL in practice</h2>
+    <p>How do you go from <em>wanting</em> to design for all learners to an actual inclusive design? UDL is a process, not a checklist.</p>
+    <div class="lesson">
+      <div class="step">
+        <div class="body">
+          <p class="idea">Identify the goal of the learning experience — what learners should know, do, or be if it works.</p>
+          <p class="mech"><b>Start with the goal</b> The first and most important step. The goal anchors everything — and separates <em>the goal</em> from <em>the means</em> of reaching it.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">Brainstorm the barriers that might stop learners from reaching that goal.</p>
+          <p class="mech"><b>Anticipate barriers</b> Proactively, since variability is the norm. Barriers can live in the <em>materials</em>, the <em>pedagogical methods</em>, and/or the <em>means of assessment</em>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="body">
+          <p class="idea">Use the UDL guidelines to address those barriers with multiple options.</p>
+          <p class="mech"><b>Provide options</b> Offer multiple means of engagement, representation, and action &amp; expression — flexibly chosen for <em>this</em> goal, not every checkpoint.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Three real examples — each highlighting one principle</h3>
+    <div class="it-grid">
+      <div class="it"><b>Boston Arts Academy → Engagement</b><span>Students learn trigonometry through dance. (Tom Hehir's example of multiple means of engagement.)</span></div>
+      <div class="it"><b>Cell biology → Representation</b><span>Prof. Dawn Tamarkin builds physical models of cells so visually impaired students — and <em>all</em> students — grasp the structures.</span></div>
+      <div class="it"><b>Alternative final exam → Action &amp; Expression</b><span>Prof. Mike Vitevitch lets students choose how to demonstrate learning — from oral presentations to origami.</span></div>
+      <div class="it"><b>Not a checklist</b><span>Guidelines are <em>flexible</em>. Each goal needs its own options — don't try to tick every checkpoint of every principle.</span></div>
+    </div>
+
+    <h3>Critiques &amp; open questions</h3>
+    <p>UDL isn't a cure-all. Zaloudek notes it focuses on cognitive/physical access and may miss <strong>situational and institutional</strong> barriers (family, culture, SES). Teachers may resist, or lack <strong>time, understanding, or tech skill</strong>. Evidence is stronger for improved learning <em>processes</em> (Capp) than for learning <em>outcomes</em>. And most research comes from resource-rich, "WEIRD" Global-North settings — leaving a gap for <strong>Low- and Middle-Income Countries (LMICs)</strong>, despite UNESCO recommending UDL at the government level.</p>
+  </section>
+
+  <!-- ===== 3.4.4 ===== -->
+  <section>
+    <h2><span class="num">05</span> 3.4.4 · The arts as uniquely powerful</h2>
+    <p>The arts are a <strong>uniquely powerful</strong> tool for inclusive, accessible design — they can be woven into <em>every</em> part of the UDL framework.</p>
+    <div class="aa">
+      <div class="pane eng">
+        <h4>Arts for Engagement</h4>
+        <p>No single medium excites every student. Offer culturally and personally relevant arts — <strong>anime, hip-hop, music</strong> — and choice, so learners forge stronger personal connections.</p>
+        <p class="ex"><b>e.g.</b> OK Go Sandbox uses music videos to drive STEAM inquiry.</p>
+      </div>
+      <div class="pane rep">
+        <h4>Arts for Representation</h4>
+        <p>Use diverse mediums (drawing, sculpture, video, dance) to surface prior knowledge and embody new content; infuse visual aids and movement to support learners, especially with language-related disabilities.</p>
+        <p class="ex"><b>e.g.</b> "Dance Your PhD" — teaching balance &amp; angular velocity through embodied movement.</p>
+      </div>
+      <div class="pane act">
+        <h4>Arts for Action &amp; Expression</h4>
+        <p>Offer assorted, uncustomary modalities for demonstrating learning — recognizing one student's favored form may not suit another.</p>
+        <p class="ex"><b>e.g.</b> A choreographed dance instead of a thesis; hip-hop's five elements (MCing, DJing, breaking, graffiti, knowledge) as ways to show understanding.</p>
+      </div>
+    </div>
+
+    <h3>The arts as a distinctive way of thinking</h3>
+    <p>Beyond inclusion, the arts offer something other disciplines can't. As <strong>Elliot Eisner (2002)</strong> said, <em>"The arts celebrate multiple perspectives… there are many ways to see and interpret the world."</em> They involve unique cognitive activities and kinds of meaning.</p>
+
+    <h3>Motivation vs. integration</h3>
+    <div class="it-grid">
+      <div class="it"><b>Arts as motivation (shallow)</b><span>A World History teacher shows Buddhist-influenced art only to <em>spark interest</em> in feudal Japan — without examining the art itself or how religion shaped it.</span></div>
+      <div class="it"><b>Arts as integration (deep)</b><span>Med students study a Sargent painting (<em>El Jaleo</em>) of a dancer through slow visual-literacy observation — then improved <strong>38%</strong> over peers on patient-exam skills (balance, gait).</span></div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px">↳ Using the arts for beauty and motivation is fine — but it's only a <strong>starting point</strong>. Rigorous, integrated arts thinking fosters focus, openness to multiple interpretations, and richer inclusivity. Doing it well requires <strong>pedagogical content knowledge</strong>, which many general-ed teachers lack licensure to develop.</p>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>inclusion</summary>
+      <div class="def">A form of heterogeneous grouping at the classroom or school level — a commitment to educating every learner, to the extent possible, in the school or classroom they would otherwise attend if they did not have special needs or a disability.
+        <span class="eg">Codified in the U.S. by IDEA's "least restrictive environment" requirement.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>neurodivergent (vs. neurodiverse)</summary>
+      <div class="def">A first-person descriptor of an individual who is neuroatypical — often regarded as powerful and empowering. By contrast, <strong>neurodiverse</strong> describes the variation that exists across a whole population or group, not one person.
+        <span class="eg">"I am neurodivergent" (individual) vs. "this classroom is neurodiverse" (group).</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>Universal Design for Learning (UDL)</summary>
+      <div class="def">A framework designed by CAST to improve and optimize teaching and learning for all people, based on scientific insights into how humans learn. It assumes learner variability is the norm and designs for it from the start.
+        <span class="eg">Built on three principles: multiple means of engagement, representation, and action &amp; expression.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>multiple means of engagement</summary>
+      <div class="def">The UDL principle advising educators to give learners a variety of options to spark their interest, stay focused and determined on challenging tasks, and regulate their emotions and expectations — the "why" of learning.
+        <span class="eg">Offering choice of topic, or work-alone vs. work-in-pairs.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>multiple means of representation</summary>
+      <div class="def">The UDL principle advising educators to give learners a variety of options to perceive and comprehend the information presented to them — the "what" of learning.
+        <span class="eg">Captions and transcripts on a video; a physical model of a cell alongside a microscope view.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>multiple means of action and expression</summary>
+      <div class="def">The UDL principle advising educators to give learners a variety of options to navigate a learning environment and to express what they know — the "how" of learning.
+        <span class="eg">Letting students demonstrate learning via essay, oral presentation, storyboard, or origami.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>accommodation</summary>
+      <div class="def">A modification made to the learning environment or activities so a student has equitable opportunity to learn — often added <em>reactively</em> to an existing design (e.g., retroactively captioning videos for one student). UDL aims to replace this retrofit with proactive, built-in options.
+        <span class="eg">An ASL interpreter, extra time, or added captions — necessary, but sometimes not sufficient.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>CAST</summary>
+      <div class="def">The Center for Applied Special Technology — the research organization that articulated and maintains the UDL framework and guidelines.
+        <span class="eg">Author of the UDL Guidelines (version 2.2, 2018).</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>learning styles (myth)</summary>
+      <div class="def">The popular but unsupported idea that each person learns best in one fixed "style" (visual, auditory, etc.). Research finds little evidence for fixed styles, and does not support tailoring instruction to a single preferred style — it's <em>tasks</em>, not people, that suit particular media.
+        <span class="eg">Willingham: every learner has a varied "toolbox of ways to think."</span>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== PRACTICE & DISCUSSION ===== -->
+  <section class="practice">
+    <h2><span class="num">07</span> Practice &amp; discussion</h2>
+    <p style="color:var(--ink-soft)">Answer first, then reveal. A mix of recall and applying UDL to scenarios.</p>
+
+    <details>
+      <summary><span><span class="qtag recall">recall</span>What is the single most important <em>first</em> step in a UDL design process?</span></summary>
+      <div class="def">Identify the <strong>goal</strong> of the learning experience — what learners will know, do, or be if it's effective. Only after the goal is clear do you brainstorm barriers and then provide options. (Separating the goal from the means is what lets you offer flexible paths to it.)</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtag apply">apply</span>A professor adds high-quality captions and downloadable transcripts to <em>every</em> assigned video at the start of the semester. Which UDL principle is this, and why is it "good for all"?</span></summary>
+      <div class="def">This is <strong>multiple means of representation</strong> — giving options to perceive/comprehend the content. It's "necessary for some" (deaf, hard-of-hearing, second-language students) but <strong>good for all</strong>: anyone watching on a noisy subway or while rocking an infant benefits, and building it in proactively avoids stigmatizing those who'd otherwise have to request an accommodation.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtag apply">apply</span>A psychology professor lets students choose how to show their learning on the final — oral presentation, written paper, or even origami. Classify this UDL move.</span></summary>
+      <div class="def"><strong>Multiple means of action and expression</strong> — options for <em>how</em> learners express what they know. (This is the Mike Vitevitch "alternative final exam" example from 3.4.3.)</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtag apply">apply</span>Students at Boston Arts Academy learn trigonometry through dance. Which UDL principle does this most illustrate — and is this the only principle it could touch?</span></summary>
+      <div class="def">It most illustrates <strong>multiple means of engagement</strong> (sparking interest/motivation in the math). But note: a single rich activity often illustrates several principles at once — dance could also support representation (embodying the concept) and expression. UDL guidelines are <strong>flexible, not a checklist</strong>.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtag recall">recall</span>Name two well-documented <em>critiques or limits</em> of UDL discussed in this sequence.</span></summary>
+      <div class="def">Any two of: (1) it centers cognitive/physical access and may miss <strong>situational/institutional barriers</strong> (family, culture, SES) — Zaloudek; (2) teachers may <strong>resist</strong> it or lack <strong>time, understanding, or tech skill</strong>; (3) stronger evidence for improved learning <strong>processes</strong> than <strong>outcomes</strong>; (4) most research is from <strong>WEIRD/high-income</strong> settings, leaving a gap for <strong>LMICs</strong>.</div>
+    </details>
+
+    <div class="discuss">
+      <h3>Open-ended discussion prompts</h3>
+      <ol>
+        <li>Inclusion was a "monumental shift," yet advocates pushed past it. In your own context, where do you see learning still being <em>retrofitted</em> with accommodations rather than designed for difference from the start?</li>
+        <li>The sequence argues "learning styles" are a myth while championing multiple means of representation. How would you explain the difference to a colleague who thinks these are the same idea?</li>
+        <li>When do the arts merely <em>motivate</em> a subject versus being <em>deeply integrated</em> into it (as in the El Jaleo / med-school example)? What would deep arts integration look like in a subject you teach or care about?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Variability is the norm.</strong> Design for the full range of learners from the start — don't retrofit accommodations onto a one-size lesson.</li>
+      <li><strong>From exclusion → inclusion → universal design.</strong> Inclusion (least restrictive environment) was a milestone; UDL is the stronger, proactive, strengths-based paradigm.</li>
+      <li><strong>Three UDL principles:</strong> multiple means of <em>engagement</em> (the why), <em>representation</em> (the what), and <em>action &amp; expression</em> (the how).</li>
+      <li><strong>Necessary for some, good for all.</strong> Built-in options remove barriers <em>and</em> avoid the stigma of singling learners out.</li>
+      <li><strong>Process, not checklist.</strong> Set the goal → anticipate barriers → provide flexible options. Learning styles are a myth.</li>
+      <li><strong>The arts are uniquely powerful</strong> — woven across all three principles, and most potent when deeply integrated, not just used to motivate.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 3 · Designing for Difference · study notes</footer>
+
+</div>
+</body>
+</html>
