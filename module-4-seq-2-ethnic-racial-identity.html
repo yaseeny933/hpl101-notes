@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 4 · Sequence 2 — Ethnic–Racial Identity Development · Study Notes</title>
+<style>
+  :root{
+    --ink:#2a1a16;
+    --ink-soft:#6b4f48;
+    --paper:#fbf5f2;
+    --coral:#d4604f;
+    --coral-bright:#e8775f;
+    --coral-deep:#a83d2e;
+    --teal:#2c8c84;
+    --amber:#d99437;
+    --plum:#8a4a6b;
+    --line:#eddcd5;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(120,45,30,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(212,96,79,.09) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(44,140,132,.07) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#7a261a,#a83d2e 55%,#d4604f);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#ffd8cd;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#ffe6df;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--coral-deep);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(44,140,132,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--coral-bright);
+    background:linear-gradient(90deg,rgba(212,96,79,.09),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--coral-deep)}
+
+  /* simple flow motif */
+  .flow{display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .fl-node{background:#fff;border:2px solid var(--coral);color:var(--coral-deep);
+    padding:10px 16px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center}
+  .fl-core{background:#fff;border:2px dashed var(--teal);color:var(--teal);
+    padding:12px 18px;border-radius:12px;position:relative;text-align:center}
+  .fl-core small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px}
+  .fl-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* contrast / typology table */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--coral-deep)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:24%}
+
+  /* figure caption */
+  .fig{margin:6px 0 2px}
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* two-pane (promotive / protective; affirmation etc.) */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .duo .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .duo .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .duo .pane.a h4{color:var(--teal)}
+  .duo .pane.b h4{color:var(--plum)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.x{background:rgba(44,140,132,.14);color:var(--teal)}
+  .pill.y{background:rgba(138,74,107,.14);color:var(--plum)}
+  .duo .pane p{font-size:.92rem;margin:8px 0 0}
+  .duo .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* component cards (ERI dimensions) */
+  .grid4{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .comp{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .comp b{color:var(--amber);display:block;font-size:.95rem;margin-bottom:2px}
+  .comp span{font-size:.9rem;color:var(--ink-soft)}
+
+  /* milestone / stepped list */
+  .stages{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--coral);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-weight:700;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal);background:rgba(44,140,132,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* case vignettes (ERI in action) */
+  .case{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;box-shadow:var(--shadow);margin-top:12px}
+  .case h4{margin:0 0 4px;font-size:1rem;color:var(--coral-deep)}
+  .case .meta{font-family:"SF Mono",monospace;font-size:.66rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal);background:rgba(44,140,132,.12);
+    padding:2px 8px;border-radius:6px;display:inline-block;margin-bottom:6px}
+  .case p{font-size:.92rem;margin:6px 0 0}
+
+  /* glossary + practice reveals */
+  .gloss details,.practice details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary,.practice summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--coral-deep);
+    font-size:1.02rem;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .gloss summary::-webkit-details-marker,.practice summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .practice summary::after{content:"answer ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .practice details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary,.practice details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def,.practice .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg,.practice .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+  .practice summary .q{font-weight:700;color:var(--ink);flex:1}
+  .qtype{font-family:"SF Mono",monospace;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;
+    padding:2px 7px;border-radius:999px;margin-right:8px;white-space:nowrap}
+  .qtype.recall{background:rgba(217,148,55,.16);color:var(--amber)}
+  .qtype.apply{background:rgba(138,74,107,.16);color:var(--plum)}
+
+  /* discussion prompts */
+  .discuss{margin-top:16px;background:linear-gradient(90deg,rgba(44,140,132,.07),#fff 65%);
+    border-left:6px solid var(--teal);border-radius:12px;padding:16px 22px}
+  .discuss h3{margin:0 0 6px;color:var(--teal)}
+  .discuss ol{margin:6px 0 0;padding-left:20px}
+  .discuss li{margin:8px 0;font-size:.95rem}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#7a261a,#a83d2e);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#ffd8cd;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#ffb39e}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  @media (max-width:680px){
+    .duo,.grid4{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary + answers, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details,.practice details{break-inside:avoid}
+    .gloss .def,.practice .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.step,.comp,.duo .pane,.case,.gloss details,.practice details{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 4 · Sequence 2</p>
+    <h1>Ethnic–Racial Identity Development</h1>
+    <p class="sub">Answering "Who am I?" is developmental work. For learners, a secure, explored <em>ethnic–racial identity</em> is a resource that protects and promotes learning.</p>
+    <div class="tags">
+      <span class="tag">identity</span>
+      <span class="tag">exploration · resolution</span>
+      <span class="tag">ERI in schools</span>
+      <span class="tag">risk &amp; resilience</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">Identity development is the lifelong work of answering <strong>"Who am I?"</strong> in the context of our relationships and social groups. This sequence zooms in on one aspect of social identity: <strong>ethnic–racial identity (ERI)</strong> — and why it matters for learning.</p>
+
+    <div class="bigidea">
+      A secure, well-explored sense of self helps learners manage the psychological, social, and intellectual demands of school. For youth of color in particular, a <strong>mature ethnic–racial identity</strong> acts as both a <strong>promotive</strong> and a <strong>protective</strong> resource — supporting achievement and buffering the harm of discrimination. Educators are everyday influences on this development, so they have a responsibility to foster it.
+    </div>
+
+    <div class="card">
+      <div class="flow">
+        <div class="fl-node">"WHO AM I?"<br>multiple social identities</div>
+        <span class="fl-arrow">→</span>
+        <div class="fl-core">EXPLORE + RESOLVE<br>one's ERI<small>learn about group · gain clarity</small></div>
+        <span class="fl-arrow">→</span>
+        <div class="fl-node">GLOBAL IDENTITY<br>secure sense of self</div>
+      </div>
+      <p class="figcap">Integrating many social identities into a cohesive whole — ERI is one strand of that work.</p>
+    </div>
+
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-top:14px"><strong>Intersectionality</strong> (Crenshaw): none of us is defined by any single identity. Race, gender, class, sexuality, and more overlap to form unique profiles of privilege or oppression — e.g., the experience of trans women of color is distinct from that of White trans people <em>and</em> cisgender women of color. ERI is studied here in isolation only for clarity; in life it never stands alone.</p>
+  </section>
+
+  <!-- ===== 4.2.1 ===== -->
+  <section>
+    <h2><span class="num">02</span> 4.2.1 — Theories of Identity Development</h2>
+    <p>Modern ERI work grows from two foundational theories. Both treat identity as something that <em>develops</em>, gaining urgency in adolescence.</p>
+
+    <h3>Erikson — psychosocial stages</h3>
+    <p>Erik Erikson (1902–1994) proposed a <strong>stage theory</strong> of psychosocial development. Each stage centers on a <strong>"crisis"</strong> — two conflicting forces to resolve. Failing to resolve one stage makes the next harder. The adolescent crisis is <strong>identity vs. role confusion</strong>: youth search their values, beliefs, and goals to make sense of who they are. (This is the origin of the phrase "identity crisis.") Stage ages are not universal, and crises can recur in adulthood (Marcia, 2002).</p>
+    <div class="bigidea">
+      Why adolescence? The cognitive capacity to reason about abstract concepts — like differentiating self from others — emerges then, alongside social changes (bigger, more diverse schools; more non-family contexts). Together these prompt the "Who am I?" question. Stronger, more cohesive identities are linked to better well-being and school performance; high <strong>identity confusion</strong> is linked to adjustment challenges.
+    </div>
+
+    <h3>Marcia — four identity statuses</h3>
+    <p>James Marcia (1980) operationalized Erikson's ideas along <strong>two dimensions</strong>: how much a young person has <strong>explored</strong> their identity, and how much they have reached a <strong>commitment (resolution)</strong>. Crossing them yields four statuses. (Deep exploration and resolution require cognitive maturity, so this applies to adolescents and beyond, not young children.)</p>
+
+    <div class="card fig">
+      <svg viewBox="0 0 640 420" role="img" aria-label="Marcia's identity status typology: a 2x2 grid crossing exploration and commitment" style="width:100%;height:auto">
+        <!-- axis labels -->
+        <text x="320" y="24" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="15" font-weight="700" fill="#a83d2e">COMMITMENT / RESOLUTION</text>
+        <text x="430" y="46" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#6b4f48">high  →</text>
+        <text x="210" y="46" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#6b4f48">←  low</text>
+        <text x="22" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700" fill="#a83d2e" transform="rotate(-90 22 230)">EXPLORATION / SEARCH</text>
+        <text x="44" y="120" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#6b4f48" transform="rotate(-90 44 120)">high ↑</text>
+        <text x="44" y="345" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#6b4f48" transform="rotate(-90 44 345)">↓ low</text>
+
+        <!-- quadrants -->
+        <!-- top-left: high explore, low commit = Moratorium -->
+        <rect x="70" y="60" width="270" height="170" rx="12" fill="#fdeee9" stroke="#d4604f" stroke-width="2"/>
+        <text x="205" y="120" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700" fill="#a83d2e">Moratorium</text>
+        <text x="205" y="148" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#6b4f48">actively exploring,</text>
+        <text x="205" y="166" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#6b4f48">not yet committed</text>
+
+        <!-- top-right: high explore, high commit = Achievement -->
+        <rect x="350" y="60" width="270" height="170" rx="12" fill="#e2f1ef" stroke="#2c8c84" stroke-width="2.5"/>
+        <text x="485" y="120" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700" fill="#1f6f68">Achievement</text>
+        <text x="485" y="148" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#3a5e5a">explored, then</text>
+        <text x="485" y="166" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#3a5e5a">committed (mature)</text>
+
+        <!-- bottom-left: low explore, low commit = Diffusion -->
+        <rect x="70" y="240" width="270" height="160" rx="12" fill="#f7eef2" stroke="#8a4a6b" stroke-width="2"/>
+        <text x="205" y="300" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700" fill="#6f3a55">Diffusion</text>
+        <text x="205" y="328" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#6b4f48">no exploration,</text>
+        <text x="205" y="346" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#6b4f48">no commitment</text>
+
+        <!-- bottom-right: low explore, high commit = Foreclosure -->
+        <rect x="350" y="240" width="270" height="160" rx="12" fill="#fbf3e4" stroke="#d99437" stroke-width="2"/>
+        <text x="485" y="300" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700" fill="#a06b18">Foreclosure</text>
+        <text x="485" y="328" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#6b4f48">committed without</text>
+        <text x="485" y="346" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#6b4f48">exploring (inherited)</text>
+      </svg>
+      <p class="figcap">Marcia's typology — exploration × commitment. "Achievement" = explored <em>and</em> resolved.</p>
+    </div>
+  </section>
+
+  <!-- ===== 4.2.2 ===== -->
+  <section>
+    <h2><span class="num">03</span> 4.2.2 — Ethnic–Racial Identity (ERI) Development</h2>
+    <p>A <strong>global identity</strong> integrates many <strong>social identities</strong> (parts of identity tied to group membership) into one cohesive self. When an identity is important to you or to how you engage others, it is a <strong>salient social identity</strong>. This unit focuses on one: <strong>ethnic–racial identity</strong>.</p>
+
+    <h3>Race vs. ethnicity — and why "ethnic–racial"</h3>
+    <p>Prof. Adriana Umaña-Taylor distinguishes <em>race</em> from <em>ethnicity</em>, but notes the two are routinely <strong>blurred in lived experience</strong> — which is why the combined term <strong>"ethnic–racial"</strong> is useful. ERI is an aspect of social identity derived from ethnic group membership and the <strong>significance one attaches to it</strong> (Phinney, 1992).</p>
+
+    <div class="bigidea">
+      ERI is a <strong>normative, age-graded developmental process</strong> that gains momentum in adolescence (Umaña-Taylor et al., 2014). <strong>Normative</strong> = typical/predictable; <strong>age-graded</strong> = looks different at different ages; <strong>developmental</strong> = driven by social and cognitive change. Global migration is making societies more diverse — in the U.S., no single majority ethnic–racial group is projected by 2044 — raising the stakes for understanding ERI in classrooms. And yes, ERI is relevant <em>outside</em> the U.S.: any society with social hierarchies (race, caste, language, religion, indigeneity, etc.) sees identity development around those categories.
+    </div>
+
+    <h3>The components of ERI</h3>
+    <p>In adolescence, learners make sense of experiences with peers, family, and society and weigh how they feel about their group:</p>
+    <div class="grid4">
+      <div class="comp"><b>Affirmation</b><span>How <em>positive</em> adolescents feel about being in their group.</span></div>
+      <div class="comp"><b>Centrality</b><span>How <em>important</em> group membership is to their identity.</span></div>
+      <div class="comp"><b>Public regard</b><span>How they feel <em>others</em> view their group.</span></div>
+      <div class="comp"><b>Salience</b><span>How awareness of their identity <em>waxes and wanes</em> across contexts.</span></div>
+    </div>
+
+    <h3>Milestones across development</h3>
+    <p>ERI doesn't appear from nowhere in adolescence. Drawing on Erikson and Marcia, youth differ in the <strong>process</strong> (how they explore/formulate/maintain ERI) and the <strong>content</strong> (attitudes about their group and its relation to others) at each period (Umaña-Taylor et al., 2014):</p>
+    <div class="stages">
+      <div class="step"><div class="body">
+        <p class="idea">Early childhood</p>
+        <p class="mech"><b>process</b> differentiating self from other; cognition applied to race/ethnicity. <b>content</b> ethnic labeling, ethnic knowledge, ethnic constancy.</p>
+      </div></div>
+      <div class="step"><div class="body">
+        <p class="idea">Middle childhood</p>
+        <p class="mech"><b>process</b> awareness of bias; understanding social hierarchy. <b>content</b> salience, centrality, affect toward own/other group, public regard.</p>
+      </div></div>
+      <div class="step"><div class="body">
+        <p class="idea">Adolescence</p>
+        <p class="mech"><b>process</b> contestation, elaboration &amp; negotiation of ERI; exploration/search; internalizing cultural values; collective self-verification. <b>content</b> affirmation, centrality, salience, ideology, common fate/destiny, certainty.</p>
+      </div></div>
+      <div class="step"><div class="body">
+        <p class="idea">Young / emerging adulthood</p>
+        <p class="mech"><b>process</b> further elaboration, narrowing &amp; continuation; transformation (new possibilities). <b>content</b> largely the same as adolescence.</p>
+      </div></div>
+    </div>
+
+    <h3>Why ERI matters for learning</h3>
+    <p>Over <strong>75%</strong> of U.S. youth of color report ethnic–racial discrimination, with documented harms to achievement, health, and well-being — fueling opportunity gaps. By contrast, a mature ERI is linked to better mental health, self-esteem, and academic ambition, and helps youth cope with stereotypes and discrimination (a resilience resource). Per <strong>self-categorization theory</strong> (Turner et al., 1987), group identity becomes <em>more salient</em> for minoritized groups — and ERI becomes an especially important source of resilience when access to resources and power is restricted. Schools can "other" identities through curricular under/misrepresentation and <strong>microaggressions</strong>.</p>
+    <p style="font-size:.92rem;color:var(--ink-soft)"><strong>And the dominant group?</strong> Less studied. Helms (1994) theorized that White, European Americans develop racial identity by recognizing and abandoning internalized White privilege to build a non-racist, self-defining White identity. When this identity is salient (e.g., White students in a majority-Black/Latinx school), antiracist exploration can benefit their self-esteem and identity development.</p>
+  </section>
+
+  <!-- ===== 4.2.3 ===== -->
+  <section>
+    <h2><span class="num">04</span> 4.2.3 — ERI in Action</h2>
+    <p>ERI is learned across many contexts — family (most notably parents as socializing agents), neighborhood, school adults and peers, and broader society (TV, music, social media) amid the <strong>social stratification</strong> of resources and power. Two mechanisms from a <strong>risk &amp; resilience framework</strong> explain why ERI supports well-being and achievement:</p>
+
+    <div class="duo">
+      <div class="pane a">
+        <h4>Promotive factor <span class="pill x">lifts everyone</span></h4>
+        <p>Being further along in ERI <strong>exploration + resolution</strong> is <em>directly</em> tied to better outcomes across all levels of risk. It can <strong>compensate</strong> for negative inputs.</p>
+        <p class="ex"><b>Evidence:</b> A meta-analysis of 47 studies of students of color found higher <strong>ERI achievement</strong> (high exploration + high resolution) was associated with higher academic achievement (Miller-Cotto &amp; Byrnes, 2016). Among Roma adolescents in Bulgaria, higher ERI achievement linked to school achievement and life satisfaction (Dimitrova et al., 2018).</p>
+      </div>
+      <div class="pane b">
+        <h4>Protective factor <span class="pill y">buffers risk</span></h4>
+        <p>ERI <strong>reduces the negative effects</strong> of risk (e.g., discrimination) by bolstering sense of self and the ability to cope with stereotypes and prejudice.</p>
+        <p class="ex"><b>Evidence:</b> Among U.S. Latinx adolescents, ERI exploration &amp; resolution reduced the impact of <em>online</em> racial discrimination on rule-breaking, aggression, and depression (Umaña-Taylor et al., 2015). Turkish immigrant children in Germany &amp; Sweden with higher ERI achievement showed higher school engagement despite higher discrimination (Spiegler et al., 2018; Vedder &amp; Virta, 2005).</p>
+      </div>
+    </div>
+
+    <h3>The Identity Project</h3>
+    <div class="case">
+      <span class="meta">Featured case · Umaña-Taylor &amp; colleagues</span>
+      <h4>An evidence-based universal program</h4>
+      <p><strong>The Identity Project</strong> is a universal, school-based health-promotion curriculum for middle and high school students. Rather than waiting for risk to surface, it actively fosters the <strong>promotive and protective</strong> roles of ERI by guiding students to <strong>explore and resolve</strong> their ethnic–racial identity — equipping educators to engage diverse learners in this development.</p>
+      <p>It is being tested in ethnic–racially diverse U.S. middle and high schools, and has been <strong>adapted to the German context</strong> — tested with seventh graders in Berlin, with a focus on <em>cultural</em> identity rather than ethnic–racial identity.</p>
+    </div>
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-top:12px">↳ Takeaway: ERI's benefits show up even in "business-as-usual" schools; a deliberate intervention like The Identity Project gives educators the tools to support it on purpose.</p>
+  </section>
+
+  <!-- ===== 4.2.4 ===== -->
+  <section>
+    <h2><span class="num">05</span> 4.2.4 — Extending ERI</h2>
+    <h3>The identity chart (and salience)</h3>
+    <p>The <strong>My Identity Chart</strong> activity (adapted by Umaña-Taylor and colleagues): put your name at the center, then up to four social identities that matter to you — race, ethnicity, gender, family structure, sexuality, religion, language, disability, class. Asking how you'd feel if a bubble were removed illustrates <strong>identity salience</strong>: for some, ethnicity/race is the first thing they think of; for others it surfaces only in certain contexts. Some aspects of identity are stable; others shift between work, school, home, friends, and family.</p>
+
+    <div class="bigidea">
+      Reflecting on our <em>own</em> multifaceted identity shapes our capacity as educators to connect with learners. Recognizing one's own identity development helps support learners' development — improving belonging, the quality of educator–student interactions, and ultimately learning itself.
+    </div>
+
+    <h3>Educators, privilege, and culturally responsive teaching</h3>
+    <p>About <strong>83%</strong> of U.S. educators are White (Ingersoll et al., 2014). White teachers in particular can struggle to acknowledge racial privilege and recognize racism, which can hinder honest conversations about race. This may surface as acting on bias or as a <strong>color-evasive</strong> approach (insisting one "doesn't see" ethnic–racial categories) — which can create a hostile environment for students of color. The alternative is <strong>culturally responsive teaching</strong>: embedding learners' identities in the classroom, involving students in conversations about social identity, creating space to explore one's own and learn about others' backgrounds, and facilitating discussion of stereotypes and discrimination.</p>
+
+    <h3>ERI in a global landscape</h3>
+    <p>Antiracist and culturally responsive practice (also called <strong>intercultural education</strong>) appears not only in the U.S., Canada, the U.K., and Australia, but also in Germany, Sweden, New Zealand, and across Latin America, Africa, Asia, and the Pacific. The meaning of ethnicity, race, and ERI shifts with social, political, and historical context, but the global education landscape is increasingly acknowledging diverse identities and patterns of ethnic–racial inequity. Roadblocks vary with structural features — e.g., how long immigrant families wait for citizenship (12 years in Switzerland vs. 3 in Belgium), migration rates, and traditions of welcoming linguistic/religious diversity.</p>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>identity development</summary>
+      <div class="def">The process of coming to understand "who I am" in the context of relationships with others. Engaging successfully in it promotes self-confidence, facilitates decision-making, and grounds fulfilling relationships (Erikson, 1968).</div>
+    </details>
+    <details>
+      <summary>intersectionality</summary>
+      <div class="def">A framework advanced by Kimberlé Crenshaw to analyze how the advantages and disadvantages experienced by individuals/groups are shaped by their social location within interconnected systems of power and oppression (e.g., racism, sexism, classism).
+        <span class="eg">The experience of trans women of color differs from that of White trans people and cisgender women of color alike.</span>
+      </div>
+    </details>
+    <details>
+      <summary>identity status</summary>
+      <div class="def">Marcia's typology of four possibilities (achievement, moratorium, foreclosure, diffusion) for where an adolescent stands, defined by crossing two dimensions: degree of <em>exploration</em> and degree of <em>commitment/resolution</em>.</div>
+    </details>
+    <details>
+      <summary>exploration (search)</summary>
+      <div class="def">In Marcia's terms, the extent to which a young person actively learns about and questions their identity — e.g., reflecting on their past and how their identity has changed. For ERI, learning and gaining knowledge about one's ethnic–racial group.</div>
+    </details>
+    <details>
+      <summary>resolution (commitment)</summary>
+      <div class="def">In Erikson's/Marcia's terms, the degree of clarity and commitment a person has reached about who they are. For ERI, a sense of clarity about the meaning one's ethnic–racial identity has in one's life.</div>
+    </details>
+    <details>
+      <summary>global identity</summary>
+      <div class="def">A secure sense of who one is and who one can become — the cohesive whole formed by integrating one's multiple social identities.</div>
+    </details>
+    <details>
+      <summary>social identity</summary>
+      <div class="def">Parts of identity that are connected to being a member of a group (e.g., gender, ethnicity, religion).</div>
+    </details>
+    <details>
+      <summary>salient social identity</summary>
+      <div class="def">An identity that is important to oneself or in engaging with others.</div>
+    </details>
+    <details>
+      <summary>ethnic–racial identity (ERI)</summary>
+      <div class="def">Membership in and connection to a particular ethnic–racial group — an aspect of social identity derived from ethnic group membership and the significance one attaches to it (Phinney, 1992). A normative, age-graded developmental process.</div>
+    </details>
+    <details>
+      <summary>ethnic–racial affirmation</summary>
+      <div class="def">How positive adolescents feel about being in their group.</div>
+    </details>
+    <details>
+      <summary>ethnic–racial centrality</summary>
+      <div class="def">How important adolescents feel their group membership is to their identity.</div>
+    </details>
+    <details>
+      <summary>ethnic–racial public regard</summary>
+      <div class="def">How adolescents feel others view their group.</div>
+    </details>
+    <details>
+      <summary>ethnic–racial salience</summary>
+      <div class="def">How adolescents' awareness of their identity waxes and wanes across contexts.</div>
+    </details>
+    <details>
+      <summary>microaggression</summary>
+      <div class="def">A harmful everyday instance of discrimination against members of a marginalized group.</div>
+    </details>
+    <details>
+      <summary>promotive factor</summary>
+      <div class="def">A process that compensates for other negative inputs on learning and development — directly related to better outcomes across levels of risk.</div>
+    </details>
+    <details>
+      <summary>protective factor</summary>
+      <div class="def">A process that reduces the negative effects of risk by bolstering a person's capacity to cope with difficulties.</div>
+    </details>
+  </section>
+
+  <!-- ===== PRACTICE ===== -->
+  <section class="practice">
+    <h2><span class="num">07</span> Practice &amp; discussion</h2>
+    <p style="color:var(--ink-soft)">Answer in your head (or on paper) before revealing.</p>
+
+    <details>
+      <summary><span class="q"><span class="qtype recall">recall</span>Name Marcia's two dimensions and the status defined by being high on both.</span></summary>
+      <div class="def">The two dimensions are <strong>exploration (search)</strong> and <strong>commitment (resolution)</strong>. High on both = <strong>identity achievement</strong> — the mature status reached after exploring and then committing. (For ERI, "ERI achievement" = high exploration + high resolution.)</div>
+    </details>
+
+    <details>
+      <summary><span class="q"><span class="qtype recall">recall</span>What does it mean that ERI is a "normative, age-graded developmental process"?</span></summary>
+      <div class="def"><strong>Normative</strong> = typical/predictable; <strong>age-graded</strong> = it manifests differently at different ages; <strong>developmental</strong> = it is driven by social and cognitive changes (and gains momentum in adolescence).</div>
+    </details>
+
+    <details>
+      <summary><span class="q"><span class="qtype apply">apply</span>A teen who feels her group is viewed negatively by society, but for whom that group isn't very central to her identity, and the salience spikes only when she's the only member present at school. Map this to ERI components.</span></summary>
+      <div class="def">Low <strong>public regard</strong> (she perceives others view her group negatively), low <strong>centrality</strong> (membership isn't very important to her self-definition), and context-dependent <strong>salience</strong> (awareness waxes when she is in the minority). Her <strong>affirmation</strong> — how positive she feels — is a separate dimension you'd want to ask about directly.</div>
+    </details>
+
+    <details>
+      <summary><span class="q"><span class="qtype apply">apply</span>A study finds that for adolescents facing online racial discrimination, those with high ERI exploration/resolution show fewer depressive symptoms than those with low ERI. Is ERI acting as a promotive or protective factor here? Why?</span></summary>
+      <div class="def"><strong>Protective.</strong> The effect is conditional on a <em>risk</em> (discrimination): ERI is <em>buffering</em> — reducing the negative impact of that risk on adjustment. (If ERI were linked to better outcomes <em>regardless</em> of risk level, that would be the <strong>promotive</strong> role.) This mirrors Umaña-Taylor et al. (2015).</div>
+    </details>
+
+    <details>
+      <summary><span class="q"><span class="qtype apply">apply</span>A well-meaning teacher says, "I don't see race in my classroom — I treat every student the same." Name the approach and explain the developmental risk.</span></summary>
+      <div class="def">This is a <strong>color-evasive</strong> approach. By refusing to acknowledge ethnic–racial categories, it can "other" or erase students' salient identities and create a hostile environment for students of color — and it forfeits the chance to support ERI exploration/resolution that culturally responsive teaching provides. It may also let the teacher's own biases go unexamined.</div>
+    </details>
+
+    <div class="discuss">
+      <h3>Discussion prompts</h3>
+      <ol>
+        <li>Looking back at your own schooling, who and what in your ecological system (family, peers, teachers, media, community) most shaped how you defined yourself? How salient was ethnicity or race in that picture, and did it change by context?</li>
+        <li>Helms (1994) frames healthy White racial identity as recognizing and abandoning internalized privilege. What might it look like, concretely, to support antiracist ERI exploration for students of the dominant group without re-centering them?</li>
+        <li>The Identity Project was adapted from "ethnic–racial" identity in the U.S. to "cultural" identity in Berlin. What is gained or lost in that translation, and what would you need to know about a local context before adapting an ERI intervention there?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Identity is developmental.</strong> "Who am I?" gains urgency in adolescence (Erikson's identity vs. role confusion) as abstract reasoning and wider social worlds emerge.</li>
+      <li><strong>Two dimensions, four statuses.</strong> Marcia crosses <em>exploration</em> × <em>commitment</em>; explored-and-resolved = achievement. ERI builds directly on this.</li>
+      <li><strong>ERI has components:</strong> affirmation, centrality, public regard, salience — and it is a normative, age-graded process, relevant wherever social hierarchies exist.</li>
+      <li><strong>Promotive + protective.</strong> A mature ERI lifts outcomes across all risk levels <em>and</em> buffers the harm of discrimination — backed by meta-analytic and cross-national evidence.</li>
+      <li><strong>Educators matter.</strong> Culturally responsive teaching supports ERI; color-evasive stances and unexamined privilege can harm it. The Identity Project shows it can be taught on purpose.</li>
+      <li><strong>Hold it with intersectionality.</strong> ERI never stands alone — it intersects with gender, class, and more to shape unique profiles of privilege and oppression.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 4 · Ethnic–Racial Identity Development · study notes</footer>
+
+</div>
+</body>
+</html>

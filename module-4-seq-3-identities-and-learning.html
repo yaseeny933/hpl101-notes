@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 4 · Sequence 3 — Identities &amp; Learning · Study Notes</title>
+<style>
+  :root{
+    --ink:#241522;
+    --ink-soft:#5a4456;
+    --paper:#faf5f9;
+    --plum:#944b8c;          /* byzantium purple, primary accent */
+    --plum-bright:#b667ad;
+    --plum-deep:#5e2a58;
+    --teal:#2a8a86;
+    --amber:#c98a2c;
+    --rose:#cf5285;
+    --line:#e6d6e3;
+    --shadow:0 10px 30px rgba(70,22,64,.12);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(148,75,140,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(42,138,134,.07) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#3c1c39,#5e2a58 55%,#944b8c);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#eccfe8;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#f3e2ef;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--plum);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(42,138,134,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--plum-bright);
+    background:linear-gradient(90deg,rgba(148,75,140,.09),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--plum)}
+
+  /* pull quote */
+  .pq{font-style:italic;color:var(--plum-deep);border-left:4px solid var(--plum-bright);
+    padding:6px 0 6px 18px;margin:16px 0;font-size:1.04rem}
+
+  /* identity loop motif */
+  .loopfig{margin:6px 0 2px}
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* three-tenet / paired pane grid */
+  .panes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px}
+  .panes.two{grid-template-columns:1fr 1fr}
+  .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px 14px;box-shadow:var(--shadow)}
+  .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .pane p{font-size:.9rem;margin:8px 0 0;color:var(--ink-soft)}
+  .pill{font-family:"SF Mono",monospace;font-size:.6rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.p1{background:rgba(148,75,140,.14);color:var(--plum)}
+  .pill.p2{background:rgba(42,138,134,.14);color:var(--teal)}
+  .pill.p3{background:rgba(207,82,133,.14);color:var(--rose)}
+
+  /* mechanism / labelled facts */
+  .facts{list-style:none;padding:0;margin:12px 0 0}
+  .facts li{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:12px 16px;box-shadow:var(--shadow);margin-top:10px;font-size:.94rem}
+  .facts li b{color:var(--amber)}
+
+  /* case study box */
+  .case{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:4px 0;box-shadow:var(--shadow);margin-top:14px;overflow:hidden}
+  .case .cap{background:linear-gradient(90deg,rgba(148,75,140,.12),#fff 70%);
+    padding:12px 22px;font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--plum-deep);font-weight:700}
+  .case .body{padding:4px 22px 18px}
+  .case .body p{font-size:.96rem}
+
+  /* evidence stat */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:16px;text-align:center;box-shadow:var(--shadow)}
+  .stat .n{font-family:"SF Mono",ui-monospace,monospace;font-size:1.5rem;font-weight:700;color:var(--plum)}
+  .stat .l{font-size:.78rem;color:var(--ink-soft);margin-top:4px;display:block}
+
+  /* glossary + practice reveals */
+  .gloss details,.practice details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary,.practice summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--plum);
+    font-size:1.02rem;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .gloss summary::-webkit-details-marker,.practice summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.66rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .practice summary::after{content:"answer ▸";font-family:"SF Mono",monospace;font-size:.66rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .practice details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary,.practice details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def,.practice .def{padding:14px 18px;color:var(--ink-soft);font-size:.96rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+  .practice summary .q{font-weight:400;color:var(--ink);font-style:normal}
+  .practice summary .tagq{font-family:"SF Mono",monospace;font-size:.58rem;text-transform:uppercase;
+    letter-spacing:.06em;padding:2px 7px;border-radius:6px;margin-right:8px;vertical-align:middle}
+  .practice summary .tagq.recall{background:rgba(42,138,134,.14);color:var(--teal)}
+  .practice summary .tagq.apply{background:rgba(207,82,133,.14);color:var(--rose)}
+
+  /* discussion prompts */
+  .discuss{margin-top:16px}
+  .discuss ol{margin:8px 0 0;padding-left:0;list-style:none;counter-reset:dq}
+  .discuss li{position:relative;padding:12px 16px 12px 50px;background:#fff;border:1px solid var(--line);
+    border-radius:12px;margin-top:10px;box-shadow:var(--shadow);font-size:.96rem;font-style:italic;color:var(--ink)}
+  .discuss li::before{counter-increment:dq;content:"Q"counter(dq);position:absolute;left:14px;top:12px;
+    font-family:"SF Mono",monospace;font-style:normal;font-size:.72rem;font-weight:700;color:#fff;
+    background:var(--plum);padding:3px 7px;border-radius:6px}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#3c1c39,#6e3367);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#eccfe8;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#dba9d2}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  @media (max-width:680px){
+    .panes,.panes.two,.stats{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+  }
+
+  /* print: expand glossary + answers, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details,.practice details{break-inside:avoid}
+    .gloss .def,.practice .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.pane,.facts li,.case,.stat,.gloss details,.practice details,.discuss li{box-shadow:none}
+    header.masthead,.recap,.case .cap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 4 · Sequence 3</p>
+    <h1>Identities &amp; Learning</h1>
+    <p class="sub">Identity is never just personal. Others <em>attribute</em> identities to learners, learners <em>internalize</em> them — and schooling can either wound those identities or sustain them.</p>
+    <div class="tags">
+      <span class="tag">attributed identity</span>
+      <span class="tag">stereotype threat</span>
+      <span class="tag">culturally sustaining pedagogy</span>
+      <span class="tag">ethnic studies</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">A secure identity is a <strong>resource</strong> for learning — but identity is shaped by outside forces. Two of them dominate this sequence: identities <strong>attributed</strong> to learners by others, and the harmful expectations learners come to <strong>internalize</strong> about themselves.</p>
+
+    <div class="bigidea">
+      This sequence moves from <strong>harm to repair</strong>. First it names how bias and the "hidden curriculum" damage learners with marginalized identities (4.3.1–4.3.2). Then it turns to <strong>asset-based</strong> responses — culturally responsive, relevant, and sustaining education, and <strong>ethnic studies</strong> — that treat learners' cultures and histories as <em>"precious knowledge"</em> rather than deficits (4.3.3–4.3.4).
+    </div>
+
+    <div class="card loopfig">
+      <svg viewBox="0 0 760 280" role="img" aria-label="A loop showing how identities attributed by others can become identities internalized by the learner, with culturally sustaining education as the intervention" style="width:100%;height:auto">
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#944b8c"></path>
+          </marker>
+          <marker id="arrowt" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#2a8a86"></path>
+          </marker>
+        </defs>
+        <!-- attributed node -->
+        <g>
+          <rect x="40" y="92" width="210" height="96" rx="14" fill="#fff" stroke="#944b8c" stroke-width="2.5"></rect>
+          <text x="145" y="124" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" font-weight="700" fill="#5e2a58">ATTRIBUTED</text>
+          <text x="145" y="148" text-anchor="middle" font-family="Georgia,serif" font-size="12.5" fill="#5a4456">others' bias, low</text>
+          <text x="145" y="166" text-anchor="middle" font-family="Georgia,serif" font-size="12.5" fill="#5a4456">expectations, discipline</text>
+        </g>
+        <!-- internalized node -->
+        <g>
+          <rect x="510" y="92" width="210" height="96" rx="14" fill="#f5e8f3" stroke="#944b8c" stroke-width="2.5"></rect>
+          <text x="615" y="124" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" font-weight="700" fill="#5e2a58">INTERNALIZED</text>
+          <text x="615" y="148" text-anchor="middle" font-family="Georgia,serif" font-size="12.5" fill="#5a4456">self-doubt, stereotype</text>
+          <text x="615" y="166" text-anchor="middle" font-family="Georgia,serif" font-size="12.5" fill="#5a4456">threat, imposter syndrome</text>
+        </g>
+        <!-- top arrow: attributed -> internalized -->
+        <path d="M250,120 C360,80 420,80 510,120" fill="none" stroke="#944b8c" stroke-width="2.6" marker-end="url(#arrow)"></path>
+        <text x="380" y="74" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#944b8c">learner absorbs the message</text>
+        <!-- bottom arrow: internalized -> attributed (self-fulfilling) -->
+        <path d="M510,162 C420,202 360,202 250,162" fill="none" stroke="#cf5285" stroke-width="2.6" stroke-dasharray="7 6" marker-end="url(#arrow)"></path>
+        <text x="380" y="222" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#cf5285">self-fulfilling: confirms the attribution</text>
+        <!-- intervention -->
+        <path d="M615,200 C615,240 460,250 380,250 C300,250 200,250 145,200" fill="none" stroke="#2a8a86" stroke-width="2.6" stroke-dasharray="2 6" marker-end="url(#arrowt)"></path>
+        <text x="380" y="270" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11.5" fill="#2a8a86" font-weight="700">↑ break the loop: culturally sustaining education &amp; ethnic studies</text>
+      </svg>
+      <p class="figcap">Attributed identities can become internalized — and self-fulfilling. Asset-based pedagogy is the intervention that breaks the loop.</p>
+    </div>
+  </section>
+
+  <!-- ===== 4.3.1 ATTRIBUTED ===== -->
+  <section>
+    <h2><span class="num">02</span> 4.3.1 — Attributed learner identities</h2>
+    <p>An <strong>attributed identity</strong> is one that <em>others perceive and project onto a learner</em>. Even a learner with a secure identity stays susceptible to harm when others see them through a negative or stereotyped lens — e.g., as "aggressive" or a "troublemaker."</p>
+
+    <h3>Disproportionate discipline</h3>
+    <ul class="facts">
+      <li><b>Subjective vs. objective rule-breaking.</b> Huang &amp; Cornell (2017): across 50,000+ Virginia students, Black students were <strong>~3× more likely</strong> than White students to be suspended — driven by <em>subjective</em> infractions (arguing, "bad language," talking too much). For <em>objective</em> violations (weapons, drugs), there were no disparities or higher White rates.</li>
+      <li><b>It starts in preschool.</b> Gilliam (2016, Yale): teachers shown a video spent the most time monitoring the <strong>Black boy</strong> for "challenging behavior" — and this held for both Black and White teachers.</li>
+      <li><b>The ethnic discipline gap.</b> Nguyen et al. (2019): lumping all groups into "Asian American &amp; Pacific Islander" hides that Cambodian, Lao, and Pacific Islander youth are disciplined far more than East Asian or White students. Disaggregating the data reveals it.</li>
+      <li><b>Adultification bias.</b> Adults view Black girls as more mature and <em>less</em> in need of nurturing, protection, and comfort (Blake &amp; Epstein, 2019) — so they're punished more harshly and in developmentally inappropriate ways.</li>
+      <li><b>Disability, too.</b> Learners with disabilities are ~8.6% of public-school students but <strong>32%</strong> of youth in juvenile detention (Elias, 2013).</li>
+    </ul>
+
+    <p>Harsh discipline removes learners from class, erodes belonging and motivation, and feeds the <strong>school-to-prison pipeline</strong> — funneling students out of school and toward the juvenile-justice system.</p>
+
+    <h3>Implicit bias</h3>
+    <p>We're socialized to carry <strong>implicit associations</strong> — negative ones about marginalized groups, positive ones about dominant groups — outside our conscious awareness. Even members of stigmatized groups absorb some of these, and even people committed to equality can show automatic preferences for dominant groups. The <strong>Implicit Association Test (IAT)</strong> (Banaji and colleagues) measures bias best <em>in the aggregate</em>; a single result doesn't diagnose an individual, but it's useful for self-reflection. Bias is only one strand of a larger web of cognitive, organizational, economic, and political structures.</p>
+  </section>
+
+  <!-- ===== 4.3.2 INTERNALIZED ===== -->
+  <section>
+    <h2><span class="num">03</span> 4.3.2 — Internalized learner identities</h2>
+    <p>If 4.3.1 is what others <em>attribute</em>, 4.3.2 is what learners come to <strong>internalize</strong> — the societal assumptions about their group that they implicitly accept about themselves.</p>
+
+    <h3>The hidden curriculum</h3>
+    <p>Beyond the explicit, planned curriculum lies the <strong>hidden curriculum</strong>: the unwritten, sometimes harmful norms, values, and behaviors learners absorb in educational settings. Sociologists (from the 1960s on) showed schooling quietly teaches docility and compliance — the teacher as a child's "first boss" (Jackson, 1968) — and that practices like <em>tracking</em> habituate learners to social stratification, making inequality feel "natural."</p>
+    <p class="pq">The hidden curriculum doesn't occur in a vacuum — it tends to reinforce dominant narratives of power.</p>
+    <p>Examples: anglicizing East/South Asian students' names (signaling the dominant group's comfort matters more than students' identities); science texts that erase everyone but White men; spotlighting only "exceptional" women (Curie, Franklin), implying women must be extraordinary to belong — and that the system itself needn't change.</p>
+
+    <h3>Imposter syndrome</h3>
+    <p><strong>Imposter syndrome</strong> is an overwhelming subjective sense of incompetence — common among <em>highly successful</em> people ("I got in by luck," "everyone here knows more than I do"). It's intractable because the feeling persists even when the person can logically see the achievement was earned. Crucially, it's <strong>not the student's sole responsibility</strong>: institutions create it through unwritten rules, so schools and workplaces must counteract the hidden curriculum that fuels it.</p>
+
+    <h3>Stereotype threat</h3>
+    <p>Steele &amp; Aronson (1995): African-American and White students with equal SAT scores were told a test measured "reading and verbal reasoning ability." Under that framing the African-American students <strong>underperformed</strong>. Women similarly underperformed in math when told the test measured "mathematical ability."</p>
+    <ul class="facts">
+      <li><b>It's a self-fulfilling prophecy.</b> Awareness of a stereotype about "people like me" can throw learners "off their game" (Spencer, Steele &amp; Quinn, 1999) — crossing out correct answers, avoiding hard problems.</li>
+      <li><b>It eats working memory.</b> The anxiety of the threat condition consumes mental bandwidth needed to solve problems (Schmader &amp; Johns, 2003). The effort <em>not</em> to confirm the stereotype ends up confirming it.</li>
+      <li><b>It's worst under judgment + salience.</b> Strongest when one is being evaluated and is a visible minority in the room (Good, Aronson &amp; Inzlicht, 2003).</li>
+    </ul>
+    <p><strong>Countermeasures:</strong> (1) <em>Manipulate test instructions</em> — telling women a test was designed to eliminate gender differences erased the gap; (2) <em>Invoke a growth mindset</em> — teaching that intelligence is malleable and that struggle is normal in a new context improved math achievement and closed the gender gap.</p>
+    <p style="font-size:.92rem;color:var(--ink-soft)">↳ Note: a more <em>inclusive</em> climate raises belonging but does <strong>not</strong> by itself eliminate stereotype threat — the sense of being judged as a representative of one's group can remain. <strong>Undocumented students</strong> are a stark case: exclusion burdens them not only with inequity but with internalized anxiety and shame.</p>
+  </section>
+
+  <!-- ===== 4.3.3 CRRE / CSP ===== -->
+  <section>
+    <h2><span class="num">04</span> 4.3.3 — Culturally responsive, relevant &amp; sustaining education</h2>
+    <p>Every learning environment encodes a belief system about what counts as knowledge. Those values may not match the <strong>"deep culture"</strong> a learner brings. Asset-based pedagogies treat that culture — students' <strong>funds of knowledge</strong> and <strong>cultural wealth</strong> (Yosso, 2005) — as entry points, not deficits.</p>
+
+    <p class="pq">The values embedded in a learning environment may not align with the "deep culture" from which learners derive their own beliefs and values.</p>
+
+    <h3>CRRE — Ladson-Billings' three tenets</h3>
+    <div class="panes">
+      <div class="pane">
+        <h4>Academic success <span class="pill p1">tenet 1</span></h4>
+        <p>High expectations for <em>all</em> learners, plus the tools and supports to reach them.</p>
+      </div>
+      <div class="pane">
+        <h4>Cultural competence <span class="pill p2">tenet 2</span></h4>
+        <p>Build on students' prior knowledge and cultural backgrounds, while helping them navigate systems that marginalize some groups.</p>
+      </div>
+      <div class="pane">
+        <h4>Critical consciousness <span class="pill p3">tenet 3</span></h4>
+        <p>Develop learners' ability to recognize and critique the status-quo systems that produce social inequity.</p>
+      </div>
+    </div>
+    <p style="font-size:.94rem;color:var(--ink-soft);margin-top:12px">CRRE = "culturally responsive and relevant education" — a half-century of work helping students connect cultural identity to academic success, promoting learning, equity, and social justice. <em>In practice:</em> Maung Ting Nyeu has CHT (Bangladesh) children collect elders' traditional stories and turn them into bilingual books — oral tradition becomes a bridge to literacy in the societal language. Studies link CRRE to better test scores, motivation, and perspective-taking (e.g., using math to analyze racial profiling in traffic-stop data).</p>
+
+    <h3>The progression: responsive → relevant → sustaining</h3>
+    <div class="card loopfig">
+      <svg viewBox="0 0 760 200" role="img" aria-label="A progression from culturally responsive to culturally relevant to culturally sustaining pedagogy" style="width:100%;height:auto">
+        <defs>
+          <marker id="prog" markerWidth="11" markerHeight="11" refX="7" refY="3.5" orient="auto">
+            <path d="M0,0 L8,3.5 L0,7 Z" fill="#944b8c"></path>
+          </marker>
+        </defs>
+        <g font-family="Georgia,serif">
+          <rect x="20" y="58" width="210" height="84" rx="14" fill="#fdf3fb" stroke="#b667ad" stroke-width="2.2"></rect>
+          <text x="125" y="86" text-anchor="middle" font-size="14" font-weight="700" fill="#5e2a58">RESPONSIVE</text>
+          <text x="125" y="110" text-anchor="middle" font-size="12" fill="#5a4456">acknowledge &amp;</text>
+          <text x="125" y="127" text-anchor="middle" font-size="12" fill="#5a4456">build on culture</text>
+
+          <rect x="275" y="58" width="210" height="84" rx="14" fill="#f7e9f4" stroke="#a85a9f" stroke-width="2.4"></rect>
+          <text x="380" y="86" text-anchor="middle" font-size="14" font-weight="700" fill="#5e2a58">RELEVANT</text>
+          <text x="380" y="110" text-anchor="middle" font-size="12" fill="#5a4456">connect culture to</text>
+          <text x="380" y="127" text-anchor="middle" font-size="12" fill="#5a4456">academic success</text>
+
+          <rect x="530" y="58" width="210" height="84" rx="14" fill="#efd9eb" stroke="#944b8c" stroke-width="2.8"></rect>
+          <text x="635" y="86" text-anchor="middle" font-size="14" font-weight="700" fill="#5e2a58">SUSTAINING</text>
+          <text x="635" y="110" text-anchor="middle" font-size="12" fill="#5a4456">foster &amp; sustain living,</text>
+          <text x="635" y="127" text-anchor="middle" font-size="12" fill="#5a4456">shifting cultures</text>
+        </g>
+        <line x1="232" y1="100" x2="271" y2="100" stroke="#944b8c" stroke-width="2.6" marker-end="url(#prog)"></line>
+        <line x1="487" y1="100" x2="526" y2="100" stroke="#944b8c" stroke-width="2.6" marker-end="url(#prog)"></line>
+        <text x="380" y="178" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#2a8a86">from inclusion → toward fostering cultural pluralism &amp; equity</text>
+      </svg>
+      <p class="figcap">CSP is a "loving critique" of CRRE — it goes beyond <em>including</em> cultures to <em>sustaining</em> them.</p>
+    </div>
+
+    <h3>Culturally sustaining pedagogy (CSP)</h3>
+    <p>Django Paris (2012) — with H. Samy Alim (2017) — calls CSP a "loving critique" of earlier asset-based pedagogies. CSP centers and <strong>sustains</strong> students' languages, literacies, and ways of being, honoring how youth dynamically rework their cultures today. It more explicitly critiques oppressive systems and aims at <strong>social transformation toward cultural pluralism</strong>, not mere inclusion.</p>
+  </section>
+
+  <!-- ===== 4.3.4 ETHNIC STUDIES ===== -->
+  <section>
+    <h2><span class="num">05</span> 4.3.4 — Ethnic studies as "precious knowledge"</h2>
+    <p><strong>Ethnic studies</strong> is both a scholarly field and a K–12 subject. It offers a critical perspective on curricula long centered on dominant groups (in the U.S., White European-Americans), teaching a counter-narrative that builds <strong>critical consciousness</strong> about power and privilege — using an antiracist, relational pedagogy that recovers dehumanized histories.</p>
+
+    <div class="case">
+      <div class="cap">Case study — Tucson's Mexican-American Studies (MAS) program</div>
+      <div class="body">
+        <p>The <strong>Mexican-American Studies (MAS)</strong> program in <strong>Tucson, Arizona</strong> (also called <em>la Raza Studies</em>) taught Indigenous <strong>Xicanx</strong> intellectual traditions, art, and literature — knowledge students and teachers called <strong>"precious knowledge."</strong></p>
+        <p>The program was <strong>legally banned</strong>, then <strong>reinstated after court battles</strong> over whether it was "exclusionary" or a protected exercise of free speech. Student <strong>Mariah Harvey</strong> describes how an ethnic-studies course reshaped her understanding of her community and of her own identity.</p>
+        <p style="color:var(--ink-soft);font-size:.92rem"><b>Deeper roots:</b> educators have built counter-narratives for as long as U.S. schools have existed — e.g., <strong>"Negro History Week"</strong> in the 1930s (Givens, 2019). Angela Davis recalled teachers urging students to set aside racist textbooks and "rely on our own ability to produce knowledge about the conditions surrounding our lives."</p>
+      </div>
+    </div>
+
+    <h3>What's the evidence?</h3>
+    <p>Dee &amp; Penner (2017) used a natural experiment in San Francisco (SFUSD): students just below a GPA cutoff were assigned to an ethnic-studies course; those just above were a near-identical comparison group. Among the assigned students, the course:</p>
+    <div class="stats">
+      <div class="stat"><span class="n">+21</span><span class="l">percentage points in attendance (fewer unexcused absences)</span></div>
+      <div class="stat"><span class="n">+1.4</span><span class="l">grade points in 9th-grade GPA (on a 4.0 scale)</span></div>
+      <div class="stat"><span class="n">+23</span><span class="l">credits earned (about four courses)</span></div>
+    </div>
+    <p style="font-size:.94rem;color:var(--ink-soft);margin-top:12px">A well-implemented ethnic-studies course can <strong>substantially improve</strong> learning outcomes.</p>
+
+    <h3>Take a critical stance</h3>
+    <p>Does this mean teaching learners in culturally homogeneous groups? Not quite. Module 3 warned against <em>deficit-oriented</em> grouping like tracking. But <strong>affinity grouping</strong> — based on shared identity or goals — can be beneficial when the purpose is intragroup relationship-building, dialogue, and action, especially around marginalized identities. Think HBCUs, Aboriginal community schools, single-sex girls' schools, or Gallaudet University.</p>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>attributed identity</summary>
+      <div class="def">An identity that others perceive and project onto a learner — independent of how the learner sees themselves. Negative attributions (e.g., "aggressive," "troublemaker") leave learners vulnerable to harm even when their own identity is secure.
+        <span class="eg">A teacher reads a Black boy's behavior as "challenging" before he's done anything notable.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>adultification bias</summary>
+      <div class="def">Viewing Black girls and youth as more mature and less in need of nurturing, protection, support, and comfort than they actually are — leading to unfair, developmentally inappropriate treatment.</div>
+    </details>
+
+    <details>
+      <summary>school-to-prison pipeline</summary>
+      <div class="def">A phenomenon by which harsh school discipline increases the likelihood of dropping out and entering the juvenile-justice system — funneling students out of school and into the correctional system.</div>
+    </details>
+
+    <details>
+      <summary>implicit bias</summary>
+      <div class="def">Automatic, often unconscious associations — negative about marginalized groups, positive about dominant ones — that shape our reactions outside direct awareness. Even members of stigmatized groups and people committed to equality can hold them. Best measured in the aggregate (e.g., via the IAT), not as an individual diagnosis.</div>
+    </details>
+
+    <details>
+      <summary>internalized expectations</summary>
+      <div class="def">Societal assumptions tied to particular groups or social identities that a learner comes to implicitly accept or believe about themselves.</div>
+    </details>
+
+    <details>
+      <summary>hidden curriculum</summary>
+      <div class="def">The unwritten, sometimes unintended (and sometimes harmful) norms, values, and behaviors that students learn in educational settings — beyond the explicit, planned curriculum.
+        <span class="eg">Tracking quietly teaches that society is divided into classes; anglicizing names signals whose comfort matters.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>social stratification</summary>
+      <div class="def">A sociology term for the relative social position of individuals across different groups (strata). The hidden curriculum can naturalize it.</div>
+    </details>
+
+    <details>
+      <summary>imposter syndrome</summary>
+      <div class="def">A sometimes-overwhelming subjective sense of incompetence — common among highly successful people. Often produced by institutions' unwritten rules, so overcoming it is not the student's responsibility alone.</div>
+    </details>
+
+    <details>
+      <summary>stereotype threat</summary>
+      <div class="def">Diminished performance by members of a group when that group's social identity is made salient in a learning situation and is associated with implicit negative assumptions about their academic ability.
+        <span class="eg">Equally-scoring students underperform when a test is framed as measuring their group's stereotyped weakness.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>culturally responsive &amp; relevant education (CRRE)</summary>
+      <div class="def">Instruction that acknowledges and builds on the varied cultural resources of learners — connecting cultural identity to academic success. Ladson-Billings' three tenets: academic success, cultural competence, critical consciousness.</div>
+    </details>
+
+    <details>
+      <summary>culturally sustaining pedagogy (CSP)</summary>
+      <div class="def">Instruction that centers and seeks to foster the languages, literacies, and ways of being of students' communities toward cultural pluralism — going beyond inclusion to actively sustain living, shifting cultures (Paris, 2012).</div>
+    </details>
+
+    <details>
+      <summary>funds of knowledge / cultural wealth</summary>
+      <div class="def">The domains of knowledge and assets learners bring from their own (and multiple) cultural contexts (Yosso, 2005). Acknowledging them provides entry points for learning and reinforces resilience.</div>
+    </details>
+
+    <details>
+      <summary>critical consciousness</summary>
+      <div class="def">A learner's developed ability to recognize and critique the status-quo systems and norms that produce and maintain social inequity.</div>
+    </details>
+
+    <details>
+      <summary>ethnic studies</summary>
+      <div class="def">A field of scholarship — and a political and social movement — offering a critical perspective on traditional curricula focused on dominant subgroups. It recovers a historical narrative that promotes critical consciousness about power and privilege, reversing dehumanizing histories through an antiracist, relational pedagogy.</div>
+    </details>
+
+    <details>
+      <summary>affinity grouping</summary>
+      <div class="def">Grouping based on shared social identities and/or goals to support intragroup relationship-building, dialogue, and action — distinct from deficit-oriented grouping like tracking.</div>
+    </details>
+  </section>
+
+  <!-- ===== PRACTICE & DISCUSSION ===== -->
+  <section class="practice">
+    <h2><span class="num">07</span> Practice &amp; discussion</h2>
+    <p style="color:var(--ink-soft)">Answer in your head (or on paper) before revealing. Mix of recall and applied scenarios.</p>
+
+    <details>
+      <summary><span><span class="tagq recall">recall</span><span class="q">In Huang &amp; Cornell's Virginia study, for which kind of infraction did racial disparities in suspension appear — and which not?</span></span></summary>
+      <div class="def">Disparities appeared for <strong>subjective</strong> infractions identified by an authority figure — arguing with a teacher, "bad language," talking excessively. For <strong>objective</strong>, clear-cut violations (weapons, smoking, drugs) there were either no racial disparities or a higher rate among White students. The gap lives in interpretation, not in objectively worse behavior.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="tagq apply">apply</span><span class="q">A 10th-grader who aces her homework freezes and underperforms on a high-stakes math exam where she's one of few girls. Name the phenomenon and two evidence-based ways the teacher could reduce it.</span></span></summary>
+      <div class="def">This is <strong>stereotype threat</strong> — strongest under evaluation + identity salience (being a visible minority). Two countermeasures: (1) <strong>manipulate the framing/instructions</strong> — e.g., state the test was designed to eliminate gender differences, or that it's not diagnostic of ability; (2) <strong>invoke a growth mindset</strong> — teach that intelligence is malleable and that struggle in a hard, new context is normal, not a sign of deficiency. Both have closed gender gaps in math performance.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="tagq recall">recall</span><span class="q">What is the "hidden curriculum," and give one concrete example from the unit.</span></span></summary>
+      <div class="def">The <strong>hidden curriculum</strong> is the unwritten, sometimes harmful norms, values, and behaviors students absorb in educational settings, beyond the explicit lesson plan. Examples: <em>tracking</em> habituating students to social stratification; <em>anglicizing</em> Asian students' names; science texts that omit everyone but White men; spotlighting only "exceptional" women, implying women must be extraordinary to belong.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="tagq apply">apply</span><span class="q">A district wants to add an ethnic-studies elective but the school board doubts it will help "real" academics. What evidence from Dee &amp; Penner (2017) would you cite, and why is the study persuasive?</span></span></summary>
+      <div class="def">In SFUSD, students assigned to ethnic studies (just below a GPA cutoff) saw attendance rise <strong>+21 percentage points</strong>, ninth-grade GPA rise <strong>+1.4 points</strong>, and credits earned rise by <strong>~23</strong> (≈ four courses) versus a near-identical group just above the cutoff. It's persuasive because the cutoff design compares students who were <em>academically very similar</em>, supporting a <strong>causal</strong> interpretation rather than mere correlation.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="tagq apply">apply</span><span class="q">A colleague says, "If we want to honor students' cultures, isn't culturally responsive teaching enough? Why bother with 'sustaining'?" How would you distinguish CRRE from CSP?</span></span></summary>
+      <div class="def">CRRE <strong>acknowledges and builds on</strong> students' cultural resources to connect identity to academic success. CSP (Paris, 2012) is a "loving critique" that goes further: it seeks to <strong>foster and sustain</strong> students' languages, literacies, and ways of being — treating cultures as living and dynamically reworked by youth — and more explicitly critiques oppressive systems, aiming at social transformation toward cultural pluralism. In short: responsive/relevant <em>includes</em> culture; sustaining actively <em>perpetuates</em> it.</div>
+    </details>
+
+    <div class="discuss">
+      <h3>Open-ended discussion prompts</h3>
+      <ol>
+        <li>Where have you experienced (or enacted) a hidden curriculum — and whose comfort or norms did it quietly center? What would it take to make those norms explicit?</li>
+        <li>The IAT can't diagnose an individual's bias. Given that, what is the responsible use of implicit-bias awareness in teacher preparation — and where could it do harm if misused?</li>
+        <li>Module 3 warned against deficit-oriented grouping, yet affinity grouping can support marginalized learners. How do you tell the two apart in practice, and what purpose makes affinity grouping defensible?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Attributed → internalized.</strong> Identities others project onto learners (bias, low expectations, disproportionate discipline) can be absorbed and become self-fulfilling.</li>
+      <li><strong>Discipline gaps are about interpretation.</strong> Disparities show up for subjective infractions, not objective ones — and surface as early as preschool, across teacher races.</li>
+      <li><strong>The hidden curriculum teaches the unspoken</strong> — norms that often reinforce dominant power and breed imposter syndrome; institutions, not just students, must counteract it.</li>
+      <li><strong>Stereotype threat</strong> hits under judgment + identity salience and eats working memory — but framing changes and a growth mindset can shrink or erase the gap.</li>
+      <li><strong>Asset-based pedagogy breaks the loop.</strong> CRRE builds on culture (academic success, cultural competence, critical consciousness); CSP goes further to <em>sustain</em> living cultures.</li>
+      <li><strong>Ethnic studies is "precious knowledge"</strong> — Tucson's MAS was banned then reinstated, and SFUSD evidence shows real gains in attendance, GPA, and credits.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 4 · Identities &amp; Learning · study notes</footer>
+
+</div>
+</body>
+</html>

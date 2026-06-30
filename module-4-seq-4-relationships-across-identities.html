@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 4 · Sequence 4 — Engaging Across Identities · Study Notes</title>
+<style>
+  :root{
+    --ink:#13312f;
+    --ink-soft:#3c5a57;
+    --paper:#f1f7f6;
+    --teal:#1f9aa3;
+    --teal-bright:#27b3bd;
+    --teal-deep:#0e5e64;
+    --violet:#6a5bb5;
+    --amber:#d98a2b;
+    --rose:#d65f7f;
+    --line:#cfe3e2;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(14,60,64,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    /* faint connected-node texture: relationships are a web of ties */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(31,154,163,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(106,91,181,.07) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#0a4a4f,#1f9aa3 70%,#27b3bd);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#cbeef0;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#e1f6f7;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--teal-deep);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(31,154,163,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--teal-bright);
+    background:linear-gradient(90deg,rgba(31,154,163,.10),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--teal-deep)}
+
+  /* unit flow motif */
+  .openbox{display:flex;align-items:center;justify-content:center;
+    gap:12px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .ob-node{background:#fff;border:2px solid var(--teal);color:var(--teal-deep);
+    padding:10px 16px;border-radius:10px;font-size:.78rem;font-weight:700;text-align:center}
+  .ob-mind{background:#fff;border:2px dashed var(--teal);color:var(--teal-deep);
+    padding:12px 18px;border-radius:12px;position:relative}
+  .ob-mind small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px}
+  .ob-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* contrast / value tables */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  table.vs thead th:nth-child(2){color:var(--ink-soft)}
+  table.vs thead th:nth-child(3){color:var(--teal-deep)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:24%}
+  table.vs tr td:nth-child(3){background:rgba(31,154,163,.05)}
+
+  .schemafig{margin:6px 0 2px}
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* two-pane compare (bonding vs bridging) */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .aa .pane.assim h4{color:var(--teal)}
+  .aa .pane.accom h4{color:var(--violet)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.fit{background:rgba(31,154,163,.14);color:var(--teal-deep)}
+  .pill.reshape{background:rgba(106,91,181,.14);color:var(--violet)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* concept cards grid */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--amber);display:block;font-size:.95rem;margin-bottom:2px}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+
+  /* numbered steps (ABC approach, 6 guidelines) */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--teal);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step.abc::before{background:var(--violet)}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal-deep);background:rgba(31,154,163,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* glossary + practice reveals */
+  .gloss details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--teal-deep);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .gloss summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+  .gloss summary .q{font-weight:400;color:var(--ink-soft);font-size:.9rem}
+
+  /* practice question label */
+  .qlabel{font-family:"SF Mono",monospace;font-size:.62rem;letter-spacing:.08em;
+    text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-right:8px;font-weight:700}
+  .qlabel.recall{background:rgba(31,154,163,.14);color:var(--teal-deep)}
+  .qlabel.apply{background:rgba(106,91,181,.14);color:var(--violet)}
+  .discuss{background:#fff;border:1px solid var(--line);border-left:4px solid var(--violet);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);margin-top:12px;font-size:.95rem}
+  .discuss b{color:var(--violet);font-family:"SF Mono",monospace;font-size:.7rem;
+    letter-spacing:.06em;text-transform:uppercase;margin-right:8px}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#0a4a4f,#0e5e64);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#cbeef0;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#7fdce2}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary + practice answers, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details{break-inside:avoid}
+    .gloss .def{display:block !important}
+    details:not([open]) .def{display:block}
+    details:not([open]) > summary::after{content:"" !important}
+    .card,.step,.it,.aa .pane,.gloss details,.discuss{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 4 · Sequence 4</p>
+    <h1>Engaging Across Identities</h1>
+    <p class="sub">Diversity alone doesn't teach. Learning across difference takes <em>care, social-emotional skill, bridging ties,</em> and partnership with families.</p>
+    <div class="tags">
+      <span class="tag">climate of care</span>
+      <span class="tag">social-emotional learning</span>
+      <span class="tag">bonding · bridging</span>
+      <span class="tag">family engagement</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">Module 3 argued that <strong>diversity</strong> can spark contact with ideas and identities unlike our own. But putting different people in a room <strong>does not</strong> guarantee learning. Without equity, inclusion, and trust, diverse groups slide into conflict, silence, and harm.</p>
+
+    <div class="bigidea">
+      The throughline of this sequence: learners can only take the risk of sharing ideas and engaging across difference when they feel <strong>safe, seen, and that they belong</strong>. Building that climate is relational work — it runs through <strong>care</strong>, <strong>social-emotional learning (SEL)</strong>, the deliberate building of <strong>bridging ties</strong> across groups, and genuine partnership with <strong>families and communities</strong>.
+    </div>
+
+    <div class="card">
+      <div class="openbox">
+        <div class="ob-node">4.4.1<br>CARE &amp; climate</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">4.4.2<br>SEL in practice</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">4.4.3<br>bonding · bridging</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">4.4.4<br>family &amp; community</div>
+      </div>
+      <p class="figcap">Four moves that turn a diverse setting into one where everyone can learn and thrive.</p>
+    </div>
+  </section>
+
+  <!-- ===== 4.4.1 CARE ===== -->
+  <section>
+    <h2><span class="num">02</span> 4.4.1 — Building Relationships through Care</h2>
+    <p>Positive peer relationships depend on <strong>school / organizational climate</strong> — the felt sense that everyone belongs. Tackling something like bullying is therefore <strong>systemic work</strong> across policy, practice, and culture, which is harder (and more effective) than disciplining individual students.</p>
+
+    <h3>Interpersonal violence is a need-meeting strategy</h3>
+    <p><strong>Bullying</strong> tends to erupt where youth struggle to manage emotions or take others' perspectives, or where there are <strong>unbalanced power dynamics or unmet needs</strong>. Harmful behavior is often a child trying to meet their own needs at others' expense. It can be a barrier to learning for <em>both</em> the bully and the bullied — who may be the same person in different contexts.</p>
+
+    <div class="it-grid">
+      <div class="it"><b>Develops with age</b><span>Younger children (less perspective-taking) use direct words or physical aggression; older children use <strong>social aggression</strong> — damaging another's status or relationships.</span></div>
+      <div class="it"><b>Often identity-targeted</b><span>Bullying frequently targets identity — e.g. LGBTQIA+ youth — raising the sequence's driving question: how do we bring learners into productive engagement <em>across</em> difference?</span></div>
+      <div class="it"><b>24/7 reach</b><span>Students describe survival mode: "just getting through the day." Social media means harassment no longer "stops at 3:30" (Maxwell, 2016).</span></div>
+      <div class="it"><b>Culture, not policing</b><span>Schools "can't police or surveil their way to cultures of care." Overly punitive measures undermine trusting, <strong>restorative</strong> environments.</span></div>
+    </div>
+
+    <div class="bigidea">
+      The constructive answer to a harmful climate is <strong>social-emotional learning (SEL)</strong>: a fundamental part of human development through which people acquire the social, emotional, behavioral, and character skills needed to live, work, learn, and make decisions <strong>with others</strong>.
+    </div>
+
+    <h3>How SEL skills develop</h3>
+    <p>Per Stephanie Jones and HGSE's <strong>EASEL Lab</strong> (Ecological Approaches to SEL), SEL is both an independent skill set <em>and</em> a subset of academic skills — so it lives in "teachable moments" across the whole school day, not just dedicated lessons. <strong>SEL Kernels</strong> are small, embeddable tools and activities educators can drop into varied contexts. But SEL must be <em>deliberately</em> built in; it doesn't happen by accident. (Jones et al. reviewed dozens of frameworks to find SEL's common core — see the diagram below.)</p>
+  </section>
+
+  <!-- ===== SVG: SEL competencies ===== -->
+  <section>
+    <h2><span class="num">03</span> The core domains of SEL</h2>
+    <p>After reviewing dozens of frameworks, the EASEL Lab distilled the areas central to <em>most</em> conceptions of SEL. (The widely-used <strong>CASEL</strong> framework names five parallel competencies — shown on the right — anchored in safe, caring learning communities.)</p>
+
+    <div class="card schemafig">
+      <svg viewBox="0 0 760 320" role="img" aria-label="SEL core domains from the EASEL Lab beside the five CASEL competencies" style="width:100%;height:auto">
+        <!-- EASEL core domains as a ring around a learner -->
+        <g font-family="ui-monospace,Menlo,monospace" font-size="12" text-anchor="middle">
+          <circle cx="210" cy="160" r="46" fill="#0e5e64"></circle>
+          <text x="210" y="156" fill="#ffffff" font-size="12">developing</text>
+          <text x="210" y="172" fill="#ffffff" font-size="12">learner</text>
+
+          <!-- edges -->
+          <g stroke="#9ad3d6" stroke-width="2">
+            <line x1="210" y1="114" x2="210" y2="60"></line>
+            <line x1="256" y1="160" x2="330" y2="160"></line>
+            <line x1="210" y1="206" x2="210" y2="262"></line>
+            <line x1="176" y1="126" x2="120" y2="78"></line>
+            <line x1="176" y1="194" x2="120" y2="244"></line>
+          </g>
+
+          <g>
+            <rect x="150" y="36" width="120" height="40" rx="10" fill="#fff" stroke="#1f9aa3" stroke-width="2.5"></rect>
+            <text x="210" y="52" fill="#0e5e64">cognitive</text>
+            <text x="210" y="67" fill="#0e5e64">regulation</text>
+          </g>
+          <g>
+            <rect x="334" y="140" width="120" height="40" rx="10" fill="#fff" stroke="#1f9aa3" stroke-width="2.5"></rect>
+            <text x="394" y="156" fill="#0e5e64">emotional</text>
+            <text x="394" y="171" fill="#0e5e64">processes</text>
+          </g>
+          <g>
+            <rect x="150" y="262" width="120" height="40" rx="10" fill="#fff" stroke="#1f9aa3" stroke-width="2.5"></rect>
+            <text x="210" y="278" fill="#0e5e64">social /</text>
+            <text x="210" y="293" fill="#0e5e64">interpersonal</text>
+          </g>
+          <g>
+            <rect x="44" y="44" width="100" height="40" rx="10" fill="#fff" stroke="#1f9aa3" stroke-width="2.5"></rect>
+            <text x="94" y="68" fill="#0e5e64">character</text>
+          </g>
+          <g>
+            <rect x="44" y="224" width="100" height="40" rx="10" fill="#fff" stroke="#1f9aa3" stroke-width="2.5"></rect>
+            <text x="94" y="248" fill="#0e5e64">mindset</text>
+          </g>
+        </g>
+
+        <!-- divider -->
+        <line x1="500" y1="30" x2="500" y2="300" stroke="#cfe3e2" stroke-width="2" stroke-dasharray="5 6"></line>
+
+        <!-- CASEL five competencies as stacked pills -->
+        <g font-family="ui-monospace,Menlo,monospace" font-size="12">
+          <text x="630" y="40" text-anchor="middle" fill="#6a5bb5" font-size="11" letter-spacing="1">CASEL · 5 COMPETENCIES</text>
+          <g text-anchor="middle">
+            <rect x="540" y="58" width="180" height="34" rx="8" fill="#efe9fc" stroke="#6a5bb5" stroke-width="2"></rect>
+            <text x="630" y="80" fill="#3d3270">self-awareness</text>
+            <rect x="540" y="100" width="180" height="34" rx="8" fill="#efe9fc" stroke="#6a5bb5" stroke-width="2"></rect>
+            <text x="630" y="122" fill="#3d3270">self-management</text>
+            <rect x="540" y="142" width="180" height="34" rx="8" fill="#efe9fc" stroke="#6a5bb5" stroke-width="2"></rect>
+            <text x="630" y="164" fill="#3d3270">social awareness</text>
+            <rect x="540" y="184" width="180" height="34" rx="8" fill="#efe9fc" stroke="#6a5bb5" stroke-width="2"></rect>
+            <text x="630" y="206" fill="#3d3270">relationship skills</text>
+            <rect x="540" y="226" width="180" height="34" rx="8" fill="#efe9fc" stroke="#6a5bb5" stroke-width="2"></rect>
+            <text x="630" y="248" fill="#3d3270">responsible decisions</text>
+          </g>
+        </g>
+      </svg>
+      <p class="figcap">Left: EASEL Lab's common core (Jones et al., 2017). Right: the parallel CASEL competencies. Different labels, same human skills.</p>
+    </div>
+
+    <div class="card" style="border-left:4px solid var(--rose)">
+      <h3 style="margin-top:0;color:var(--rose)">The movement against SEL</h3>
+      <p style="margin-bottom:0">Despite strong evidence, SEL has been <strong>politicized and caricatured</strong> in the U.S. Critics claim it's caregivers' job alone, that components like empathy clash with families' beliefs, or that SEL is a cover for teaching critical race theory. The course treats these claims as <strong>unfounded and dangerous</strong>: denying students SEL can harm growth and learning, socially and academically. (Caregivers <em>do</em> play a vital role — but that doesn't displace SEL in schools.)</p>
+    </div>
+  </section>
+
+  <!-- ===== 4.4.2 SEL IN PRACTICE ===== -->
+  <section>
+    <h2><span class="num">04</span> 4.4.2 — SEL in Practice</h2>
+    <p>There's no single "right" way to do SEL. It can run at three scales — the <strong>learner</strong>, the <strong>program</strong>, and the <strong>system</strong> level — and be taught as its own domain or woven into other subjects.</p>
+
+    <h3>At the learner level — Simple Interactions</h3>
+    <p>The <strong>Simple Interactions</strong> framework (from earlier in Module 4) turns ordinary moments into SEL. Its four threads — <strong>connection, reciprocity, inclusion, and opportunities to grow</strong> — let adults build developmental relationships in everyday life.</p>
+    <p style="font-size:.92rem;color:var(--ink-soft)"><em>Concrete case:</em> after a dull one-on-one reading assessment, a teacher pulls a struggling student aside to name the <strong>incremental progress</strong> they've made — even though they're not yet at state-standard proficiency. The student connects <strong>effort, not innate talent</strong>, to their growth — a mindset shift that builds self-efficacy and motivation. "No human interaction is ever just about one single thing."</p>
+
+    <h3>At the program / system level</h3>
+    <div class="aa">
+      <div class="pane assim">
+        <h4>SEL integrated with other domains <span class="pill fit">embedded</span></h4>
+        <p>SEL can be <strong>part of academic learning itself</strong>. Vicki Zakrzewski (Greater Good Science Center) notes the Common Core <em>math</em> standard asks students to "justify conclusions, communicate them, and respond to others' arguments" — which requires listening, perspective-taking, and reading others' feelings.</p>
+        <p class="ex"><b>payoff</b> Prosocial behavior in adolescence (cooperating, sharing, helping) links to better mental health, self-esteem, and peer relationships in adulthood (Do, Guassi Moreira, &amp; Telzer, 2017).</p>
+      </div>
+      <div class="pane accom">
+        <h4>SEL as a domain in itself <span class="pill reshape">explicit</span></h4>
+        <p>SEL can be taught <strong>directly</strong> — strategies for attention, self-regulation of emotion and impulse, and social perspective-taking.</p>
+        <p class="ex"><b>case</b> Summit Preparatory Charter High (Redwood City, CA) runs a weekly course — <em>"Habits, Community, and Culture"</em> — whose activities each map onto an EASEL SEL skill category (Minero, 2017).</p>
+      </div>
+    </div>
+
+    <h3>Six guidelines for embedding SEL in a culture (Jones / EASEL Lab)</h3>
+    <p>SEL isn't only curriculum — many schools and workplaces infuse it into practices, policies, and culture (building the climates of care from 4.4.1). To do it well, organizations should:</p>
+    <div class="lesson">
+      <div class="step"><div class="body"><p class="idea">Allot enough time.</p><p class="mech"><b>integrate</b> Make SEL part of the curriculum and day-to-day practice — not an "extra" done with leftover time.</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Extend SEL beyond the classroom.</p><p class="mech"><b>everywhere</b> Include the lunchroom, playground, athletic fields — especially spaces where learners feel least safe.</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Apply skills in real time.</p><p class="mech"><b>in the moment</b> Coach learners during day-to-day interactions, seizing "teachable moments."</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Ensure staff support and training.</p><p class="mech"><b>adults first</b> Adults need their own social-emotional awareness to help students — ongoing training is key.</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Facilitate ownership and buy-in.</p><p class="mech"><b>stakeholders</b> Align programs with community needs and design them <em>with</em> participants.</p></div></div>
+      <div class="step"><div class="body"><p class="idea">Use data to inform decisions.</p><p class="mech"><b>accountability</b> Even simple tools — climate surveys, behavior-referral analysis — let schools monitor and hold themselves accountable.</p></div></div>
+    </div>
+
+    <h3>SEL for a changing future — and 21st-century skills</h3>
+    <p><strong>21st-century skills</strong> ("soft skills") are a broad, domain-general set deemed essential for today's world. Economists Murnane &amp; Levy (who coined the term) frame them as the human strengths — ingenuity, creativity, social interaction — that <strong>computers can't replicate</strong>. Broader frameworks (e.g. Partnership for 21st-Century Learning) extend them to thriving in life and citizenship.</p>
+    <div class="it-grid">
+      <div class="it"><b>The "4 Cs"</b><span>One popular distillation: <strong>critical thinking, communication, collaboration, creativity</strong> (Common Sense Media).</span></div>
+      <div class="it"><b>Overlap with SEL</b><span>Not identical (e.g. media literacy is a 21st-century skill but not SEL), yet collaboration and communication are core to <em>both</em>.</span></div>
+      <div class="it"><b>The development gap</b><span>Deming (2017): social skills are learned early, <strong>de-emphasized</strong> in K–12 for academics, then re-emphasized in the workforce.</span></div>
+      <div class="it"><b>Close the gap</b><span>Give K–12 students abundant SEL practice — collaborative learning, group projects — to pay dividends in a changing future.</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 4.4.3 BONDING / BRIDGING ===== -->
+  <section>
+    <h2><span class="num">05</span> 4.4.3 — Bonding Skills &amp; Bridging Skills</h2>
+    <p>Step back to a bigger frame: <strong>social capital</strong>. "Capital" means a set of assets. Financial capital is tangible (money); <strong>human capital</strong> is intangible — the skills, capabilities, and health of people (when districts plan "human capital development," they mean hiring and growing great educators). <strong>Social capital</strong> is different again: the assets in a person's <strong>social networks</strong>, plus the <strong>trust and cooperation</strong> among the people in them (Putnam and others).</p>
+
+    <div class="aa">
+      <div class="pane assim">
+        <h4>Bonding social capital <span class="pill fit">strong ties</span></h4>
+        <p>Relationships with our <strong>in-group</strong> — people who are like us. These networks are <strong>denser</strong> and form easily by affinity.</p>
+        <p class="ex"><b>e.g.</b> family · close friends · members of one's own identity group(s).</p>
+      </div>
+      <div class="pane accom">
+        <h4>Bridging social capital <span class="pill reshape">weak ties</span></h4>
+        <p>Relationships <strong>outside</strong> our in-group — ties to other groups. They take <strong>more effort</strong> to nurture, "bridging" from one bonded network to another.</p>
+        <p class="ex"><b>e.g.</b> friends of friends · members of other identity group(s) · acquaintances who help you find a job.</p>
+      </div>
+    </div>
+
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-top:14px">↳ <strong>Danielle Allen</strong> (HGSE / Safra Center) argues that building <strong>bridging</strong> capital across identity groups is critical for colleges — yet many institutions don't know how to support it. Chambliss &amp; Takacs likewise show that broader <em>weak-tie</em> networks strengthen students' sense of belonging in college.</p>
+
+    <h3>Tatum's ABC Approach</h3>
+    <p>Beverly Daniel Tatum (former Spelman College president) offers three things institutions must do <strong>together</strong>, each building on the last, to support engagement across identities — especially for learners with historically excluded identities:</p>
+    <div class="lesson">
+      <div class="step abc"><div class="body"><p class="idea">A — Affirming Identity</p><p class="mech"><b>see yourself</b> Everyone should see themselves reflected — in curriculum, in faculty/staff/leadership, and in available spaces and groups.</p></div></div>
+      <div class="step abc"><div class="body"><p class="idea">B — Building Community</p><p class="mech"><b>engage across</b> Help students engage across identities through events, curriculum, and modeled dialogue toward a common purpose.</p></div></div>
+      <div class="step abc"><div class="body"><p class="idea">C — Cultivating Leadership</p><p class="mech"><b>boundary-crossing</b> Prepare students to lead in a pluralistic society — skills of working within and across identity groups, leading discussions of race and identity.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ===== 4.4.4 FAMILY / COMMUNITY ===== -->
+  <section>
+    <h2><span class="num">06</span> 4.4.4 — Family &amp; Community Engagement</h2>
+    <p>Can learners show up as their <strong>full selves</strong> if their families and communities aren't also embraced? The school door can be a "closed door more than an open one." Improving outcomes in culturally responsive ways requires <strong>collaboration with caregivers and communities</strong>, not educators working alone. The key question: in what ways, how often, and with what supports can educators include families in <strong>decision-making</strong> and in everyday teaching and learning?</p>
+
+    <div class="bigidea">
+      <strong>Karen Mapp's</strong> work (HGSE) — the "8 for 8" and the <strong>dual capacity-building framework</strong> (Mapp &amp; Kuttner, 2013) — frames the goal as building two capacities at once: building up <strong>schools to serve families</strong> <em>and</em> building up <strong>families to engage effectively with schools</strong>. The framework specifies the <strong>opportunity conditions</strong> required for effective family–school partnerships.
+    </div>
+
+    <h3>Case study — Stanton Elementary (Washington, DC)</h3>
+    <p>In 2010 the struggling charter school was put under new leadership to "turn around." A parent: <em>"These were elementary school kids, and they were running the school. Parents were disconnected, staff and families were battling one another…"</em> The principal's first moves — better instruction, behavior management, school culture — <strong>weren't enough</strong>.</p>
+    <div class="it-grid">
+      <div class="it"><b>1 · Teacher home visits</b><span>In 2011 teachers began visiting students' homes — meeting families on their own ground.</span></div>
+      <div class="it"><b>2 · Caregiver–teacher teams</b><span>"Teams" of teachers and caregivers met to work collaboratively to support students.</span></div>
+    </div>
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-top:12px">↳ By the end of the 2012 school year, performance <strong>began improving</strong>. The course frames Stanton as evidence that the <strong>opportunity conditions</strong> in Mapp &amp; Kuttner's framework were met by the family-engagement initiative — a real-world test of dual capacity-building.</p>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">07</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>social-emotional learning (SEL)</summary>
+      <div class="def">The social, emotional, behavioral, and character skills necessary to live, work, learn, and make decisions with others — including cognitive regulation, emotional processes, social / interpersonal skills, character, and mindset.
+        <span class="eg">It's both an independent skill set and a subset of academic skills; it lives in everyday "teachable moments."</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>climate of care</summary>
+      <div class="def">A school or organizational culture that fosters belonging, trust, and positive relationships among all learners — built through systemic, restorative practice rather than punitive policing or surveillance.
+        <span class="eg">The constructive alternative to bullying cultures; SEL is its engine.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>social aggression</summary>
+      <div class="def">Harm that damages another person's social status or relationships (e.g. exclusion, rumor-spreading) — more common among older children with more developed perspective-taking, versus the direct/physical aggression of younger children.</div>
+    </details>
+
+    <details>
+      <summary>21st-century skills</summary>
+      <div class="def">A broad set of knowledge, skills, work habits, and character traits believed to be critically important to success in today's world.
+        <span class="eg">The "4 Cs" — critical thinking, communication, collaboration, creativity. Overlaps with, but isn't identical to, SEL.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>Simple Interactions</summary>
+      <div class="def">A developmental framework for weaving SEL into everyday moments through four threads: <strong>connection, reciprocity, inclusion, and opportunities to grow</strong> — used to build developmental relationships across ages and contexts.</div>
+    </details>
+
+    <details>
+      <summary>social capital</summary>
+      <div class="def">Assets composed of a person's social networks and the trust and cooperation of the people in those networks.
+        <span class="eg">Contrast with <em>human</em> capital (people's skills/health) and <em>financial</em> capital (tangible money).</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>bonding social capital</summary>
+      <div class="def">Relationships with those in our "in-group" — people who are like us in some meaningful way. Denser networks formed easily by affinity ("strong ties").
+        <span class="eg">Family, close friends, members of one's own identity group(s).</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>bridging social capital</summary>
+      <div class="def">Relationships with those outside our in-group — ties to other groups. They take more effort to nurture, "bridging" from one bonded network to another ("weak ties").
+        <span class="eg">Friends of friends, members of other identity groups, an acquaintance who helps you find a job.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>ABC Approach (Tatum)</summary>
+      <div class="def">Three interdependent practices for engagement across identities: <strong>A</strong>ffirming Identity, <strong>B</strong>uilding Community, and <strong>C</strong>ultivating Leadership — each building on the previous.</div>
+    </details>
+
+    <details>
+      <summary>dual capacity-building framework</summary>
+      <div class="def">Mapp &amp; Kuttner's (2013) framework for family–school partnerships that builds two capacities at once: building up <strong>schools to serve families</strong> and <strong>families to engage effectively with schools</strong>, by establishing the necessary "opportunity conditions."</div>
+    </details>
+
+    <details>
+      <summary>family &amp; community engagement</summary>
+      <div class="def">Partnering with caregivers and communities — in decision-making and in everyday teaching and learning — so that fostering belonging, achievement, and social-emotional growth succeeds. (See Mapp's "8 for 8"; the Stanton Elementary case.)</div>
+    </details>
+  </section>
+
+  <!-- ===== PRACTICE & DISCUSSION ===== -->
+  <section class="gloss">
+    <h2><span class="num">08</span> Practice &amp; Discussion</h2>
+    <p style="color:var(--ink-soft)">Answer each before revealing. Mix of recall and application.</p>
+
+    <details>
+      <summary><span class="q"><span class="qlabel recall">recall</span>Why does the course say diversity alone is not enough for learning?</span></summary>
+      <div class="def">Because simply placing different people together doesn't ensure learning. Without <strong>equity, inclusion, and trust</strong>, diverse groups can produce conflict, silence, and harm. Learners need to feel safe and that they belong before they'll take the risk of sharing ideas or being open to others' views.</div>
+    </details>
+
+    <details>
+      <summary><span class="q"><span class="qlabel recall">recall</span>Name the four threads of the Simple Interactions framework.</span></summary>
+      <div class="def"><strong>Connection, reciprocity, inclusion, and opportunities to grow.</strong> Together they let adults build developmental relationships and weave SEL into everyday moments.</div>
+    </details>
+
+    <details>
+      <summary><span class="q"><span class="qlabel apply">apply</span>A new student is regularly pressured to hand over their lunch but won't report it, fearing reprisal. Through this sequence's lens, how should a school respond?</span></summary>
+      <div class="def">Treat it as a <strong>systemic climate issue</strong>, not just one student's misbehavior. Avoid purely punitive/surveillance responses, which undermine trust. Look for the <strong>unmet needs and power dynamics</strong> driving the behavior, build a <strong>climate of care</strong> through SEL (perspective-taking, emotion regulation, belonging), and use restorative rather than punitive approaches. Recognize bullying harms both the bullied and the bully.</div>
+    </details>
+
+    <details>
+      <summary><span class="q"><span class="qlabel apply">apply</span>A first-gen college student knows classmates but no one in their target industry. Which type of social capital is short, and what would Tatum's ABC approach do about it?</span></summary>
+      <div class="def">They have <strong>bonding</strong> capital (in-group strong ties) but lack <strong>bridging</strong> capital (weak ties to other groups, e.g. the "acquaintance who helps you find a job"). Tatum's approach: <strong>Affirm</strong> the student's identity so they see themselves reflected, <strong>Build community</strong> through deliberate dialogue across identities, and <strong>Cultivate leadership</strong> / boundary-crossing skills — institutions must actively support bridging rather than assume it happens on its own.</div>
+    </details>
+
+    <details>
+      <summary><span class="q"><span class="qlabel apply">apply</span>A principal improves instruction and discipline but scores stay flat. Using Stanton Elementary, what's the likely missing ingredient?</span></summary>
+      <div class="def"><strong>Family and community engagement.</strong> At Stanton, instruction/behavior/culture changes alone didn't suffice; performance improved only after adding <strong>teacher home visits</strong> and <strong>caregiver–teacher teams</strong>. The principle is <strong>dual capacity-building</strong> (Mapp &amp; Kuttner): build schools' capacity to serve families <em>and</em> families' capacity to engage — meeting the "opportunity conditions."</div>
+    </details>
+
+    <h3>Open-ended discussion prompts</h3>
+    <div class="discuss"><b>prompt 1</b>SEL is politicized in the U.S. How would you respond to a caregiver who worries SEL conflicts with their family's values — while still honoring the role caregivers genuinely play in social-emotional development?</div>
+    <div class="discuss"><b>prompt 2</b>Think of a learning setting you know. Where does it over-invest in <em>bonding</em> ties and under-invest in <em>bridging</em> ties? What concrete change would shift the balance?</div>
+    <div class="discuss"><b>prompt 3</b>Of the EASEL Lab's six implementation guidelines, which is hardest to honor in a resource-constrained school — and how would you protect SEL from becoming the "extra" done with leftover time?</div>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Diversity needs care to become learning.</strong> Safety, trust, and belonging are preconditions for engaging across difference.</li>
+      <li><strong>Bullying is systemic.</strong> It signals unmet needs and power imbalances; you can't police your way to a climate of care — SEL and restorative practice can build one.</li>
+      <li><strong>SEL is a developmental skill set,</strong> embedded in everyday moments (Simple Interactions, SEL Kernels) and across three scales — learner, program, system. Six EASEL guidelines keep it from being an "extra."</li>
+      <li><strong>Bonding vs. bridging.</strong> In-group strong ties form easily; bridging weak ties across identities take deliberate effort — and Tatum's <strong>ABC</strong> (Affirm, Build, Cultivate) shows institutions how.</li>
+      <li><strong>Families are partners, not visitors.</strong> Dual capacity-building (Mapp &amp; Kuttner) and Stanton Elementary show learning improves when schools and families build each other up.</li>
+      <li><strong>SEL also future-proofs learners,</strong> overlapping with 21st-century "4 Cs" skills computers can't replace.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 4 · Engaging Across Identities · study notes</footer>
+
+</div>
+</body>
+</html>

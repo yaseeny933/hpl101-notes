@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 4 · Seq 1 — Learning in Relationships · Study Notes</title>
+<style>
+  :root{
+    --ink:#1a2233;
+    --ink-soft:#475168;
+    --paper:#f3f5fa;
+    --slate:#4a6fa5;
+    --slate-bright:#5f86c2;
+    --slate-deep:#2f4a73;
+    --teal:#2a8f86;
+    --amber:#cf8a2c;
+    --rose:#c75a78;
+    --line:#d4dcea;
+    --node:#ffffff;
+    --shadow:0 10px 30px rgba(30,50,90,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    /* faint relational-node texture: development happens in webs of relationships */
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18px 18px, rgba(74,111,165,.10) 2px, transparent 2.5px),
+      radial-gradient(circle at 58px 78px, rgba(42,143,134,.08) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#1f3357,#2f4a73 55%,#4a6fa5);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 80% 20%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#cdddf5;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.25rem;line-height:1.1;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#e1ebf8;font-size:1.05rem;max-width:52ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--slate);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--teal);background:rgba(42,143,134,.12);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-top:14px}
+
+  /* big idea banner */
+  .bigidea{
+    border-left:6px solid var(--slate-bright);
+    background:linear-gradient(90deg,rgba(74,111,165,.09),#fff 60%);
+    border-radius:12px;padding:18px 22px;margin-top:16px}
+  .bigidea strong{color:var(--slate)}
+
+  /* serve-and-return / relationship motif */
+  .openbox{display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;margin:8px 0 2px;font-family:"SF Mono",ui-monospace,monospace}
+  .ob-node{background:#fff;border:2px solid var(--slate);color:var(--slate);
+    padding:10px 16px;border-radius:10px;font-size:.82rem;font-weight:700;text-align:center}
+  .ob-mind{background:#fff;border:2px dashed var(--teal);color:var(--teal);
+    padding:12px 18px;border-radius:12px;position:relative;text-align:center;font-weight:700;font-size:.82rem}
+  .ob-mind small{display:block;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:4px;font-weight:400}
+  .ob-arrow{color:var(--ink-soft);font-size:1.3rem}
+
+  /* generic comparison / dimensions table */
+  table.vs{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  table.vs th,table.vs td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.vs thead th{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+  table.vs td:first-child{font-weight:700;color:var(--ink);width:28%}
+  table.vs tr td:nth-child(2){color:var(--ink-soft)}
+
+  .schemafig{margin:6px 0 2px}
+  .figcap{font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;margin-top:6px}
+
+  /* two-pane grid */
+  .aa{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .aa .pane{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;box-shadow:var(--shadow)}
+  .aa .pane h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .aa .pane.assim h4{color:var(--teal)}
+  .aa .pane.accom h4{color:var(--rose)}
+  .pill{font-family:"SF Mono",monospace;font-size:.62rem;padding:2px 8px;border-radius:999px;
+    letter-spacing:.06em;text-transform:uppercase}
+  .pill.fit{background:rgba(42,143,134,.14);color:var(--teal)}
+  .pill.reshape{background:rgba(199,90,120,.14);color:var(--rose)}
+  .aa .pane p{font-size:.92rem;margin:8px 0 0}
+  .aa .ex{font-size:.84rem;color:var(--ink-soft);margin-top:10px;
+    border-top:1px dashed var(--line);padding-top:8px}
+
+  /* dimension / factor cards */
+  .it-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--slate);
+    border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .it b{color:var(--slate);display:block;font-size:.95rem;margin-bottom:2px}
+  .it span{font-size:.9rem;color:var(--ink-soft)}
+  .it.amberedge{border-left-color:var(--amber)}
+  .it.amberedge b{color:var(--amber)}
+  .it.tealedge{border-left-color:var(--teal)}
+  .it.tealedge b{color:var(--teal)}
+
+  /* numbered/check list of conditions */
+  .conds{list-style:none;padding:0;margin:14px 0 0}
+  .conds li{background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:12px 16px 12px 44px;margin-top:10px;box-shadow:var(--shadow);position:relative;font-size:.95rem}
+  .conds li::before{content:"✓";position:absolute;left:14px;top:11px;
+    color:var(--teal);font-weight:700;font-family:"SF Mono",monospace}
+
+  /* lesson-style numbered steps */
+  .lesson{counter-reset:step;margin-top:10px}
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow);position:relative}
+  .step::before{counter-increment:step;content:counter(step);
+    flex:0 0 38px;height:38px;border-radius:50%;
+    background:var(--slate);color:#fff;font-family:"SF Mono",monospace;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .step .body{flex:1}
+  .step .idea{font-style:italic;color:var(--ink)}
+  .step .mech{margin-top:8px;font-size:.85rem;color:var(--ink-soft)}
+  .step .mech b{font-family:"SF Mono",monospace;font-size:.7rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--teal);background:rgba(42,143,134,.12);
+    padding:2px 8px;border-radius:6px;margin-right:6px;font-weight:700}
+
+  /* glossary + practice reveals share styling */
+  .gloss details, .practice details{background:#fff;border:1px solid var(--line);border-radius:12px;
+    margin-top:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .gloss summary, .practice summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--slate);
+    font-size:1.05rem;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .gloss summary::-webkit-details-marker,.practice summary::-webkit-details-marker{display:none}
+  .gloss summary::after{content:"reveal ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .gloss details[open] summary::after{content:"hide ▾"}
+  .practice summary::after{content:"answer ▸";font-family:"SF Mono",monospace;font-size:.68rem;
+    color:var(--teal);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+  .practice details[open] summary::after{content:"hide ▾"}
+  .gloss details[open] summary,.practice details[open] summary{border-bottom:1px solid var(--line)}
+  .gloss .def,.practice .def{padding:14px 18px;color:var(--ink-soft);font-size:.97rem}
+  .gloss .def .eg{display:block;margin-top:8px;font-size:.85rem;color:var(--ink)}
+  .practice summary .q{font-weight:700;color:var(--ink);font-size:.98rem}
+  .practice summary .qtype{font-family:"SF Mono",monospace;font-size:.6rem;letter-spacing:.08em;
+    text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-right:8px;
+    background:rgba(74,111,165,.12);color:var(--slate);vertical-align:middle}
+  .practice summary .qtype.app{background:rgba(207,138,44,.14);color:var(--amber)}
+
+  /* discussion prompts */
+  .discuss{margin-top:18px}
+  .discuss .dprompt{background:linear-gradient(90deg,rgba(74,111,165,.07),#fff 70%);
+    border-left:5px solid var(--slate-bright);border-radius:10px;padding:13px 18px;margin-top:10px;
+    font-size:.97rem;color:var(--ink)}
+  .discuss .dprompt b{font-family:"SF Mono",monospace;font-size:.66rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--slate);margin-right:8px}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#1f3357,#3a5a8c);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#cdddf5;background:rgba(255,255,255,.16)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:#a8c4ea}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  a.skip{position:absolute;left:-999px}
+
+  @media (max-width:680px){
+    .aa,.it-grid{grid-template-columns:1fr}
+    header.masthead h1{font-size:1.7rem}
+    .step::before{flex-basis:32px;height:32px}
+  }
+
+  /* print: expand glossary + practice answers, tidy */
+  @media print{
+    body{background:#fff}
+    .gloss details,.practice details{break-inside:avoid}
+    .gloss .def,.practice .def{display:block !important}
+    details:not([open]) .def{display:block}
+    .card,.step,.it,.aa .pane,.gloss details,.practice details,.conds li{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 4 · Sequence 1</p>
+    <h1>Learning in Relationships</h1>
+    <p class="sub">Relationships are the <em>active ingredient</em> of development. From a baby's first attachment to a workplace team's psychological safety, learning happens <strong>between</strong> people — and the quality of those relationships shapes what we can learn.</p>
+    <div class="tags">
+      <span class="tag">attachment</span>
+      <span class="tag">trust &amp; testimony</span>
+      <span class="tag">peer learning</span>
+      <span class="tag">psychological safety</span>
+    </div>
+  </header>
+
+  <!-- ===== CORE IDEA ===== -->
+  <section>
+    <h2><span class="num">01</span> The core idea</h2>
+    <p class="lead">This sequence traces relationships as the engine of learning <strong>across the whole lifespan</strong> — infant–caregiver bonds, teacher–student trust, peer connections, and collaboration at work. The throughline: a sense of <strong>security and belonging</strong> is what lets a person take risks, explore, and learn.</p>
+
+    <div class="bigidea">
+      Relationships are not just the warm backdrop to learning — they are the <strong>active ingredient</strong>. Across cultures and ages, learners draw a sense of <strong>safety and belonging</strong> from their relationships, and that security is what frees them to <strong>explore, take risks, and learn</strong>. The <em>quality</em> of everyday interactions matters as much as their presence.
+    </div>
+
+    <div class="card">
+      <div class="openbox">
+        <div class="ob-node">SECURE<br>RELATIONSHIP</div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-mind">SAFETY &amp; BELONGING<small>trust · responsiveness</small></div>
+        <span class="ob-arrow">→</span>
+        <div class="ob-node">EXPLORE,<br>RISK, LEARN</div>
+      </div>
+      <p class="figcap">From the cradle to the conference room: security → the confidence to explore → learning.</p>
+    </div>
+
+    <div class="it-grid" style="margin-top:18px">
+      <div class="it"><b>4.1.1 Early relationships</b><span>Attachment &amp; "serve-and-return"; the Simple Interactions framework. Lasting effects of early bonds.</span></div>
+      <div class="it tealedge"><b>4.1.2 Trust &amp; teachers</b><span>Learning from testimony; selective trust; teacher–student relationships; the "trust gap."</span></div>
+      <div class="it amberedge"><b>4.1.3 Peer relationships</b><span>Social competence, prosocial behavior, SEL; peer learning conditions.</span></div>
+      <div class="it"><b>4.1.4 Collaboration in adulthood</b><span>Workplace peer functions; Edmondson's psychological safety on teams.</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 4.1.1 EARLY RELATIONSHIPS ===== -->
+  <section>
+    <h2><span class="num">02</span> 4.1.1 · The Lasting Importance of Early Relationships</h2>
+    <p>Babies become <strong>attached</strong> to whoever responds reliably to them — a bond providing comfort and security. Brazelton argued attachment emerges from a history of <strong>reliable responsiveness</strong>: the caregiver notices, interprets, and reacts to the child's signals (Mesman et al., 2018). This security becomes the basis for healthy social-emotional development and for forming later relationships.</p>
+
+    <h3>Still-Face &amp; "serve-and-return"</h3>
+    <p>Even at six months, infants <em>expect</em> caregivers to be responsive — the <strong>Still-Face Experiment</strong> shows how distressing it is when that expectation is frustrated. A brief still-face has no lasting effect, but children raised where dismissive treatment is frequent can end up with <strong>no main caregiver attachment</strong>. Positive early exchanges are called <strong>"serve and return"</strong>: child and adult trade signals that, over time, build into longer conversations ("volleys"). These early interactions may also teach cause and effect (crying brings comfort) — an early basis for social and communication skills.</p>
+
+    <h3>Romania's abandoned children</h3>
+    <p>HGSE's <strong>Charles Nelson</strong> studied Romanian orphans (1980s–90s) who were institutionalized but never bonded with an adult. They showed atypical development — indiscriminate social behavior (hugging strangers), trouble relating to peers, and lasting social difficulties. Crucially, orphans placed in <strong>foster families by ~22 months</strong> could still develop warm attachments — evidence of resilience and a sensitive window.</p>
+
+    <div class="bigidea">
+      <strong>Take a critical stance:</strong> the one-to-one ("dyadic") caregiver bond typical in the U.S. is <strong>not universal</strong>. This is "WEIRD" science (Western, Educated, Industrialized, Rich, Democratic). In Nso (Cameroon), Beng (Côte d'Ivoire), and Pirahã (Brazil) communities, infants build <strong>broad networks</strong> of caregivers and show no stranger anxiety. What's universal is that children gain <strong>security</strong> from relationships — the <em>form</em> varies widely (Keller, 2013; Mesman et al., 2018).
+    </div>
+
+    <h3>Simple Interactions — the "active ingredient"</h3>
+    <p>HGSE's <strong>Junlei Li</strong> and colleagues offer the <strong>Simple Interactions</strong> framework: four essential dimensions of human relationships that are the building blocks of high-quality learning environments. It's a <em>descriptive</em> (not evaluative) observational tool — modes are labeled <strong>X, Y, Z</strong> (not scored 1–2–3) so observers describe before they judge, leaving room for many culturally valid forms of healthy interaction.</p>
+
+    <div class="card schemafig">
+      <svg viewBox="0 0 760 250" role="img" aria-label="Four dimensions of the Simple Interactions framework surrounding a child-adult relationship" style="width:100%;height:auto">
+        <!-- spokes -->
+        <g stroke="#aebfda" stroke-width="2.5">
+          <line x1="380" y1="125" x2="170" y2="60"></line>
+          <line x1="380" y1="125" x2="590" y2="60"></line>
+          <line x1="380" y1="125" x2="170" y2="195"></line>
+          <line x1="380" y1="125" x2="590" y2="195"></line>
+        </g>
+        <!-- center -->
+        <circle cx="380" cy="125" r="56" fill="#e8eef8" stroke="#4a6fa5" stroke-width="3"></circle>
+        <text x="380" y="118" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#2f4a73">child ⇄ adult</text>
+        <text x="380" y="136" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#475168">relationship</text>
+        <!-- four dimension nodes -->
+        <g font-family="ui-monospace,Menlo,monospace" font-size="13" text-anchor="middle">
+          <g>
+            <circle cx="170" cy="60" r="46" fill="#fff" stroke="#2a8f86" stroke-width="2.5"></circle>
+            <text x="170" y="64" fill="#1c6760">Connection</text>
+          </g>
+          <g>
+            <circle cx="590" cy="60" r="46" fill="#fff" stroke="#2a8f86" stroke-width="2.5"></circle>
+            <text x="590" y="64" fill="#1c6760">Reciprocity</text>
+          </g>
+          <g>
+            <circle cx="170" cy="195" r="46" fill="#fff" stroke="#cf8a2c" stroke-width="2.5"></circle>
+            <text x="170" y="199" fill="#9a6212">Inclusion</text>
+          </g>
+          <g>
+            <circle cx="590" cy="195" r="50" fill="#fff" stroke="#cf8a2c" stroke-width="2.5"></circle>
+            <text x="590" y="191" fill="#9a6212">Opportunity</text>
+            <text x="590" y="207" fill="#9a6212">to Grow</text>
+          </g>
+        </g>
+      </svg>
+      <p class="figcap">Simple Interactions (Li et al.): four dimensions every healthy child–adult relationship is built from.</p>
+    </div>
+
+    <div class="it-grid">
+      <div class="it tealedge"><b>Connection</b><span>Shared focus and attunement between adult and child (mode Z = strong mutual focus — smiling or simply attentive).</span></div>
+      <div class="it tealedge"><b>Reciprocity</b><span>Sharing power &amp; control in joint activity — true "serve-and-return volleys"; questions from <em>either</em> partner, not one-sided adult control.</span></div>
+      <div class="it amberedge"><b>Inclusion</b><span>Attending to the belonging of those least likely/able to participate; one-on-one attention can scaffold toward whole-group involvement.</span></div>
+      <div class="it amberedge"><b>Opportunity to Grow</b><span>Matching challenge with support — guidance in the <strong>ZPD</strong> with scaffolding that's gradually "faded." Relationships serve learning, not just emotion.</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 4.1.2 TRUST ===== -->
+  <section>
+    <h2><span class="num">03</span> 4.1.2 · Trusting Learners &amp; Trustworthy Teachers</h2>
+    <p>A warm early attachment endows us with the capacity to rely on others without fear — the beginning of <strong>trust</strong>. Trust is more than endearing: it's <strong>essential for learning from others</strong>, since adults are children's gatekeepers to knowledge.</p>
+
+    <h3>Trust in testimony &amp; selective trust</h3>
+    <p>HGSE's <strong>Paul Harris</strong> studies how children learn through <strong>testimony</strong> — what they're told or shown but can't directly experience (e.g., trusting that seatbelts matter). This deference grows once children develop <strong>theory of mind</strong> (others know things I don't). But trust isn't indiscriminate: by age <strong>3–4</strong> children show <strong>selective trust</strong> — favoring informants who've been reliable, and weighing personality, expertise, and group membership (Koenig &amp; Harris, 2005). Trust is <strong>earned and conditional</strong>, and harder when common ground is missing (e.g., unfamiliar accents).</p>
+
+    <h3>Teacher–Student Relationships (TSRs)</h3>
+    <p>TSR quality is among the most important factors in learning at every age. In a synthesis of hundreds of studies, <strong>John Hattie (2009)</strong> rated a positive TSR among the most impactful factors in achievement, linked to gains from language to math to social-emotional learning (Brinkworth et al., 2018). <strong>Duncan-Andrade (2007)</strong> stresses trust grounded in <em>critical consciousness</em>: trusted teachers counter unjust discipline and create humanizing environments. One simple <strong>"get to know you" exercise</strong> surfacing shared preferences improved both interactions and student grades (Gehlbach et al., 2016).</p>
+
+    <div class="card" style="padding:6px 10px">
+      <table class="vs">
+        <thead><tr><th>Three areas of positive TSRs</th><th>What it means (Brinkworth et al., 2018)</th></tr></thead>
+        <tbody>
+          <tr><td>Emotional support</td><td>Teacher responsiveness that builds learners' sense of security → fuels engagement and motivation.</td></tr>
+          <tr><td>Classroom organization</td><td>Modeling and support for regulating behavior and executive functions.</td></tr>
+          <tr><td>Instructional support</td><td>Focused, scaffolded activities with feedback on performance.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-top:12px">The <strong>TSR scale</strong> measures these as <em>mutual</em> — items are mirrored so students rate teachers and teachers rate students, across <strong>Positivity</strong> (respect, caring, motivating activities) and <strong>Negativity</strong> (ignoring, unfairness, anger). Higher scores correlate with higher grades, greater belonging, more participation, homework submission, and self-efficacy.</p>
+
+    <h3>Advising, mentoring &amp; the developmental approach</h3>
+    <p>In higher ed, strong bonds with at least one faculty/staff member boost retention. A good advisor takes a <strong>developmental approach</strong> — attuned to each student, encouraging exploration, and <em>facilitating</em> (not directing) the student's decisions (Drake &amp; Crookston, 1994). Workplace mentoring (formal or informal) balances guidance and self-direction, yielding <strong>career-related</strong> benefits (salary, promotion) and <strong>psychosocial</strong> ones (role modeling, acceptance, friendship). Notably, subjective outcomes (felt success, satisfaction) are often affected more than objective measures.</p>
+
+    <div class="bigidea">
+      <strong>What's the evidence? The "trust gap."</strong> Researchers coined the <strong>trust gap</strong> for the lower trust Black and Latinx students hold toward schools vs. White peers — linked to lower college attendance (Yeager et al., 2017). A teacher–student <strong>identity match</strong> can help via a <strong>"role-model effect"</strong> (e.g., Black students with one Black teacher are likelier to finish high school and attend college). Yet supportive relationships can also form <em>across</em> different identities (Reddick, 2011; Thomas, 2001) — and assuming same-race matching places an <strong>"invisible tax"</strong> of extra mentoring duties on teachers of color, risking burnout.
+    </div>
+  </section>
+
+  <!-- ===== 4.1.3 PEER RELATIONSHIPS ===== -->
+  <section>
+    <h2><span class="num">04</span> 4.1.3 · Peer Relationships</h2>
+    <p>Because <strong>child–child interaction differs from adult–child interaction</strong>, peers (siblings, cousins, playmates) are a vital context for building social skills. <strong>Judy Dunn (1993)</strong> found children argue more <em>reasonably and conciliatorily</em> with friends than with family — recognizing the other's perspective. Varied peer interactions develop <strong>social competence</strong> (appreciating others' perspectives) and <strong>prosocial behaviors</strong> (cooperation, sharing).</p>
+
+    <h3>Why social competence matters for learning</h3>
+    <p>Youth with positive peer relationships (peer acceptance) are more engaged and perform better academically — especially in middle/high school. Three explanations:</p>
+    <div class="aa">
+      <div class="pane assim">
+        <h4>Shared skills <span class="pill fit">overlap</span></h4>
+        <p>Social competence draws on the same <strong>executive functions</strong> (regulating reactions and impulses) that learning requires.</p>
+      </div>
+      <div class="pane accom">
+        <h4>Peers motivate <span class="pill reshape">Wentzel</span></h4>
+        <p>Peers provide an <strong>emotional safety net</strong> and <strong>motivate learning</strong>: youth set and pursue academic goals when peers support those goals, offer instrumental help, create a safe environment, and give emotional support (Wentzel, 2005).</p>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px">↳ Students lacking such peers may draw on other relational resources (adults). Schools increasingly teach this explicitly as <strong>social-emotional learning (SEL)</strong> — overlapping with "soft," "noncognitive," and "nonacademic" skills, spanning emotional (empathy, perspective-taking), social (cooperation, helping), and self-regulatory (attention, planning, response inhibition) skills.</p>
+
+    <h3>Peer learning — three conditions</h3>
+    <p>Collaborative pairs, peer tutoring, and small discussion groups (common at Harvard) promote engagement and academic skills — <strong>only if a few conditions are met</strong> (Wentzel &amp; Watkins, 2002). One-sided participation that leaves people out is unlikely to work.</p>
+    <ul class="conds">
+      <li><strong>Full participation.</strong> Does <em>everyone</em> get a real chance to engage in the shared task?</li>
+      <li><strong>Articulate strategies.</strong> Are learners clarifying with each other how best to approach the task?</li>
+      <li><strong>Feedback.</strong> Are learners getting feedback — from peers, teachers, and the activity's own outcome — on both process and result?</li>
+    </ul>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px">↳ <strong>Mixed-age debate:</strong> mixed-age groups may let younger children learn within their ZPD from older ones, but some studies suggest they can <em>hold back</em> the older participants (Ansari et al., 2016) — an open debate about same-age vs. mixed-age grouping.</p>
+  </section>
+
+  <!-- ===== 4.1.4 COLLABORATION IN ADULTHOOD ===== -->
+  <section>
+    <h2><span class="num">05</span> 4.1.4 · Collaboration in Adulthood</h2>
+    <p>The prosocial skills built in childhood — communication, conflict management — let adults <strong>collaborate effectively at work</strong>. Just as peer relationships boost school engagement, adult relationships foster <strong>workplace engagement, life satisfaction, leadership, and motivation</strong>. Our need for <strong>belonging and inclusion is constant across the lifespan</strong>. Adult peer relationships (Kram &amp; Isabella, 1985) serve <strong>career-enhancing</strong> functions (coaching, sponsorship, visibility, protection, challenging assignments) and <strong>psychosocial</strong> functions (acceptance, confirmation, counseling, friendship, role modeling).</p>
+
+    <h3>Psychological safety (Amy Edmondson)</h3>
+    <p>One key to adult learning is <strong>psychological safety</strong> — Edmondson (1999) defines it as the <em>"shared belief held by members of a team that the team is safe"</em> (for interpersonal risk-taking). It does <strong>not</strong> mean freedom from challenge; it means members trust they won't be treated unfavorably for a mistake or for speaking up. That trust enables learning behaviors that <em>feel</em> risky — experimenting, giving/receiving feedback, questioning how things are done.</p>
+
+    <div class="card schemafig">
+      <svg viewBox="0 0 760 250" role="img" aria-label="Conditions and signs of psychological safety on a team" style="width:100%;height:auto">
+        <!-- left: leader behaviors -->
+        <rect x="30" y="35" width="210" height="180" rx="14" fill="#fff" stroke="#4a6fa5" stroke-width="2.5"></rect>
+        <text x="135" y="62" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" font-weight="700" fill="#2f4a73">LEADERS</text>
+        <g font-family="Georgia,serif" font-size="12.5" fill="#1a2233">
+          <text x="48" y="92">• model humility &amp; risk</text>
+          <text x="48" y="116">• admit mistakes; ask help</text>
+          <text x="48" y="140">• act as coaches</text>
+          <text x="48" y="164">• avoid being authoritarian</text>
+          <text x="48" y="188">• minimize status / fear</text>
+        </g>
+        <!-- right: member behaviors -->
+        <rect x="520" y="35" width="210" height="180" rx="14" fill="#fff" stroke="#2a8f86" stroke-width="2.5"></rect>
+        <text x="625" y="62" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" font-weight="700" fill="#1c6760">MEMBERS</text>
+        <g font-family="Georgia,serif" font-size="12.5" fill="#1a2233">
+          <text x="538" y="92">• seek help; ask questions</text>
+          <text x="538" y="116">• minimize status gaps</text>
+          <text x="538" y="140">• take a learning stance</text>
+          <text x="538" y="164">&nbsp;&nbsp;(not "execution")</text>
+        </g>
+        <!-- arrows to center -->
+        <line x1="240" y1="125" x2="300" y2="125" stroke="#94a6c4" stroke-width="3" marker-end="url(#sb)"></line>
+        <line x1="520" y1="125" x2="460" y2="125" stroke="#94a6c4" stroke-width="3" marker-end="url(#sb)"></line>
+        <defs>
+          <marker id="sb" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto">
+            <path d="M0,0 L9,4.5 L0,9 z" fill="#94a6c4"></path>
+          </marker>
+        </defs>
+        <!-- center -->
+        <circle cx="380" cy="125" r="58" fill="#e8eef8" stroke="#4a6fa5" stroke-width="3"></circle>
+        <text x="380" y="118" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" font-weight="700" fill="#2f4a73">PSYCH.</text>
+        <text x="380" y="136" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" font-weight="700" fill="#2f4a73">SAFETY</text>
+      </svg>
+      <p class="figcap">Psychological safety emerges from <em>both</em> leader and member behaviors — enabling conditions for teams to learn.</p>
+    </div>
+
+    <p>Psychological safety is present when team members can:</p>
+    <ul class="conds">
+      <li><strong>Make mistakes</strong> in the service of learning without it being held against them.</li>
+      <li><strong>Ask for help</strong> comfortably.</li>
+      <li><strong>Be different</strong> from others without fear of rejection.</li>
+      <li>Feel <strong>valued for unique contributions</strong>.</li>
+      <li>Feel <strong>included</strong> even when they don't know or fail at something.</li>
+    </ul>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:12px">↳ Edmondson contrasts a <strong>learning stance</strong> ("we're here to learn") with an <strong>"execution" stance</strong> (every action is about proving we can perform). Her Team Psychological Safety instrument lets you assess any team you've worked on.</p>
+  </section>
+
+  <!-- ===== GLOSSARY ===== -->
+  <section class="gloss">
+    <h2><span class="num">06</span> Glossary — quiz yourself first</h2>
+    <p style="color:var(--ink-soft)">Try to define each term before you reveal it.</p>
+
+    <details>
+      <summary>attachment</summary>
+      <div class="def">A bond between an infant and caregiver(s) that provides the child with a sense of comfort or security.
+        <span class="eg">Theorized to come from a history of reliable responsiveness; the secure base from which a child explores.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>Simple Interactions</summary>
+      <div class="def">A framework (Junlei Li et al.) identifying four essential elements of human relationships — <strong>Connection, Reciprocity, Inclusion, and Opportunities to Grow</strong> — that promote children's development and learning.
+        <span class="eg">A descriptive (not evaluative) observation tool; modes are X, Y, Z so observers describe before judging.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>prosocial behaviors</summary>
+      <div class="def">Social skills such as cooperation and sharing — positive social engagement with others.</div>
+    </details>
+
+    <details>
+      <summary>social competence</summary>
+      <div class="def">The ability to appreciate others' perspectives.
+        <span class="eg">Built through varied peer interactions; draws on the same executive functions that support learning.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>social-emotional learning (SEL)</summary>
+      <div class="def">An array of emotional, social, and self-regulatory skills such as empathy, cooperation, and response inhibition.
+        <span class="eg">Overlaps with "soft skills," "noncognitive skills," and "emotional intelligence."</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>psychological safety</summary>
+      <div class="def">The shared belief that a team setting is safe for interpersonal risk-taking (Edmondson, 1999).
+        <span class="eg">Not freedom from challenge — confidence that others won't punish you for a mistake or for speaking up.</span>
+      </div>
+    </details>
+
+    <details>
+      <summary>serve and return <span style="font-weight:400;font-size:.8rem;color:var(--ink-soft)">(bonus)</span></summary>
+      <div class="def">The back-and-forth exchange of signals between child and caregiver that, over time, builds into longer "conversations" (volleys) — the core of a positive child–caregiver relationship.</div>
+    </details>
+
+    <details>
+      <summary>selective trust <span style="font-weight:400;font-size:.8rem;color:var(--ink-soft)">(bonus)</span></summary>
+      <div class="def">Children's understanding (by age 3–4) that they can trust different informants to varying degrees — favoring those who have been reliable and weighing expertise and group membership.</div>
+    </details>
+
+    <details>
+      <summary>trust gap <span style="font-weight:400;font-size:.8rem;color:var(--ink-soft)">(bonus)</span></summary>
+      <div class="def">The documented difference in trust toward schools/teachers between students of color and their White peers (Yeager et al., 2017) — linked to lower rates of college attendance.</div>
+    </details>
+  </section>
+
+  <!-- ===== PRACTICE & DISCUSSION ===== -->
+  <section class="practice">
+    <h2><span class="num">07</span> Practice &amp; Discussion</h2>
+    <p style="color:var(--ink-soft)">Five mixed questions — try them before revealing each answer. Discussion prompts below have no single right answer.</p>
+
+    <details>
+      <summary><span><span class="qtype">recall</span><span class="q">What does the Still-Face Experiment demonstrate, and what does (and doesn't) it imply for development?</span></span></summary>
+      <div class="def">It shows that even six-month-olds <strong>expect</strong> caregivers to be responsive — they become distressed when a caregiver suddenly goes unresponsive ("still face"). A brief still-face episode has <em>no</em> long-term effect. But when dismissive treatment is chronic, children may develop <strong>no main caregiver attachment</strong>, with lasting social-emotional difficulties.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype">recall</span><span class="q">Name the four dimensions of the Simple Interactions framework and why modes are labeled X/Y/Z.</span></span></summary>
+      <div class="def"><strong>Connection, Reciprocity, Inclusion, Opportunity to Grow.</strong> Modes are labeled <strong>X, Y, Z</strong> rather than scored 1–2–3 so people <em>describe</em> interactions first, before evaluating or judging — and because different modes can each be appropriate in different situations and cultures. The tool is descriptive, not evaluative.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype app">apply</span><span class="q">A 4-year-old is told two conflicting facts — one by an adult who has been wrong before, one by a reliable adult. Whom will she likely trust, and what concept explains this?</span></span></summary>
+      <div class="def">She'll likely trust the <strong>reliable</strong> informant. This is <strong>selective trust</strong> (Koenig &amp; Harris): by age 3–4, children's trust is not indiscriminate — they favor informants who have been accurate in the past and weigh cues like expertise and group membership. Trust is earned and conditional.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype app">apply</span><span class="q">A teacher sets up small-group problem-solving, but two confident students dominate while others stay silent. Which peer-learning condition is violated, and how might you fix it?</span></span></summary>
+      <div class="def">It violates <strong>full participation</strong> (Wentzel &amp; Watkins, 2002) — one-sided engagement that leaves people out is unlikely to be an effective learning context. Fixes: assign rotating roles, require each member to articulate a strategy, or structure turn-taking so everyone engages — and ensure all members get feedback on both process and outcome.</div>
+    </details>
+
+    <details>
+      <summary><span><span class="qtype app">apply</span><span class="q">A new team member hides a mistake rather than asking for help. Using Edmondson's work, diagnose the problem and name two leader behaviors that would change it.</span></span></summary>
+      <div class="def">The team likely lacks <strong>psychological safety</strong> — the member fears being treated unfavorably for erring. Leader behaviors that build it: <strong>model humility and risk-taking</strong> (admit your own mistakes, ask for help/feedback), <strong>act as a coach rather than an authoritarian</strong>, minimize status differences, and frame work as a <strong>learning stance</strong> rather than an "execution" stance.</div>
+    </details>
+
+    <div class="discuss">
+      <h3 style="margin-bottom:4px">Open-ended discussion</h3>
+      <div class="dprompt"><b>Discuss</b> The dyadic mother–infant bond is "WEIRD," not universal (Nso, Beng, Pirahã build broad caregiver networks). How should this cross-cultural evidence reshape what we count as "good" caregiving or "secure" attachment in schools and policy?</div>
+      <div class="dprompt"><b>Discuss</b> Research on teacher–student identity matching is mixed, and same-race matching can impose an "invisible tax" on teachers of color. How would you support students of color and bridge the "trust gap" <em>without</em> overburdening those teachers?</div>
+      <div class="dprompt"><b>Discuss</b> Edmondson distinguishes a "learning stance" from an "execution stance." Recall a team you've been on: which stance dominated, what specific behaviors created it, and what one change would have raised psychological safety?</div>
+    </div>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> Remember this</h2>
+    <ul>
+      <li><strong>Security enables learning.</strong> From infancy to old age, a sense of safety and belonging in relationships is what frees people to explore, take risks, and learn.</li>
+      <li><strong>Relationships are the active ingredient,</strong> and their <em>quality</em> matters — captured by Simple Interactions: Connection, Reciprocity, Inclusion, Opportunity to Grow.</li>
+      <li><strong>Trust is earned and central to learning.</strong> Children learn from testimony but trust selectively; strong teacher–student relationships (Hattie) are among the most powerful drivers of achievement.</li>
+      <li><strong>Peers do real cognitive work.</strong> They build social competence and SEL and can motivate learning — but peer learning needs full participation, articulated strategies, and feedback.</li>
+      <li><strong>It scales to adulthood.</strong> Belonging stays constant; psychological safety (Edmondson) lets teams take the interpersonal risks that learning requires.</li>
+      <li><strong>Watch the WEIRD assumption.</strong> The forms of healthy relationships vary across cultures; what's universal is the security they provide.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 4 · Learning in Relationships · study notes</footer>
+
+</div>
+</body>
+</html>

@@ -69,6 +69,21 @@
   .c-gold    .u-num{background:rgba(176,133,31,.16);color:#9a7212}   .c-gold .accent{background:#b0851f}
   .c-forest  .u-num{background:rgba(47,125,79,.12);color:#2f7d4f}    .c-forest .accent{background:#2f7d4f}
   .c-plum    .u-num{background:rgba(122,74,134,.12);color:#7a4a86}   .c-plum .accent{background:#7a4a86}
+  .c-slate   .u-num{background:rgba(74,111,165,.12);color:#4a6fa5}   .c-slate .accent{background:#4a6fa5}
+  .c-coral   .u-num{background:rgba(212,96,79,.12);color:#d4604f}    .c-coral .accent{background:#d4604f}
+  .c-byz     .u-num{background:rgba(148,75,140,.12);color:#944b8c}   .c-byz .accent{background:#944b8c}
+  .c-cyan    .u-num{background:rgba(31,154,163,.12);color:#1f9aa3}   .c-cyan .accent{background:#1f9aa3}
+
+  /* case-studies banner card */
+  .casecard{grid-column:1 / -1;display:flex;align-items:center;gap:18px;background:linear-gradient(110deg,#2b333f,#3a4658);
+    color:#fff;border:1px solid #2b333f;border-radius:16px;padding:20px 24px;box-shadow:var(--shadow);
+    text-decoration:none;transition:transform .12s ease,box-shadow .12s ease}
+  a.casecard:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(20,40,90,.22)}
+  .casecard .ico{font-size:1.8rem;flex:0 0 auto}
+  .casecard h3{margin:0 0 3px;color:#fff;font-size:1.2rem}
+  .casecard p{margin:0;color:#cdd6e6;font-size:.9rem;flex:1}
+  .casecard .go{font-family:"SF Mono",monospace;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;
+    color:#0f1115;background:#d99a2b;padding:6px 12px;border-radius:999px;font-weight:700;white-space:nowrap}
 
   .deep{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:12px;
     padding:12px 18px;box-shadow:var(--shadow);font-size:.88rem;color:var(--ink-soft)}
@@ -91,7 +106,7 @@
     <h1>HPL101 — Study Notes</h1>
     <p>Pulled straight from the course and turned into study guides — one per learning sequence, each with concept notes, a diagram, and a quiz-yourself glossary. This hub grows as new units unlock.</p>
     <div class="meta">
-      <span id="count">12 study guides</span>
+      <span id="count">16 study guides + case studies</span>
       <span>quiz-yourself glossaries</span>
       <span>print-friendly</span>
     </div>
@@ -187,12 +202,50 @@
     </a>
   </div>
 
+  <!-- ===================== MODULE 4 ===================== -->
+  <h2 class="modtitle"><span class="mnum">Module 4</span> Relationships &amp; Identities</h2>
+  <p class="modsub">How relationships and identities shape learning — plus a dedicated case-study dossier.</p>
+  <div class="grid">
+    <a class="unit c-slate" href="module-4-seq-1-learning-in-relationships.html">
+      <div class="accent"></div><span class="u-num">SEQ 4.1</span>
+      <h3>Learning in Relationships</h3>
+      <p>Early relationships · trusting learners &amp; trustworthy teachers · peer relationships · collaboration &amp; psychological safety in adulthood.</p>
+      <span class="badge ready">study guide</span>
+    </a>
+    <a class="unit c-coral" href="module-4-seq-2-ethnic-racial-identity.html">
+      <div class="accent"></div><span class="u-num">SEQ 4.2</span>
+      <h3>Ethnic–Racial Identity</h3>
+      <p>Theories of identity development · ethnic–racial identity (ERI) · ERI in action · extending ERI.</p>
+      <span class="badge ready">study guide</span>
+    </a>
+    <a class="unit c-byz" href="module-4-seq-3-identities-and-learning.html">
+      <div class="accent"></div><span class="u-num">SEQ 4.3</span>
+      <h3>Identities &amp; Learning</h3>
+      <p>Attributed vs. internalized learner identities · culturally responsive/relevant/sustaining education · ethnic studies as "Precious Knowledge".</p>
+      <span class="badge ready">study guide</span>
+    </a>
+    <a class="unit c-cyan" href="module-4-seq-4-relationships-across-identities.html">
+      <div class="accent"></div><span class="u-num">SEQ 4.4</span>
+      <h3>Engaging Across Identities</h3>
+      <p>Building relationships through care · social-emotional learning (SEL) · bonding &amp; bridging skills · family &amp; community engagement.</p>
+      <span class="badge ready">study guide</span>
+    </a>
+    <a class="casecard" href="module-4-case-studies.html">
+      <span class="ico">🗂️</span>
+      <div>
+        <h3>Module 4 — Case Studies</h3>
+        <p>The real-world cases pulled together: Simple Interactions, psychological safety, ERI in action, "Precious Knowledge" (Tucson), SEL, Stanton Elementary, family–community engagement — each with context, what happened, the concept, and the takeaway.</p>
+      </div>
+      <span class="go">open dossier →</span>
+    </a>
+  </div>
+
   <div class="deep">
     📌 <b>Per-unit deep dive:</b> a standalone page on <a href="cognitivism-notes.html">Cognitivism (Unit 2.1.2)</a> — also folded into the Theories of Learning guide above.
   </div>
 
   <div class="note">
-    <b>How this stays current:</b> the notes are generated from the live Canvas course. Modules 4–5 are still locked in Canvas — their guides appear here automatically once they unlock and get pulled. Each card self-checks its file, so nothing here ever 404s.
+    <b>How this stays current:</b> the notes are generated from the live Canvas course. Module 5 is still locked in Canvas — its guides appear here automatically once it unlocks and gets pulled. Each card self-checks its file, so nothing here ever 404s.
   </div>
 
   <footer>HPL101 study hub · self-contained · open any card in your browser</footer>
@@ -200,7 +253,7 @@
 
 <script>
   (async () => {
-    const cards = document.querySelectorAll('a.unit[href]');
+    const cards = document.querySelectorAll('a.unit[href], a.casecard[href]');
     let ready = 0;
     for (const card of cards) {
       const href = card.getAttribute('href');

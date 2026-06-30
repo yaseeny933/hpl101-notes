@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPL101 · Module 4 · Case Studies · Study Notes</title>
+<style>
+  :root{
+    --ink:#23292f;
+    --ink-soft:#54606e;
+    --paper:#f3f4f6;
+    --slate:#3a4658;
+    --slate-deep:#2a3340;
+    --slate-bright:#536176;
+    --amber:#d99a2b;
+    --amber-deep:#b67f1d;
+    --line:#d7dbe1;
+    --shadow:0 10px 30px rgba(33,42,54,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    color:var(--ink);
+    line-height:1.6;
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 16px 16px, rgba(58,70,88,.055) 2px, transparent 2.5px),
+      radial-gradient(circle at 60px 72px, rgba(217,154,43,.06) 2px, transparent 2.5px);
+    background-size:96px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+
+  /* ---------- header ---------- */
+  header.masthead{
+    background:linear-gradient(135deg,#222a34,#3a4658 68%,#536176);
+    color:#fff;border-radius:18px;padding:34px 34px 30px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";position:absolute;inset:0;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(circle at 82% 18%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 82% 18%,#000,transparent 70%);
+  }
+  header.masthead > *{position:relative;z-index:1}
+  .kicker{font-family:"SF Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;
+    color:#f0d29a;margin:0 0 10px}
+  header.masthead h1{margin:0;font-size:2.35rem;line-height:1.08;letter-spacing:-.01em}
+  header.masthead p.sub{margin:14px 0 0;color:#e6e9ee;font-size:1.05rem;max-width:56ch}
+  .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:"SF Mono",ui-monospace,monospace;font-size:.7rem;
+    background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.26);
+    color:#fff;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  h2{font-size:1.5rem;margin:0 0 4px;color:var(--slate);letter-spacing:-.01em;
+    display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-family:"SF Mono",ui-monospace,monospace;font-size:.85rem;
+    color:var(--amber-deep);background:rgba(217,154,43,.14);
+    padding:2px 9px;border-radius:8px;font-weight:700}
+  p{margin:10px 0}
+  .lead{font-size:1.08rem;color:var(--ink-soft)}
+
+  /* intro how-to-read */
+  .howto{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:18px 22px;box-shadow:var(--shadow);margin-top:14px;font-size:.95rem;color:var(--ink-soft)}
+  .howto strong{color:var(--slate)}
+
+  /* ---------- case cards ---------- */
+  .case{background:#fff;border:1px solid var(--line);border-radius:16px;
+    box-shadow:var(--shadow);margin-top:20px;overflow:hidden}
+  .case .head{display:flex;align-items:flex-start;justify-content:space-between;
+    gap:14px;padding:20px 24px 8px;border-bottom:1px solid var(--line)}
+  .case .head .titles{flex:1}
+  .case h3{font-size:1.28rem;margin:0;color:var(--slate-deep);letter-spacing:-.01em}
+  .case .who{font-size:.86rem;color:var(--ink-soft);margin:4px 0 14px;font-style:italic}
+  .unit{flex:0 0 auto;font-family:"SF Mono",ui-monospace,monospace;font-size:.72rem;
+    background:var(--amber);color:#3a2c08;padding:5px 11px;border-radius:999px;
+    letter-spacing:.04em;font-weight:700;white-space:nowrap;margin-top:3px}
+  .case .body{padding:6px 24px 22px}
+  .field{margin-top:14px}
+  .field .lab{font-family:"SF Mono",ui-monospace,monospace;font-size:.66rem;
+    letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+    display:inline-block;padding:2px 8px;border-radius:6px;margin-bottom:4px}
+  .field.context .lab{color:var(--slate);background:rgba(58,70,88,.10)}
+  .field.happened .lab{color:var(--slate);background:rgba(58,70,88,.10)}
+  .field.concept .lab{color:var(--amber-deep);background:rgba(217,154,43,.16)}
+  .field.takeaway .lab{color:#0d6e54;background:rgba(31,140,110,.14)}
+  .field p{margin:2px 0 0;font-size:.97rem}
+  .field.concept p{color:var(--ink)}
+  .field.concept b{color:var(--amber-deep)}
+  .field.takeaway{border-left:4px solid #1f8c6e;
+    background:linear-gradient(90deg,rgba(31,140,110,.07),#fff 70%);
+    border-radius:0 10px 10px 0;padding:10px 14px;margin-top:16px}
+  .field.takeaway p{font-size:.95rem}
+
+  /* apply-it */
+  .apply{background:#fff;border:1px solid var(--line);border-radius:16px;
+    box-shadow:var(--shadow);margin-top:16px;overflow:hidden}
+  .apply summary{cursor:pointer;padding:18px 22px;font-weight:700;color:var(--slate-deep);
+    font-size:1.04rem;list-style:none;display:flex;align-items:flex-start;
+    justify-content:space-between;gap:14px}
+  .apply summary::-webkit-details-marker{display:none}
+  .apply summary .q{flex:1}
+  .apply summary .scn{display:block;font-weight:400;font-style:italic;
+    color:var(--ink-soft);font-size:.92rem;margin-bottom:6px}
+  .apply summary::after{content:"reveal ▸";font-family:"SF Mono",ui-monospace,monospace;
+    font-size:.66rem;color:var(--amber-deep);letter-spacing:.08em;text-transform:uppercase;
+    white-space:nowrap;margin-top:3px}
+  .apply[open] summary::after{content:"hide ▾"}
+  .apply[open] summary{border-bottom:1px solid var(--line)}
+  .apply .ans{padding:14px 22px 18px;color:var(--ink-soft);font-size:.97rem}
+  .apply .ans b{color:var(--slate)}
+
+  /* recap */
+  .recap{background:linear-gradient(135deg,#222a34,#384353);color:#fff;
+    border-radius:18px;padding:26px 28px;margin-top:30px;box-shadow:var(--shadow)}
+  .recap h2{color:#fff}
+  .recap h2 .num{color:#3a2c08;background:var(--amber)}
+  .recap ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .recap li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+  .recap li:last-child{border-bottom:none}
+  .recap li::before{content:"◆";position:absolute;left:4px;color:var(--amber)}
+  .recap strong{color:#fff}
+
+  footer{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);
+    font-family:"SF Mono",ui-monospace,monospace}
+
+  @media (max-width:680px){
+    header.masthead h1{font-size:1.7rem}
+    .case .head{flex-direction:column}
+    .apply summary{flex-direction:column}
+  }
+
+  /* print: expand reveal answers, tidy */
+  @media print{
+    body{background:#fff}
+    .apply{break-inside:avoid}
+    .apply .ans{display:block !important}
+    .apply:not([open]) .ans{display:block}
+    .apply[open] summary::after,.apply summary::after{content:""}
+    .case,.apply,.howto{box-shadow:none}
+    header.masthead,.recap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .case{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">HPL101 · Module 4 · Case Studies</p>
+    <h1>Case Studies</h1>
+    <p class="sub">The real-world cases, named programs, and applied scenarios from Module 4 — <em>Relationships &amp; Identities</em> — pulled into one dossier. Each card names the unit it came from, what actually happened, the HPL concept it illustrates, and what to do with it.</p>
+    <div class="tags">
+      <span class="tag">relationships</span>
+      <span class="tag">trust &amp; psychological safety</span>
+      <span class="tag">ethnic–racial identity</span>
+      <span class="tag">culturally sustaining</span>
+      <span class="tag">SEL · family engagement</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="howto">
+      <strong>How to use this:</strong> Module 4 builds its arguments on concrete cases — real programs, classic experiments, and documented school examples. Read each card as evidence: notice the <strong>setting</strong>, the <strong>narrative</strong>, the <strong>concept</strong> it proves, and the <strong>practice move</strong> it justifies. Then test yourself with the <em>Apply it</em> scenarios at the bottom.
+    </div>
+  </section>
+
+  <!-- ===== CASE 1 ===== -->
+  <section>
+    <article class="case">
+      <div class="head">
+        <div class="titles">
+          <h3>Romania's Abandoned Children</h3>
+          <p class="who">Charles Nelson (HGSE) · Romanian orphanages, 1980s–90s</p>
+        </div>
+        <span class="unit">4.1.1</span>
+      </div>
+      <div class="body">
+        <div class="field context"><span class="lab">Context</span>
+          <p>Infants raised in mid-century Romanian orphanages were institutionalized but given no chance to bond with any consistent caregiving adult.</p>
+        </div>
+        <div class="field happened"><span class="lab">What happened</span>
+          <p>Nelson followed these children and found atypical development, especially in relating to others: many showed indiscriminate social behavior (hugging or leaping into strangers' arms) and struggled to initiate play or respond to peers, and teachers rated them as less socially skillful. Yet children placed into foster families by about 22 months could still form warm attachments — a window, not a verdict.</p>
+        </div>
+        <div class="field concept"><span class="lab">Concept it illustrates</span>
+          <p><b>Attachment</b> — the bond formed through reliable, responsive caregiving (the "serve and return" exchange) is the foundation for healthy social-emotional development. Its absence carries long-lasting consequences, but early intervention can still restore it.</p>
+        </div>
+        <div class="field takeaway"><span class="lab">Takeaway for practice</span>
+          <p>Responsive, reliable relationships are not a "nice to have" — they are developmental infrastructure. Build in consistent, attentive adult contact early, and treat the early years as a window where it matters most.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===== CASE 2 ===== -->
+  <section>
+    <article class="case">
+      <div class="head">
+        <div class="titles">
+          <h3>Simple Interactions</h3>
+          <p class="who">Junlei Li (HGSE) &amp; colleagues · a descriptive observation tool</p>
+        </div>
+        <span class="unit">4.1.1</span>
+      </div>
+      <div class="body">
+        <div class="field context"><span class="lab">Context</span>
+          <p>Li's team wanted a way to spot the "active ingredient" in relationships across many settings — classrooms, museums, makerspaces, playgrounds — and across cultures, without imposing one culture's norms of "good" interaction.</p>
+        </div>
+        <div class="field happened"><span class="lab">What happened</span>
+          <p>They built a framework naming four dimensions of human interaction — <b>Connection, Reciprocity, Inclusion, and Opportunity to Grow</b> — with illustrations showing modes labeled X, Y, Z (not 1–2–3) so observers <em>describe</em> before they judge. It was deliberately built as a descriptive, not evaluative, tool so that closeness expressed in many cultural styles (smiling or quietly focused) all count.</p>
+        </div>
+        <div class="field concept"><span class="lab">Concept it illustrates</span>
+          <p><b>Relationships as the active ingredient in learning</b>, and culturally inclusive observation. "Opportunity to Grow" is literally guidance in the Vygotskian ZPD with scaffolding that fades.</p>
+        </div>
+        <div class="field takeaway"><span class="lab">Takeaway for practice</span>
+          <p>Audit everyday adult–child moments for connection, reciprocity, inclusion, and opportunity to grow. Describe what you see before grading it — and don't mistake one culture's warmth style for the only valid one.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===== CASE 3 ===== -->
+  <section>
+    <article class="case">
+      <div class="head">
+        <div class="titles">
+          <h3>The "Get to Know You" Exercise</h3>
+          <p class="who">Gehlbach et al. (2016) · teacher–student relationships study</p>
+        </div>
+        <span class="unit">4.1.2</span>
+      </div>
+      <div class="body">
+        <div class="field context"><span class="lab">Context</span>
+          <p>Teacher–student relationships (TSRs) are among the strongest predictors of achievement (Hattie), but trust is hard to build when teachers and students lack common ground.</p>
+        </div>
+        <div class="field happened"><span class="lab">What happened</span>
+          <p>Researchers ran a simple intervention surfacing a handful of preferences that a teacher and student actually shared. The result: more positive interactions <em>and</em> better student grades. The proposed mechanism — surfacing commonalities helped both sides build a more trusting relationship.</p>
+        </div>
+        <div class="field concept"><span class="lab">Concept it illustrates</span>
+          <p><b>Trust as the basis of teacher–student relationships.</b> Trust is earned and conditional, and shared ground (emotional support, organization, instructional support) is what learners need to take risks and engage.</p>
+        </div>
+        <div class="field takeaway"><span class="lab">Takeaway for practice</span>
+          <p>Small, deliberate relationship-building beats hoping rapport "just happens." Find and name genuine common ground early; it pays off in engagement and outcomes.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===== CASE 4 ===== -->
+  <section>
+    <article class="case">
+      <div class="head">
+        <div class="titles">
+          <h3>Building a Psychologically Safe Workplace</h3>
+          <p class="who">Amy Edmondson (HBS) · research on team effectiveness</p>
+        </div>
+        <span class="unit">4.1.4</span>
+      </div>
+      <div class="body">
+        <div class="field context"><span class="lab">Context</span>
+          <p>Adults keep learning through relationships at work. One condition makes work teams able to learn: whether members feel safe taking interpersonal risks.</p>
+        </div>
+        <div class="field happened"><span class="lab">What happened</span>
+          <p>Edmondson defines <b>psychological safety</b> as the shared belief that a team is safe for risk-taking. Safe teams let members make mistakes in the service of learning, ask for help, be different, and feel included even when they fail. The enabling conditions are concrete: leaders model humility and admit mistakes, act as coaches, avoid domineering, while members seek help and minimize status differences — adopting a <em>learning</em> stance over an <em>execution</em> stance.</p>
+        </div>
+        <div class="field concept"><span class="lab">Concept it illustrates</span>
+          <p><b>Psychological safety</b> as the relational condition for adult learning and collaboration — the grown-up parallel to the safety attachment gives a child.</p>
+        </div>
+        <div class="field takeaway"><span class="lab">Takeaway for practice</span>
+          <p>If you lead any group, deliberately model fallibility and reward help-seeking. "Safe" doesn't mean comfortable — it means people aren't punished for the risks that learning requires.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===== CASE 5 ===== -->
+  <section>
+    <article class="case">
+      <div class="head">
+        <div class="titles">
+          <h3>The Identity Project</h3>
+          <p class="who">Adriana Umaña-Taylor (HGSE) &amp; colleagues · school-based ERI curriculum</p>
+        </div>
+        <span class="unit">4.2.3</span>
+      </div>
+      <div class="body">
+        <div class="field context"><span class="lab">Context</span>
+          <p>Ethnic–racial identity (ERI) develops across family, peers, school, and society. Over 75% of U.S. youth of color report identity-based discrimination, with documented harms to achievement and well-being.</p>
+        </div>
+        <div class="field happened"><span class="lab">What happened</span>
+          <p>The Identity Project is an evidence-based, universal health-promotion curriculum for middle and high schoolers that deliberately fosters ERI <em>exploration</em> and <em>resolution</em>. It is being tested in ethnically–racially diverse U.S. schools and has been adapted for seventh graders in Berlin, Germany (reframed around cultural identity). Across studies, higher ERI achievement is tied to better academic outcomes and serves as both a <em>promotive</em> and a <em>protective</em> factor — e.g., buffering Latinx adolescents from the effects of online racial discrimination.</p>
+        </div>
+        <div class="field concept"><span class="lab">Concept it illustrates</span>
+          <p><b>ERI as a promotive and protective factor</b> (risk-and-resilience framework). A secure, explored ethnic–racial identity compensates for adversity and reduces the harm of discrimination.</p>
+        </div>
+        <div class="field takeaway"><span class="lab">Takeaway for practice</span>
+          <p>Identity work is not a distraction from achievement — it supports it. Give learners structured chances to explore and make sense of who they are; it builds resilience that shows up academically.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===== CASE 6 ===== -->
+  <section>
+    <article class="case">
+      <div class="head">
+        <div class="titles">
+          <h3>Stereotype Threat</h3>
+          <p class="who">Claude Steele &amp; Joshua Aronson (1995) · the founding experiments</p>
+        </div>
+        <span class="unit">4.3.2</span>
+      </div>
+      <div class="body">
+        <div class="field context"><span class="lab">Context</span>
+          <p>Why do groups of equal measured ability perform differently on the same test? Steele and Aronson recruited African-American and White students with similar verbal SAT scores.</p>
+        </div>
+        <div class="field happened"><span class="lab">What happened</span>
+          <p>When the test was framed as a measure of verbal/reasoning ability, African-American students underperformed despite equal capability; in parallel work, women underperformed men on math when told the test measured math ability. Follow-ups showed the effect lives in the <em>conditions</em>, not ability: telling women a test was "designed to eliminate gender differences" erased the gap; invoking a <b>growth mindset</b> (intelligence is malleable; struggle is normal) also removed it.</p>
+        </div>
+        <div class="field concept"><span class="lab">Concept it illustrates</span>
+          <p><b>Stereotype threat</b> — an <em>internalized expectation</em> that depresses performance when a negative group stereotype is made salient under evaluation, especially when one is in the minority in the room.</p>
+        </div>
+        <div class="field takeaway"><span class="lab">Takeaway for practice</span>
+          <p>Reduce threat by reframing evaluative tasks, lowering identity salience, and teaching that struggle reflects the situation — not a deficiency. The fix is in the environment, not the learner.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===== CASE 7 ===== -->
+  <section>
+    <article class="case">
+      <div class="head">
+        <div class="titles">
+          <h3>Ethnic Studies as "Precious Knowledge"</h3>
+          <p class="who">Tucson MAS program · &amp; Dee &amp; Penner (2017), San Francisco USD</p>
+        </div>
+        <span class="unit">4.3.4</span>
+      </div>
+      <div class="body">
+        <div class="field context"><span class="lab">Context</span>
+          <p>Ethnic studies re-centers a curriculum long focused on dominant subgroups, teaching counter-narratives that build critical consciousness about power and privilege.</p>
+        </div>
+        <div class="field happened"><span class="lab">What happened</span>
+          <p>Tucson, Arizona's <b>Mexican-American Studies (MAS / la Raza Studies)</b> program taught Indigenous Xicanx intellectual traditions, art, and literature — knowledge students and teachers called "precious." It was legally banned, then reinstated after court battles. On outcomes: Dee &amp; Penner exploited a natural experiment in San Francisco USD, where students below a GPA cutoff were assigned to an ethnic-studies course and compared to barely-above-cutoff peers. Participation raised attendance by 21 percentage points, ninth-grade GPA by 1.4 points, and credits earned by 23.</p>
+        </div>
+        <div class="field concept"><span class="lab">Concept it illustrates</span>
+          <p><b>Culturally sustaining pedagogy / culturally responsive &amp; relevant education (CRRE)</b> — centering students' identities and cultural knowledge, plus the documented academic payoff of doing so well.</p>
+        </div>
+        <div class="field takeaway"><span class="lab">Takeaway for practice</span>
+          <p>Curriculum that honors students' cultures and histories is not only affirming — when well-implemented it can measurably lift attendance, grades, and engagement.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===== CASE 8 ===== -->
+  <section>
+    <article class="case">
+      <div class="head">
+        <div class="titles">
+          <h3>Family–School Partnership at Stanton Elementary</h3>
+          <p class="who">Mapp &amp; Kuttner (2013) · Washington, DC turnaround school</p>
+        </div>
+        <span class="unit">4.4.4</span>
+      </div>
+      <div class="body">
+        <div class="field context"><span class="lab">Context</span>
+          <p>In 2010 Stanton Elementary, a struggling DC charter, came under new leadership. Parents were disconnected; staff and families were "battling one another." Early instructional and culture fixes alone didn't move performance.</p>
+        </div>
+        <div class="field happened"><span class="lab">What happened</span>
+          <p>In 2011 the school added a deliberate family–school partnership: (1) teacher <b>home visits</b> to students' families, and (2) <b>teams</b> of teachers and caregivers meeting to support students collaboratively. By the end of the 2012 school year, performance began improving — illustrating the "opportunity conditions" of Mapp &amp; Kuttner's dual-capacity-building framework.</p>
+        </div>
+        <div class="field concept"><span class="lab">Concept it illustrates</span>
+          <p><b>Family and community engagement</b> via <b>dual capacity-building</b> — building schools' capacity to serve families <em>and</em> families' capacity to engage schools. Belonging and achievement require partnering with communities, not bypassing them.</p>
+        </div>
+        <div class="field takeaway"><span class="lab">Takeaway for practice</span>
+          <p>Open the door both ways: go to families (home visits) and bring them in as genuine partners in decisions. Engagement is a relationship to build, not a form to send home.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===== APPLY IT ===== -->
+  <section>
+    <h2><span class="num">★</span> Apply it</h2>
+    <p class="lead">Match each new situation to the case or concept it most resembles. Reveal to check.</p>
+
+    <details class="apply">
+      <summary>
+        <span class="q">
+          <span class="scn">A manager notices her team has gone quiet in meetings. No one admits when a project is off-track, and junior staff never ask questions in front of senior colleagues. She wants people to flag problems early.</span>
+          Which Module 4 case and concept applies, and what should she do?
+        </span>
+      </summary>
+      <div class="ans">
+        <p><b>Case:</b> Edmondson's <b>Building a Psychologically Safe Workplace</b> (4.1.4). The silence and the status-driven reluctance to ask questions are classic low-<b>psychological-safety</b> signals.</p>
+        <p><b>Move:</b> She should model humility and admit her own mistakes, act as a coach rather than an authority, minimize status differences, and reward help-seeking — shifting the team from an "execution" stance to a "learning" stance.</p>
+      </div>
+    </details>
+
+    <details class="apply">
+      <summary>
+        <span class="q">
+          <span class="scn">A capable student of color consistently scores lower on high-stakes timed exams than her coursework predicts. She is often the only person from her background in the testing room, and she describes second-guessing answers under pressure.</span>
+          What is likely happening, and what does the research suggest?
+        </span>
+      </summary>
+      <div class="ans">
+        <p><b>Case:</b> Steele &amp; Aronson's <b>Stereotype Threat</b> (4.3.2). Evaluation + identity salience + being in the minority is exactly the condition that evokes it; second-guessing correct answers is a documented behavior.</p>
+        <p><b>Move:</b> Reframe the test instructions (e.g., as fair across groups), reduce identity salience in the setting, and invoke a <b>growth mindset</b> — teaching that difficulty reflects the task and context, not her ability. The fix targets the environment, not the learner.</p>
+      </div>
+    </details>
+
+    <details class="apply">
+      <summary>
+        <span class="q">
+          <span class="scn">A district wants to lift achievement for marginalized students and is debating whether a course built around students' own cultural histories is "a distraction from academics."</span>
+          What evidence from Module 4 speaks to this, and what concept is at stake?
+        </span>
+      </summary>
+      <div class="ans">
+        <p><b>Case:</b> <b>Ethnic Studies as "Precious Knowledge"</b> (4.3.4) — the Tucson MAS program plus <b>Dee &amp; Penner's</b> San Francisco study, which found ethnic-studies participation raised attendance (+21 pts), GPA (+1.4), and credits earned (+23).</p>
+        <p><b>Concept:</b> <b>Culturally sustaining / culturally responsive &amp; relevant education.</b> Centering students' identities is not a trade-off against achievement; well-implemented, it can <em>raise</em> it.</p>
+      </div>
+    </details>
+
+    <details class="apply">
+      <summary>
+        <span class="q">
+          <span class="scn">A new principal at a low-performing school improves instruction and discipline, but scores barely move. Parents feel shut out and staff and families distrust one another.</span>
+          Which case should guide the next step, and what is the underlying framework?
+        </span>
+      </summary>
+      <div class="ans">
+        <p><b>Case:</b> <b>Stanton Elementary</b> (4.4.4). Instruction-and-culture fixes alone weren't enough there either — performance moved only after a family–school partnership was added.</p>
+        <p><b>Move &amp; framework:</b> Add structured engagement — teacher home visits and teacher–caregiver teams — guided by Mapp &amp; Kuttner's <b>dual capacity-building</b> framework, which builds the school's capacity to serve families <em>and</em> families' capacity to engage the school.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== RECAP ===== -->
+  <section class="recap">
+    <h2><span class="num">★</span> The dossier in one glance</h2>
+    <ul>
+      <li><strong>Relationships are infrastructure.</strong> <em>Romania's children</em> show attachment's stakes; <em>Simple Interactions</em> names its active ingredients (connection, reciprocity, inclusion, opportunity to grow).</li>
+      <li><strong>Trust and safety let people take risks.</strong> The <em>get-to-know-you</em> study builds teacher–student trust; <em>Edmondson</em> shows psychological safety doing the same for adult teams.</li>
+      <li><strong>Identity is a learning resource.</strong> <em>The Identity Project</em> makes ERI a promotive and protective factor for diverse learners.</li>
+      <li><strong>The environment, not the learner, is the lever.</strong> <em>Stereotype threat</em> proves equal ability can yield unequal scores — and that reframing and growth mindset close the gap.</li>
+      <li><strong>Centering culture pays off.</strong> <em>Tucson MAS</em> + <em>Dee &amp; Penner</em> show culturally sustaining curriculum raising real outcomes.</li>
+      <li><strong>Partner with families.</strong> <em>Stanton Elementary</em> moved only when home visits and caregiver teams built capacity on both sides.</li>
+    </ul>
+  </section>
+
+  <footer>HPL101 · Module 4 · Case Studies · study notes</footer>
+
+</div>
+</body>
+</html>
